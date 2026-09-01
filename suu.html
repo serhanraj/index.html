@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hunger Points Games and Food | Lovedale ke Dhurandar</title>
+    <style>
+        :root {
+            --bg-dark: #121216;
+            --card-bg: #1E1E24;
+            --neon-green: #39FF14;
+            --electric-blue: #00E5FF;
+            --text-light: #F4F6F9;
+            --text-gray: #A0A0AA;
+            --accent-gold: #D4A017;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        nav {
+            background: rgba(30, 30, 36, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--electric-blue);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--neon-green);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--electric-blue);
+        }
+
+        .location-badge {
+            background: var(--electric-blue);
+            color: #000;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .hero {
+            padding: 50px 5% 40px;
+            text-align: center;
+            background: radial-gradient(circle at center, rgba(0, 229, 255, 0.1) 0%, rgba(18, 18, 22, 1) 70%);
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            color: var(--text-light);
+        }
+
+        .hero h1 span {
+            color: var(--neon-green);
+            text-shadow: 0 0 10px rgba(57, 255, 20, 0.4);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+
+        .perk-box {
+            display: inline-block;
+            background: linear-gradient(135deg, #1E1E24, #2A2A35);
+            border: 2px solid var(--neon-green);
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.2);
+            padding: 15px 25px;
+            border-radius: 12px;
+        }
+
+        .perk-box h3 {
+            color: var(--electric-blue);
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: var(--text-light);
+        }
+
+        .section-title span {
+            color: var(--electric-blue);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .menu-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #2C2C35;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .menu-card h3 {
+            color: var(--electric-blue);
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+
+        .price-tag {
+            color: var(--neon-green);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .menu-card p {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            margin-bottom: 15px;
+        }
+
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: auto;
+        }
+
+        .qty-btn {
+            background: #2A2A35;
+            color: var(--text-light);
+            border: 1px solid var(--electric-blue);
+            width: 35px;
+            height: 35px;
+            border-radius: 6px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .qty-btn:hover {
+            background: var(--electric-blue);
+            color: #000;
+        }
+
+        .qty-val {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .order-form {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #2C2C35;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-light);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            background: #121216;
+            border: 1px solid #333;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--electric-blue);
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: #25D366;
+            color: #000;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .checkout-btn:hover {
+            box-shadow: 0 0 15px rgba(37, 211, 102, 0.5);
+            transform: translateY(-2px);
+        }
+
+        footer {
+            background: #0A0A0D;
+            text-align: center;
+            padding: 25px 5%;
+            border-top: 1px solid #222;
+            color: var(--text-gray);
+            font-size: 0.85rem;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="logo">HUNGER POINTS <span>GAMES & FOOD</span></a>
+        <div class="location-badge">📍 CLASS AR3</div>
+    </nav>
+
+    <header class="hero">
+        <h1>Hunger Points <span>Games & Food</span></h1>
+        <p>Order fresh sugar-free treats & earn free PS5 gaming minutes!</p>
+        
+        <div class="perk-box">
+            <h3>🎮 SPECIAL GAMING UNLOCK</h3>
+            <p>Spend <strong>₹120 or above</strong> to get <strong>10 MINUTES FREE PS5 Gameplay!</strong></p>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2 class="section-title">Select Your <span>Items</span></h2>
+
+        <div class="menu-grid">
+            <div class="menu-card">
+                <div>
+                    <h3>Dark Chocolate Cookie</h3>
+                    <div class="price-tag">₹40</div>
+                    <p>Almond flour, sugar-free dark choco, stevia sweetened.</p>
+                </div>
+                <div class="qty-controls">
+                    <button class="qty-btn" onclick="updateQty('item1', -1)">-</button>
+                    <span class="qty-val" id="item1-qty">0</span>
+                    <button class="qty-btn" onclick="updateQty('item1', 1)">+</button>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <div>
+                    <h3>Blueberry Muffin</h3>
+                    <div class="price-tag">₹50</div>
+                    <p>Whole oat flour, fresh blueberries & fruit sweetener.</p>
+                </div>
+                <div class="qty-controls">
+                    <button class="qty-btn" onclick="updateQty('item2', -1)">-</button>
+                    <span class="qty-val" id="item2-qty">0</span>
+                    <button class="qty-btn" onclick="updateQty('item2', 1)">+</button>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <div>
+                    <h3>Organic Honey Ice Cream</h3>
+                    <div class="price-tag">₹60</div>
+                    <p>Creamy artisanal scoop sweetened with pure honey.</p>
+                </div>
+                <div class="qty-controls">
+                    <button class="qty-btn" onclick="updateQty('item3', -1)">-</button>
+                    <span class="qty-val" id="item3-qty">0</span>
+                    <button class="qty-btn" onclick="updateQty('item3', 1)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="order-form">
+            <h3 style="color: var(--neon-green); margin-bottom: 20px; text-align: center;">Delivery Details</h3>
+
+            <div class="form-group">
+                <label for="cust-name">Customer Name</label>
+                <input type="text" id="cust-name" placeholder="Enter full name">
+            </div>
+
+            <div class="form-group">
+                <label for="cust-loc">Delivery Location (Classroom / Spot)</label>
+                <input type="text" id="cust-loc" placeholder="e.g. Class 9B, Library, Playground...">
+            </div>
+
+            <button class="checkout-btn" onclick="sendWhatsAppOrder()">📱 SEND ORDER VIA WHATSAPP</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 <span>Hunger Points Games and Food</span> — Team: Serhan, Vivaan, Darsh, Abeer & Aarush | Class AR3</p>
+    </footer>
+
+    <script>
+        const prices = { item1: 40, item2: 50, item3: 60 };
+        const quantities = { item1: 0, item2: 0, item3: 0 };
+        const stallPhoneNumber = "916200892286";
+
+        function updateQty(item, change) {
+            if (quantities[item] + change >= 0) {
+                quantities[item] += change;
+                document.getElementById(item + '-qty').innerText = quantities[item];
+            }
+        }
+
+        function sendWhatsAppOrder() {
+            const name = document.getElementById('cust-name').value.trim();
+            const location = document.getElementById('cust-loc').value.trim();
+            const totalItems = quantities.item1 + quantities.item2 + quantities.item3;
+
+            if (totalItems === 0) {
+                alert('Please select at least one item from the menu!');
+                return;
+            }
+
+            if (name === '' || location === '') {
+                alert('Please fill out your name and delivery location!');
+                return;
+            }
+
+            const totalBill = (quantities.item1 * prices.item1) + 
+                              (quantities.item2 * prices.item2) + 
+                              (quantities.item3 * prices.item3);
+
+            const randomToken = 'LKD-' + Math.floor(1000 + Math.random() * 9000);
+
+            let itemDetails = [];
+            if (quantities.item1 > 0) itemDetails.push(`${quantities.item1}x Dark Chocolate Cookie(s)`);
+            if (quantities.item2 > 0) itemDetails.push(`${quantities.item2}x Blueberry Muffin(s)`);
+            if (quantities.item3 > 0) itemDetails.push(`${quantities.item3}x Organic Honey Ice Cream`);
+
+            let perkText = totalBill >= 120 ? "🎮 UNLOCKED: 10 MIN FREE PS5 GAMEPLAY!" : "None (Spend ₹" + (120 - totalBill) + " more to unlock PS5 gameplay)";
+
+            const message = `*NEW ORDER - HUNGER POINTS GAMES AND FOOD*%0A%0A` +
+                            `*Token ID:* #${randomToken}%0A` +
+                            `*Customer:* ${name}%0A` +
+                            `*Delivery Location:* ${location}%0A` +
+                            `*Items Ordered:* ${itemDetails.join(', ')}%0A` +
+                            `*Total Amount:* ₹${totalBill}%0A` +
+                            `*PS5 Perk Status:* ${perkText}`;
+
+            window.open(`https://wa.me/${stallPhoneNumber}?text=${message}`, '_blank');
+        }
+    </script>
+</body>
+</html>
