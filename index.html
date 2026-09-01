@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HungerPoints.com | Lovedale ke Dhurandar</title>
+    <title>Hunger Points Games and Food | Lovedale ke Dhurandar</title>
     <style>
         :root {
             --bg-dark: #121216;
@@ -28,7 +28,6 @@
             line-height: 1.6;
         }
 
-        /* Navigation */
         nav {
             background: rgba(30, 30, 36, 0.95);
             backdrop-filter: blur(10px);
@@ -43,7 +42,7 @@
         }
 
         .logo {
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             font-weight: 800;
             color: var(--neon-green);
             text-decoration: none;
@@ -63,7 +62,6 @@
             font-size: 0.85rem;
         }
 
-        /* Hero Section */
         .hero {
             padding: 50px 5% 40px;
             text-align: center;
@@ -103,7 +101,6 @@
             margin-bottom: 5px;
         }
 
-        /* Container & Order Layout */
         .container {
             max-width: 1100px;
             margin: 0 auto;
@@ -121,7 +118,6 @@
             color: var(--electric-blue);
         }
 
-        /* Menu Items */
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -188,7 +184,6 @@
             font-size: 1.1rem;
         }
 
-        /* Order Form */
         .order-form {
             background: var(--card-bg);
             padding: 30px;
@@ -226,7 +221,7 @@
 
         .checkout-btn {
             width: 100%;
-            background: var(--neon-green);
+            background: #25D366;
             color: #000;
             border: none;
             padding: 15px;
@@ -235,39 +230,17 @@
             font-size: 1.1rem;
             cursor: pointer;
             transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
         .checkout-btn:hover {
-            box-shadow: 0 0 15px rgba(57, 255, 20, 0.5);
+            box-shadow: 0 0 15px rgba(37, 211, 102, 0.5);
             transform: translateY(-2px);
         }
 
-        /* Token Display Box */
-        .token-box {
-            display: none;
-            background: #1A261A;
-            border: 2px solid var(--neon-green);
-            padding: 25px;
-            border-radius: 12px;
-            text-align: center;
-            margin-top: 30px;
-        }
-
-        .token-id {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--neon-green);
-            letter-spacing: 2px;
-            margin: 15px 0;
-        }
-
-        .summary-item {
-            font-size: 0.95rem;
-            color: var(--text-gray);
-            margin-bottom: 5px;
-        }
-
-        /* Footer */
         footer {
             background: #0A0A0D;
             text-align: center;
@@ -281,15 +254,13 @@
 </head>
 <body>
 
-    <!-- Navigation -->
     <nav>
-        <a href="#" class="logo">HUNGER<span>POINTS</span>.COM</a>
+        <a href="#" class="logo">HUNGER POINTS <span>GAMES & FOOD</span></a>
         <div class="location-badge">📍 CLASS AR3</div>
     </nav>
 
-    <!-- Hero Section -->
     <header class="hero">
-        <h1>Lovedale ke <span>Dhurandar</span></h1>
+        <h1>Hunger Points <span>Games & Food</span></h1>
         <p>Order fresh sugar-free treats & earn free PS5 gaming minutes!</p>
         
         <div class="perk-box">
@@ -301,10 +272,7 @@
     <div class="container">
         <h2 class="section-title">Select Your <span>Items</span></h2>
 
-        <!-- Menu Cards -->
         <div class="menu-grid">
-            
-            <!-- Item 1 -->
             <div class="menu-card">
                 <div>
                     <h3>Dark Chocolate Cookie</h3>
@@ -318,7 +286,6 @@
                 </div>
             </div>
 
-            <!-- Item 2 -->
             <div class="menu-card">
                 <div>
                     <h3>Blueberry Muffin</h3>
@@ -332,7 +299,6 @@
                 </div>
             </div>
 
-            <!-- Item 3 -->
             <div class="menu-card">
                 <div>
                     <h3>Organic Honey Ice Cream</h3>
@@ -345,58 +311,33 @@
                     <button class="qty-btn" onclick="updateQty('item3', 1)">+</button>
                 </div>
             </div>
-
         </div>
 
-        <!-- Order & Delivery Form -->
         <div class="order-form">
             <h3 style="color: var(--neon-green); margin-bottom: 20px; text-align: center;">Delivery Details</h3>
-            
+
             <div class="form-group">
-                <label for="cust-name">Your Name</label>
-                <input type="text" id="cust-name" placeholder="Enter your full name" required>
+                <label for="cust-name">Customer Name</label>
+                <input type="text" id="cust-name" placeholder="Enter full name">
             </div>
 
             <div class="form-group">
                 <label for="cust-loc">Delivery Location (Classroom / Spot)</label>
-                <input type="text" id="cust-loc" placeholder="e.g. Class 9B, Library, Playground..." required>
+                <input type="text" id="cust-loc" placeholder="e.g. Class 9B, Library, Playground...">
             </div>
 
-            <button class="checkout-btn" onclick="generateToken()">GENERATE ORDER TOKEN</button>
-
-            <!-- Generated Token Box -->
-            <div class="token-box" id="tokenDisplay">
-                <h3 style="color: #fff;">Order Confirmed! 🎉</h3>
-                <p style="color: var(--text-gray); font-size: 0.9rem;">Show this Token ID at Class AR3 or to our delivery teammate</p>
-                
-                <div class="token-id" id="tokenIdText">#LKD-0000</div>
-
-                <div class="summary-item" id="summaryCustomer"></div>
-                <div class="summary-item" id="summaryLocation"></div>
-                <div class="summary-item" id="summaryItems"></div>
-                <div class="summary-item" id="summaryTotal" style="font-weight: bold; color: var(--neon-green); font-size: 1.1rem; margin-top: 10px;"></div>
-                <div class="summary-item" id="summaryPerk" style="color: var(--electric-blue); font-weight: bold; margin-top: 5px;"></div>
-            </div>
+            <button class="checkout-btn" onclick="sendWhatsAppOrder()">📱 SEND ORDER VIA WHATSAPP</button>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2026 <span>HungerPoints.com</span> — Team: Serhan, Vivaan, Darsh, Abeer & Aarush | Class AR3</p>
+        <p>&copy; 2026 <span>Hunger Points Games and Food</span> — Team: Serhan, Vivaan, Darsh, Abeer & Aarush | Class AR3</p>
     </footer>
 
     <script>
-        // Item Prices
-        const prices = {
-            item1: 40,
-            item2: 50,
-            item3: 60
-        };
-
-        const quantities = {
-            item1: 0,
-            item2: 0,
-            item3: 0
-        };
+        const prices = { item1: 40, item2: 50, item3: 60 };
+        const quantities = { item1: 0, item2: 0, item3: 0 };
+        const stallPhoneNumber = "916200892286";
 
         function updateQty(item, change) {
             if (quantities[item] + change >= 0) {
@@ -405,10 +346,9 @@
             }
         }
 
-        function generateToken() {
+        function sendWhatsAppOrder() {
             const name = document.getElementById('cust-name').value.trim();
             const location = document.getElementById('cust-loc').value.trim();
-
             const totalItems = quantities.item1 + quantities.item2 + quantities.item3;
 
             if (totalItems === 0) {
@@ -417,40 +357,32 @@
             }
 
             if (name === '' || location === '') {
-                alert('Please enter your name and delivery location!');
+                alert('Please fill out your name and delivery location!');
                 return;
             }
 
-            // Calculate total price
             const totalBill = (quantities.item1 * prices.item1) + 
                               (quantities.item2 * prices.item2) + 
                               (quantities.item3 * prices.item3);
 
-            // Generate unique Token ID
             const randomToken = 'LKD-' + Math.floor(1000 + Math.random() * 9000);
 
-            // Build item list string
             let itemDetails = [];
-            if (quantities.item1 > 0) itemDetails.push(`${quantities.item1}x Cookie(s)`);
-            if (quantities.item2 > 0) itemDetails.push(`${quantities.item2}x Muffin(s)`);
-            if (quantities.item3 > 0) itemDetails.push(`${quantities.item3}x Honey Ice Cream`);
+            if (quantities.item1 > 0) itemDetails.push(`${quantities.item1}x Dark Chocolate Cookie(s)`);
+            if (quantities.item2 > 0) itemDetails.push(`${quantities.item2}x Blueberry Muffin(s)`);
+            if (quantities.item3 > 0) itemDetails.push(`${quantities.item3}x Organic Honey Ice Cream`);
 
-            // Update DOM Token Box
-            document.getElementById('tokenIdText').innerText = '#' + randomToken;
-            document.getElementById('summaryCustomer').innerText = 'Customer: ' + name;
-            document.getElementById('summaryLocation').innerText = 'Delivery Location: ' + location;
-            document.getElementById('summaryItems').innerText = 'Order: ' + itemDetails.join(', ');
-            document.getElementById('summaryTotal').innerText = 'Total Amount: ₹' + totalBill;
+            let perkText = totalBill >= 120 ? "🎮 UNLOCKED: 10 MIN FREE PS5 GAMEPLAY!" : "None (Spend ₹" + (120 - totalBill) + " more to unlock PS5 gameplay)";
 
-            if (totalBill >= 120) {
-                document.getElementById('summaryPerk').innerText = '🎮 BONUS UNLOCKED: 10 MIN FREE PS5 GAMEPLAY!';
-            } else {
-                const diff = 120 - totalBill;
-                document.getElementById('summaryPerk').innerText = `Add ₹${diff} more to unlock 10 MIN FREE PS5 Gameplay!`;
-            }
+            const message = `*NEW ORDER - HUNGER POINTS GAMES AND FOOD*%0A%0A` +
+                            `*Token ID:* #${randomToken}%0A` +
+                            `*Customer:* ${name}%0A` +
+                            `*Delivery Location:* ${location}%0A` +
+                            `*Items Ordered:* ${itemDetails.join(', ')}%0A` +
+                            `*Total Amount:* ₹${totalBill}%0A` +
+                            `*PS5 Perk Status:* ${perkText}`;
 
-            // Reveal token box
-            document.getElementById('tokenDisplay').style.display = 'block';
+            window.open(`https://wa.me/${stallPhoneNumber}?text=${message}`, '_blank');
         }
     </script>
 </body>
