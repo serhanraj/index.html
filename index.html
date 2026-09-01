@@ -326,7 +326,7 @@
                 <input type="text" id="cust-loc" placeholder="e.g. Class 9B, Library, Playground...">
             </div>
 
-            <button class="checkout-btn" onclick="sendWhatsAppOrder()">📱 SEND ORDER VIA WHATSAPP</button>
+            <button class="checkout-btn" onclick="sendWhatsAppOrder()">SEND ORDER VIA WHATSAPP</button>
         </div>
     </div>
 
@@ -365,22 +365,25 @@
                               (quantities.item2 * prices.item2) + 
                               (quantities.item3 * prices.item3);
 
-            const randomToken = 'LKD-' + Math.floor(1000 + Math.random() * 9000);
+            // Generates a clean 4-digit numeric Token ID (e.g. 8492)
+            const numericToken = Math.floor(1000 + Math.random() * 9000);
 
             let itemDetails = [];
-            if (quantities.item1 > 0) itemDetails.push(`${quantities.item1}x Dark Chocolate Cookie(s)`);
-            if (quantities.item2 > 0) itemDetails.push(`${quantities.item2}x Blueberry Muffin(s)`);
+            if (quantities.item1 > 0) itemDetails.push(`${quantities.item1}x Dark Chocolate Cookie`);
+            if (quantities.item2 > 0) itemDetails.push(`${quantities.item2}x Blueberry Muffin`);
             if (quantities.item3 > 0) itemDetails.push(`${quantities.item3}x Organic Honey Ice Cream`);
 
-            let perkText = totalBill >= 120 ? "🎮 UNLOCKED: 10 MIN FREE PS5 GAMEPLAY!" : "None (Spend ₹" + (120 - totalBill) + " more to unlock PS5 gameplay)";
+            let perkText = totalBill >= 120 
+                ? "UNLOCKED: 10 MIN FREE PS5 GAMEPLAY" 
+                : "NOT UNLOCKED (Spend Rs. " + (120 - totalBill) + " more for PS5 gameplay)";
 
             const message = `*NEW ORDER - HUNGER POINTS GAMES AND FOOD*%0A%0A` +
-                            `*Token ID:* #${randomToken}%0A` +
-                            `*Customer:* ${name}%0A` +
+                            `*Token Number:* ${numericToken}%0A` +
+                            `*Customer Name:* ${name}%0A` +
                             `*Delivery Location:* ${location}%0A` +
                             `*Items Ordered:* ${itemDetails.join(', ')}%0A` +
-                            `*Total Amount:* ₹${totalBill}%0A` +
-                            `*PS5 Perk Status:* ${perkText}`;
+                            `*Total Amount:* Rs. ${totalBill}%0A` +
+                            `*PS5 Gaming Perk:* ${perkText}`;
 
             window.open(`https://wa.me/${stallPhoneNumber}?text=${message}`, '_blank');
         }
