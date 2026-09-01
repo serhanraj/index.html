@@ -265,7 +265,8 @@
         
         <div class="perk-box">
             <h3>🎮 SPECIAL GAMING UNLOCK</h3>
-            <p>Spend <strong>₹120 or above</strong> to get <strong>10 MINUTES FREE PS5 Gameplay!</strong></p>
+            <p>Spend <strong>₹120 or above</strong> to get <strong>15 MINUTES FREE PS5 Gameplay!</strong></p>
+            <p style="color: var(--accent-gold); margin-top: 5px; font-weight: bold;">🏆 Defeat our Game Champ & Win ₹50 Cash Back!</p>
         </div>
     </header>
 
@@ -373,8 +374,8 @@
             if (quantities.item3 > 0) itemDetails.push(`${quantities.item3}x Organic Honey Ice Cream`);
 
             let perkText = totalBill >= 120 
-                ? "UNLOCKED: 10 MIN FREE PS5 GAMEPLAY" 
-                : "NOT UNLOCKED (Spend Rs. " + (120 - totalBill) + " more for PS5 gameplay)";
+                ? "UNLOCKED: 15 MIN FREE PS5 GAMEPLAY! (Defeat Game Champ to win Rs. 50!)" 
+                : "NOT UNLOCKED (Spend Rs. " + (120 - totalBill) + " more to unlock 15 min PS5 gameplay & Champ Challenge)";
 
             const message = `*NEW ORDER - HUNGER POINTS GAMES AND FOOD*%0A%0A` +
                             `*Token Number:* ${numericToken}%0A` +
