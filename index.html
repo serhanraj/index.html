@@ -261,11 +261,11 @@
 
     <header class="hero">
         <h1>Hunger Points <span>Games & Food</span></h1>
-        <p>Order fresh sugar-free treats & earn free PS5 gaming minutes!</p>
+        <p>Order fresh sugar-free treats & play PS5 games!</p>
         
         <div class="perk-box">
-            <h3>🎮 SPECIAL GAMING UNLOCK</h3>
-            <p>Spend <strong>₹120 or above</strong> to get <strong>15 MINUTES FREE PS5 Gameplay!</strong></p>
+            <h3>🎮 PS5 GAMING ZONE</h3>
+            <p><strong>₹120</strong> for <strong>15 MINUTES PS5 Gameplay!</strong> (Order-wise Slot Token System)</p>
             <p style="color: var(--accent-gold); margin-top: 5px; font-weight: bold;">🏆 Defeat our Game Champ & Win ₹50 Cash Back!</p>
         </div>
     </header>
@@ -312,6 +312,19 @@
                     <button class="qty-btn" onclick="updateQty('item3', 1)">+</button>
                 </div>
             </div>
+
+            <div class="menu-card">
+                <div>
+                    <h3>🎮 PS5 Gaming Ticket (15 Mins)</h3>
+                    <div class="price-tag">₹120</div>
+                    <p>Includes order-wise PS5 slot token. Defeat champ to win ₹50!</p>
+                </div>
+                <div class="qty-controls">
+                    <button class="qty-btn" onclick="updateQty('item4', -1)">-</button>
+                    <span class="qty-val" id="item4-qty">0</span>
+                    <button class="qty-btn" onclick="updateQty('item4', 1)">+</button>
+                </div>
+            </div>
         </div>
 
         <div class="order-form">
@@ -336,8 +349,8 @@
     </footer>
 
     <script>
-        const prices = { item1: 40, item2: 50, item3: 60 };
-        const quantities = { item1: 0, item2: 0, item3: 0 };
+        const prices = { item1: 40, item2: 50, item3: 60, item4: 120 };
+        const quantities = { item1: 0, item2: 0, item3: 0, item4: 0 };
         const stallPhoneNumber = "916200892286";
 
         function updateQty(item, change) {
@@ -350,10 +363,10 @@
         function sendWhatsAppOrder() {
             const name = document.getElementById('cust-name').value.trim();
             const location = document.getElementById('cust-loc').value.trim();
-            const totalItems = quantities.item1 + quantities.item2 + quantities.item3;
+            const totalItems = quantities.item1 + quantities.item2 + quantities.item3 + quantities.item4;
 
             if (totalItems === 0) {
-                alert('Please select at least one item from the menu!');
+                alert('Please select at least one item or gaming ticket!');
                 return;
             }
 
@@ -364,27 +377,31 @@
 
             const totalBill = (quantities.item1 * prices.item1) + 
                               (quantities.item2 * prices.item2) + 
-                              (quantities.item3 * prices.item3);
+                              (quantities.item3 * prices.item3) +
+                              (quantities.item4 * prices.item4);
 
             const numericToken = Math.floor(1000 + Math.random() * 9000);
+            const ps5TokenNumber = "PS5-SLOT-#" + Math.floor(100 + Math.random() * 900);
 
             let itemDetails = [];
             if (quantities.item1 > 0) itemDetails.push(`${quantities.item1}x Sugar-Free Cookie`);
             if (quantities.item2 > 0) itemDetails.push(`${quantities.item2}x Sugar-Free Muffin`);
             if (quantities.item3 > 0) itemDetails.push(`${quantities.item3}x Organic Honey Ice Cream`);
+            if (quantities.item4 > 0) itemDetails.push(`${quantities.item4}x PS5 Gaming Ticket (15 Mins)`);
 
-            let perkText = totalBill >= 120 
-                ? "UNLOCKED: 15 MIN FREE PS5 GAMEPLAY! (Defeat Game Champ to win Rs. 50!)" 
-                : "NOT UNLOCKED (Spend Rs. " + (120 - totalBill) + " more to unlock 15 min PS5 gameplay & Champ Challenge)";
+            let gameChallengeText = quantities.item4 > 0 
+                ? `Active (Token: ${ps5TokenNumber}) - Turn by turn queue system` 
+                : "No PS5 Gaming Ticket Selected";
 
             const message = `*NEW ORDER - HUNGER POINTS GAMES AND FOOD*%0A%0A` +
-                            `*Token Number:* ${numericToken}%0A` +
+                            `*Food Token Number:* ${numericToken}%0A` +
                             `*Customer Name:* ${name}%0A` +
                             `*Delivery Location:* ${location}%0A` +
                             `*Items Ordered:* ${itemDetails.join(', ')}%0A` +
                             `*Total Amount:* Rs. ${totalBill}%0A` +
                             `*Payment Method:* Payment will be given to delivery boy%0A` +
-                            `*PS5 Gaming Perk:* ${perkText}`;
+                            `*PS5 Gaming Slot:* ${gameChallengeText}%0A` +
+                            `*Champ Challenge:* Beat our game champ during your 15-min slot to win Rs. 50!`;
 
             window.open(`https://wa.me/${stallPhoneNumber}?text=${message}`, '_blank');
         }
