@@ -275,7 +275,7 @@
         <div class="menu-grid">
             <div class="menu-card">
                 <div>
-                    <h3>Dark Chocolate Cookie</h3>
+                    <h3>Sugar-Free Cookie</h3>
                     <div class="price-tag">₹40</div>
                     <p>Almond flour, sugar-free dark choco, stevia sweetened.</p>
                 </div>
@@ -288,7 +288,7 @@
 
             <div class="menu-card">
                 <div>
-                    <h3>Blueberry Muffin</h3>
+                    <h3>Sugar-Free Muffin</h3>
                     <div class="price-tag">₹50</div>
                     <p>Whole oat flour, fresh blueberries & fruit sweetener.</p>
                 </div>
@@ -365,12 +365,11 @@
                               (quantities.item2 * prices.item2) + 
                               (quantities.item3 * prices.item3);
 
-            // Generates a clean 4-digit numeric Token ID (e.g. 8492)
             const numericToken = Math.floor(1000 + Math.random() * 9000);
 
             let itemDetails = [];
-            if (quantities.item1 > 0) itemDetails.push(`${quantities.item1}x Dark Chocolate Cookie`);
-            if (quantities.item2 > 0) itemDetails.push(`${quantities.item2}x Blueberry Muffin`);
+            if (quantities.item1 > 0) itemDetails.push(`${quantities.item1}x Sugar-Free Cookie`);
+            if (quantities.item2 > 0) itemDetails.push(`${quantities.item2}x Sugar-Free Muffin`);
             if (quantities.item3 > 0) itemDetails.push(`${quantities.item3}x Organic Honey Ice Cream`);
 
             let perkText = totalBill >= 120 
@@ -383,6 +382,7 @@
                             `*Delivery Location:* ${location}%0A` +
                             `*Items Ordered:* ${itemDetails.join(', ')}%0A` +
                             `*Total Amount:* Rs. ${totalBill}%0A` +
+                            `*Payment Method:* Payment will be given to delivery boy%0A` +
                             `*PS5 Gaming Perk:* ${perkText}`;
 
             window.open(`https://wa.me/${stallPhoneNumber}?text=${message}`, '_blank');
