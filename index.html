@@ -110,7 +110,6 @@
             color: var(--neon-green);
         }
 
-        /* Countdown Banner */
         .timer-banner {
             background: linear-gradient(90deg, #101014, #1E1E24);
             border: 1px solid var(--electric-blue);
@@ -366,7 +365,6 @@
             gap: 10px;
         }
 
-        /* Spin Box */
         .spin-box {
             background: var(--card-bg);
             border: 2px solid var(--neon-green);
@@ -556,15 +554,15 @@
 
     <header class="hero">
         <div class="timer-banner">
-            ⏳ Next PS5 Gaming Slot Starts In: <span id="slot-countdown">14:59</span>
+            ⏳ Next Mortal Kombat Slot Starts In: <span id="slot-countdown">14:59</span>
         </div>
         <h1>Hunger Points <span>Games & Food</span></h1>
-        <p>Order fresh sugar-free treats & book PS5 gaming slots!</p>
+        <p>Order fresh sugar-free treats & book Mortal Kombat PS5 gaming slots!</p>
         
         <div class="perk-box">
-            <h3>🎮 PS5 GAMING ZONE</h3>
-            <p><strong>₹120</strong> for <strong>15 MINUTES PS5 Gameplay!</strong></p>
-            <p style="color: var(--accent-gold); margin-top: 4px; font-size: 0.9rem; font-weight: bold;">🏆 Defeat our Game Champ & Win ₹50 Cash Back!</p>
+            <h3>🎮 PS5 MORTAL KOMBAT ZONE</h3>
+            <p><strong>₹120</strong> for <strong>15 MINUTES Gameplay!</strong></p>
+            <p style="color: var(--accent-gold); margin-top: 4px; font-size: 0.95rem; font-weight: bold;">🏆 Beat Stall Champ Abeer in Mortal Kombat to Win ₹50 Cash Back!</p>
             <button class="rules-btn" onclick="openRulesModal()">📖 Read Stall & Game Rules</button>
         </div>
     </header>
@@ -579,11 +577,11 @@
         </div>
 
         <div class="leaderboard-box">
-            <h3 style="color: var(--accent-gold);">🏆 PS5 CHAMP HALL OF FAME 🏆</h3>
-            <p style="font-size: 0.8rem; color: var(--text-gray);">Players who beat our Champ & won ₹50 cash back!</p>
+            <h3 style="color: var(--accent-gold);">🏆 MORTAL KOMBAT CHAMP HALL OF FAME 🏆</h3>
+            <p style="font-size: 0.85rem; color: var(--text-gray);">Players who defeated <strong>Champ Abeer</strong> in Mortal Kombat & won ₹50 cash back!</p>
             <div class="leaderboard-grid">
-                <div class="leader-card">🎮 <strong>Rohan M.</strong> — Defeated Champ in FIFA 24</div>
-                <div class="leader-card">🎮 <strong>Aarav K.</strong> — Defeated Champ in Tekken 8</div>
+                <div class="leader-card">🎮 <strong>Rohan M.</strong> — Defeated Abeer in MK11</div>
+                <div class="leader-card">🎮 <strong>Aarav K.</strong> — Defeated Abeer in MK11</div>
                 <div class="leader-card">🎮 <strong>Next Winner:</strong> <em>Could be you!</em></div>
             </div>
         </div>
@@ -648,9 +646,9 @@
             <div class="menu-card">
                 <span class="stock-badge" style="color:var(--electric-blue);">🎮 Limited Slots</span>
                 <div>
-                    <h3>🎮 PS5 Gaming Ticket (15 Mins)</h3>
+                    <h3>🎮 PS5 Mortal Kombat Ticket (15 Mins)</h3>
                     <div class="price-tag">₹120</div>
-                    <p>15 mins PS5 play + Queue Token. Beat champ to win ₹50!</p>
+                    <p>15 mins Mortal Kombat play. Beat Champ Abeer to win ₹50!</p>
                 </div>
                 <div class="qty-controls">
                     <button class="qty-btn" onclick="updateQty('item4', -1)">-</button>
@@ -741,7 +739,7 @@
             <h3 style="color: var(--neon-green); margin-bottom: 10px;">🧾 DIGITAL RECEIPT & TOKEN</h3>
             <div id="receipt-details" style="font-size:0.85rem; text-align:left; margin-bottom:15px; color:var(--text-light);"></div>
             <div id="qrcode-container" style="display:flex; justify-content:center; margin-bottom:15px;"></div>
-            <p style="font-size:0.75rem; color:var(--text-gray);">Show this digital ticket to the delivery boy or PS5 stall champ!</p>
+            <p style="font-size:0.75rem; color:var(--text-gray);">Show this digital ticket to the delivery boy or Champ Abeer at the PS5 stall!</p>
         </div>
     </div>
 
@@ -750,9 +748,10 @@
             <span class="modal-close" onclick="closeRulesModal()">&times;</span>
             <h3 style="color: var(--neon-green); margin-bottom: 10px;">🎮 Rules & Information</h3>
             <p style="font-size: 0.85rem; text-align: left; color: var(--text-light); line-height: 1.5;">
-                • <strong>PS5 Slot Fee:</strong> ₹120 flat per 15-minute time slot.<br>
+                • <strong>PS5 Game:</strong> Exclusive Mortal Kombat play!<br>
+                • <strong>Slot Fee:</strong> ₹120 flat per 15-minute time slot.<br>
                 • <strong>Queue System:</strong> PS5 Slot Tokens are assigned turn-by-turn based on order time.<br>
-                • <strong>Champ Challenge:</strong> Play against our stall champ. Win the game during your slot to claim <strong>₹50 cash back</strong> on the spot!<br>
+                • <strong>Champ Abeer Challenge:</strong> Fight against stall champ Abeer in Mortal Kombat. Defeat him during your slot to claim <strong>₹50 cash back</strong> on the spot!<br>
                 • <strong>Delivery:</strong> Delivery boys deliver food items straight to your specified spot/classroom.
             </p>
         </div>
@@ -975,7 +974,7 @@
             if (quantities.item1 > 0) itemDetails.push(`${quantities.item1}x Sugar-Free Cookie`);
             if (quantities.item2 > 0) itemDetails.push(`${quantities.item2}x Sugar-Free Muffin`);
             if (quantities.item3 > 0) itemDetails.push(`${quantities.item3}x Organic Honey Ice Cream (${selectedIceFlavor})`);
-            if (quantities.item4 > 0) itemDetails.push(`${quantities.item4}x PS5 Gaming Ticket (15 Mins)`);
+            if (quantities.item4 > 0) itemDetails.push(`${quantities.item4}x PS5 Mortal Kombat Ticket (15 Mins)`);
 
             let addOns = [];
             if (document.getElementById('addon-choco').checked) addOns.push('Chocolate Syrup');
@@ -1045,13 +1044,13 @@
 
             const totalBill = calculateTotal();
             const numericToken = Math.floor(1000 + Math.random() * 9000);
-            const ps5TokenNumber = quantities.item4 > 0 ? "PS5-SLOT-#" + Math.floor(100 + Math.random() * 900) : "N/A";
+            const ps5TokenNumber = quantities.item4 > 0 ? "MK-SLOT-#" + Math.floor(100 + Math.random() * 900) : "N/A";
 
             let itemDetails = [];
             if (quantities.item1 > 0) itemDetails.push(`${quantities.item1}x Sugar-Free Cookie`);
             if (quantities.item2 > 0) itemDetails.push(`${quantities.item2}x Sugar-Free Muffin`);
             if (quantities.item3 > 0) itemDetails.push(`${quantities.item3}x Organic Honey Ice Cream (${selectedIceFlavor})`);
-            if (quantities.item4 > 0) itemDetails.push(`${quantities.item4}x PS5 Gaming Ticket (15 Mins)`);
+            if (quantities.item4 > 0) itemDetails.push(`${quantities.item4}x PS5 Mortal Kombat Ticket (15 Mins)`);
 
             let gameChallengeText = quantities.item4 > 0 
                 ? `Active (${ps5TokenNumber}) - Turn by turn queue` 
@@ -1083,7 +1082,7 @@
                             `*Total Amount:* Rs. ${totalBill}%0A` +
                             `*Payment Method:* Payment will be given to delivery boy%0A` +
                             `*PS5 Gaming Slot:* ${gameChallengeText}%0A` +
-                            `*Champ Challenge:* Beat our game champ during your 15-min slot to win Rs. 50!`;
+                            `*Champ Challenge:* Beat Champ Abeer in Mortal Kombat during your 15-min slot to win Rs. 50!`;
 
             window.open(`https://wa.me/${stallPhoneNumber}?text=${message}`, '_blank');
         }
