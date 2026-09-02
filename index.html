@@ -13,6 +13,18 @@
             --text-light: #F4F6F9;
             --text-gray: #A0A0AA;
             --accent-gold: #D4A017;
+            --input-bg: #121216;
+        }
+
+        body.light-theme {
+            --bg-dark: #F0F2F5;
+            --card-bg: #FFFFFF;
+            --neon-green: #00A86B;
+            --electric-blue: #0077FF;
+            --text-light: #1A1A1A;
+            --text-gray: #666666;
+            --accent-gold: #D48800;
+            --input-bg: #E4E6EB;
         }
 
         * {
@@ -20,6 +32,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         body {
@@ -43,7 +56,7 @@
         }
 
         .logo {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 800;
             color: var(--neon-green);
             text-decoration: none;
@@ -54,13 +67,34 @@
             color: var(--electric-blue);
         }
 
-        .location-badge {
-            background: var(--electric-blue);
+        .nav-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .call-btn {
+            background: #25D366;
             color: #000;
-            padding: 5px 12px;
+            padding: 5px 10px;
             border-radius: 20px;
             font-weight: 700;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .theme-btn {
+            background: transparent;
+            border: 1px solid var(--electric-blue);
+            color: var(--electric-blue);
+            padding: 4px 10px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
         }
 
         .hero {
@@ -77,7 +111,6 @@
 
         .hero h1 span {
             color: var(--neon-green);
-            text-shadow: 0 0 10px rgba(57, 255, 20, 0.4);
         }
 
         .hero p {
@@ -89,9 +122,8 @@
 
         .perk-box {
             display: inline-block;
-            background: linear-gradient(135deg, #1E1E24, #2A2A35);
+            background: linear-gradient(135deg, var(--card-bg), #2A2A35);
             border: 2px solid var(--neon-green);
-            box-shadow: 0 0 15px rgba(57, 255, 20, 0.2);
             padding: 15px 25px;
             border-radius: 12px;
             max-width: 500px;
@@ -113,11 +145,6 @@
             cursor: pointer;
             font-size: 0.8rem;
             font-weight: 600;
-        }
-
-        .rules-btn:hover {
-            background: var(--electric-blue);
-            color: #000;
         }
 
         .container {
@@ -152,12 +179,26 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            position: relative;
+        }
+
+        .stock-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.08);
+            color: var(--neon-green);
+            font-weight: 600;
         }
 
         .menu-card h3 {
             color: var(--electric-blue);
             font-size: 1.2rem;
             margin-bottom: 5px;
+            padding-right: 60px;
         }
 
         .price-tag {
@@ -176,31 +217,38 @@
         .qty-controls {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 8px;
             margin-top: auto;
+            flex-wrap: wrap;
         }
 
         .qty-btn {
             background: #2A2A35;
-            color: var(--text-light);
+            color: #FFF;
             border: 1px solid var(--electric-blue);
-            width: 35px;
-            height: 35px;
+            width: 32px;
+            height: 32px;
             border-radius: 6px;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
-            transition: 0.2s;
         }
 
-        .qty-btn:hover {
-            background: var(--electric-blue);
-            color: #000;
+        .quick-add-btn {
+            background: var(--input-bg);
+            color: var(--electric-blue);
+            border: 1px solid #333;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
         }
 
         .qty-val {
             font-weight: bold;
             font-size: 1.1rem;
+            min-width: 20px;
+            text-align: center;
         }
 
         .flavor-chips {
@@ -215,10 +263,9 @@
             padding: 4px 10px;
             border-radius: 15px;
             border: 1px solid #444;
-            background: #15151A;
-            color: #AAA;
+            background: var(--input-bg);
+            color: var(--text-gray);
             cursor: pointer;
-            transition: 0.2s;
         }
 
         .flavor-chip.active {
@@ -229,7 +276,7 @@
         }
 
         .custom-options {
-            background: #18181E;
+            background: var(--input-bg);
             padding: 12px;
             border-radius: 8px;
             margin-top: 10px;
@@ -267,16 +314,37 @@
         .form-group input {
             width: 100%;
             padding: 10px 12px;
-            background: #121216;
+            background: var(--input-bg);
             border: 1px solid #333;
             border-radius: 6px;
-            color: #fff;
+            color: var(--text-light);
             font-size: 0.95rem;
         }
 
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--electric-blue);
+        .promo-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .promo-btn {
+            background: var(--electric-blue);
+            color: #000;
+            border: none;
+            padding: 0 15px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .preview-box {
+            background: var(--input-bg);
+            border: 1px solid #333;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: var(--text-gray);
+            margin-bottom: 15px;
+            white-space: pre-wrap;
         }
 
         .checkout-btn {
@@ -289,16 +357,35 @@
             font-weight: 800;
             font-size: 1.05rem;
             cursor: pointer;
-            transition: 0.2s;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
         }
 
-        .checkout-btn:hover {
-            box-shadow: 0 0 15px rgba(37, 211, 102, 0.5);
-            transform: translateY(-2px);
+        .leaderboard-box {
+            background: var(--card-bg);
+            border: 1px solid var(--accent-gold);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .leaderboard-grid {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .leader-card {
+            background: var(--input-bg);
+            border: 1px solid var(--accent-gold);
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 0.85rem;
         }
 
         .orders-display {
@@ -306,9 +393,21 @@
             border-radius: 12px;
             padding: 25px;
             border: 1px solid var(--electric-blue);
-            max-width: 850px;
+            max-width: 900px;
             margin: 0 auto;
         }
+
+        .status-pill {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: inline-block;
+        }
+        .status-received { background: #333; color: var(--electric-blue); }
+        .status-preparing { background: #5c4300; color: #ffca28; }
+        .status-delivering { background: #1b4332; color: var(--neon-green); }
+        .status-completed { background: #1d2d50; color: #8ab4f8; }
 
         .orders-table {
             width: 100%;
@@ -327,41 +426,35 @@
             color: var(--electric-blue);
         }
 
-        /* Sticky Bottom Bar */
+        .search-box {
+            width: 100%;
+            padding: 8px 12px;
+            background: var(--input-bg);
+            border: 1px solid #333;
+            border-radius: 6px;
+            color: var(--text-light);
+            margin-top: 10px;
+            font-size: 0.85rem;
+        }
+
         .sticky-bar {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(26, 26, 34, 0.98);
+            background: var(--card-bg);
             border-top: 2px solid var(--neon-green);
             padding: 12px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 999;
-            backdrop-filter: blur(8px);
-        }
-
-        .bar-info {
-            display: flex;
-            flex-direction: column;
         }
 
         .bar-total {
             color: var(--neon-green);
             font-weight: 800;
             font-size: 1.1rem;
-        }
-
-        .bar-items {
-            font-size: 0.75rem;
-            color: var(--text-gray);
-        }
-
-        .bar-actions {
-            display: flex;
-            gap: 10px;
         }
 
         .clear-btn {
@@ -375,12 +468,6 @@
             font-weight: 600;
         }
 
-        .clear-btn:hover {
-            background: #ff4d4d;
-            color: #fff;
-        }
-
-        /* Modal Popup */
         .modal {
             display: none;
             position: fixed;
@@ -428,8 +515,11 @@
 <body>
 
     <nav>
-        <a href="#" class="logo">HUNGER POINTS <span>GAMES & FOOD</span></a>
-        <div class="location-badge">📍 CLASS AR3</div>
+        <a href="#" class="logo">HUNGER POINTS <span>GAMES</span></a>
+        <div class="nav-controls">
+            <a href="tel:916200892286" class="call-btn">📞 Call Stall</a>
+            <button class="theme-btn" onclick="toggleTheme()">☀️ Light/Dark</button>
+        </div>
     </nav>
 
     <header class="hero">
@@ -445,10 +535,21 @@
     </header>
 
     <div class="container">
+        <div class="leaderboard-box">
+            <h3 style="color: var(--accent-gold);">🏆 PS5 CHAMP HALL OF FAME 🏆</h3>
+            <p style="font-size: 0.8rem; color: var(--text-gray);">Players who beat our Champ & won ₹50 cash back!</p>
+            <div class="leaderboard-grid">
+                <div class="leader-card">🎮 <strong>Rohan M.</strong> — Defeated Champ in FIFA 24</div>
+                <div class="leader-card">🎮 <strong>Aarav K.</strong> — Defeated Champ in Tekken 8</div>
+                <div class="leader-card">🎮 <strong>Next Winner:</strong> <em>Could be you!</em></div>
+            </div>
+        </div>
+
         <h2 class="section-title">Select Your <span>Items</span></h2>
 
         <div class="menu-grid">
             <div class="menu-card">
+                <span class="stock-badge">🟢 In Stock</span>
                 <div>
                     <h3>Sugar-Free Cookie</h3>
                     <div class="price-tag">₹40</div>
@@ -458,23 +559,28 @@
                     <button class="qty-btn" onclick="updateQty('item1', -1)">-</button>
                     <span class="qty-val" id="item1-qty">0</span>
                     <button class="qty-btn" onclick="updateQty('item1', 1)">+</button>
+                    <button class="quick-add-btn" onclick="updateQty('item1', 2)">+2</button>
+                    <button class="quick-add-btn" onclick="updateQty('item1', 5)">+5</button>
                 </div>
             </div>
 
             <div class="menu-card">
+                <span class="stock-badge">🟢 In Stock</span>
                 <div>
                     <h3>Sugar-Free Muffin</h3>
                     <div class="price-tag">₹50</div>
-                    <p>Whole oat flour, fresh blueberries & fruit sweetener.</p>
+                    <p>Whole oat flour & natural fruit sweetener.</p>
                 </div>
                 <div class="qty-controls">
                     <button class="qty-btn" onclick="updateQty('item2', -1)">-</button>
                     <span class="qty-val" id="item2-qty">0</span>
                     <button class="qty-btn" onclick="updateQty('item2', 1)">+</button>
+                    <button class="quick-add-btn" onclick="updateQty('item2', 2)">+2</button>
                 </div>
             </div>
 
             <div class="menu-card">
+                <span class="stock-badge" style="color:var(--accent-gold);">🔥 Selling Fast</span>
                 <div>
                     <h3>Organic Honey Ice Cream</h3>
                     <div class="price-tag">₹60</div>
@@ -492,10 +598,12 @@
                     <button class="qty-btn" onclick="updateQty('item3', -1)">-</button>
                     <span class="qty-val" id="item3-qty">0</span>
                     <button class="qty-btn" onclick="updateQty('item3', 1)">+</button>
+                    <button class="quick-add-btn" onclick="updateQty('item3', 2)">+2</button>
                 </div>
             </div>
 
             <div class="menu-card">
+                <span class="stock-badge" style="color:var(--electric-blue);">🎮 Limited Slots</span>
                 <div>
                     <h3>🎮 PS5 Gaming Ticket (15 Mins)</h3>
                     <div class="price-tag">₹120</div>
@@ -514,36 +622,56 @@
 
             <div class="custom-options" style="margin-bottom: 20px;">
                 <strong style="color:var(--neon-green); display:block; margin-bottom:6px;">🍯 Optional Syrups & Add-Ons:</strong>
-                <label><input type="checkbox" id="addon-choco" value="10" onchange="calculateTotal()"> Chocolate Syrup (+₹10)</label>
-                <label><input type="checkbox" id="addon-maple" value="15" onchange="calculateTotal()"> Maple Syrup (+₹15)</label>
+                <label><input type="checkbox" id="addon-choco" value="10" onchange="calculateTotal(); playBeep(523, 0.05);"> Chocolate Syrup (+₹10)</label>
+                <label><input type="checkbox" id="addon-maple" value="15" onchange="calculateTotal(); playBeep(523, 0.05);"> Maple Syrup (+₹15)</label>
             </div>
 
             <div class="form-group">
                 <label for="cust-name">Customer Name</label>
-                <input type="text" id="cust-name" placeholder="Enter full name" onkeyup="saveFormDetails()">
+                <input type="text" id="cust-name" placeholder="Enter full name" onkeyup="saveFormDetails(); updatePreview();">
             </div>
 
             <div class="form-group">
                 <label for="cust-loc">Delivery Location (Classroom / Spot)</label>
-                <input type="text" id="cust-loc" placeholder="e.g. Class 9B, Library, Playground..." onkeyup="saveFormDetails()">
+                <input type="text" id="cust-loc" placeholder="e.g. Class 9B, Library, Playground..." onkeyup="saveFormDetails(); updatePreview();">
             </div>
+
+            <div class="form-group">
+                <label for="cust-note">Special Delivery Instructions (Optional)</label>
+                <input type="text" id="cust-note" placeholder="e.g. Deliver extra crisp, call on arrival..." onkeyup="updatePreview();">
+            </div>
+
+            <div class="form-group">
+                <label for="promo-code">Promo / Discount Code</label>
+                <div class="promo-group">
+                    <input type="text" id="promo-code" placeholder="Try CHAMP or FRIENDS">
+                    <button type="button" class="promo-btn" onclick="applyPromo()">APPLY</button>
+                </div>
+                <small id="promo-msg" style="display:block; margin-top:4px; font-weight:bold;"></small>
+            </div>
+
+            <strong style="color:var(--electric-blue); font-size:0.8rem; display:block; margin-bottom:5px;">📱 Live Message Preview:</strong>
+            <div class="preview-box" id="msg-preview">Select items to preview WhatsApp order message...</div>
 
             <button class="checkout-btn" onclick="sendWhatsAppOrder()">SEND ORDER VIA WHATSAPP</button>
         </div>
 
         <div class="orders-display">
-            <h3 style="color: var(--electric-blue); text-align: center;">📋 Live Orders & PS5 Queue</h3>
+            <h3 style="color: var(--electric-blue); text-align: center;">📋 Live Orders & PS5 Queue Status</h3>
             <div style="text-align:center; font-size:0.85rem; color:var(--text-gray); margin-top:4px;" id="ps5-wait-indicator">
                 Estimated PS5 Queue Wait Time: <strong>0 Mins</strong>
             </div>
+
+            <input type="text" id="order-search" class="search-box" placeholder="🔍 Search token number or name..." onkeyup="filterOrders()">
+
             <table class="orders-table">
                 <thead>
                     <tr>
                         <th>Token</th>
                         <th>Name</th>
                         <th>Items & Flavours</th>
-                        <th>Add-ons</th>
-                        <th>PS5 Slot Token</th>
+                        <th>PS5 Slot</th>
+                        <th>Live Status</th>
                         <th>Total</th>
                     </tr>
                 </thead>
@@ -585,13 +713,38 @@
         const prices = { item1: 40, item2: 50, item3: 60, item4: 120 };
         const quantities = { item1: 0, item2: 0, item3: 0, item4: 0 };
         let selectedIceFlavor = "Vanilla";
+        let discountPercent = 0;
+        let discountFlat = 0;
         const stallPhoneNumber = "916200892286";
+
+        // Web Audio API Retro Sound Effects
+        function playBeep(freq = 440, type = 0.05) {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(freq, ctx.currentTime);
+                gain.gain.setValueAtTime(0.05, ctx.currentTime);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + type);
+            } catch (e) {}
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('light-theme');
+            playBeep(600, 0.05);
+        }
 
         function updateQty(item, change) {
             if (quantities[item] + change >= 0) {
                 quantities[item] += change;
                 document.getElementById(item + '-qty').innerText = quantities[item];
+                playBeep(change > 0 ? 587 : 330, 0.04);
                 calculateTotal();
+                updatePreview();
             }
         }
 
@@ -599,6 +752,35 @@
             document.querySelectorAll('.flavor-chip').forEach(c => c.classList.remove('active'));
             chipEl.classList.add('active');
             selectedIceFlavor = flavor;
+            playBeep(493, 0.04);
+            updatePreview();
+        }
+
+        function applyPromo() {
+            const code = document.getElementById('promo-code').value.trim().toUpperCase();
+            const msgEl = document.getElementById('promo-msg');
+            
+            if (code === 'CHAMP') {
+                discountPercent = 10;
+                discountFlat = 0;
+                msgEl.style.color = 'var(--neon-green)';
+                msgEl.innerText = '✅ 10% Discount Applied!';
+                playBeep(880, 0.1);
+            } else if (code === 'FRIENDS') {
+                discountFlat = 10;
+                discountPercent = 0;
+                msgEl.style.color = 'var(--neon-green)';
+                msgEl.innerText = '✅ ₹10 Discount Applied!';
+                playBeep(880, 0.1);
+            } else {
+                discountPercent = 0;
+                discountFlat = 0;
+                msgEl.style.color = '#ff4d4d';
+                msgEl.innerText = '❌ Invalid Code';
+                playBeep(200, 0.15);
+            }
+            calculateTotal();
+            updatePreview();
         }
 
         function calculateTotal() {
@@ -606,17 +788,21 @@
             if (document.getElementById('addon-choco').checked) addonTotal += 10;
             if (document.getElementById('addon-maple').checked) addonTotal += 15;
 
-            const total = (quantities.item1 * prices.item1) + 
-                          (quantities.item2 * prices.item2) + 
-                          (quantities.item3 * prices.item3) +
-                          (quantities.item4 * prices.item4) + 
-                          addonTotal;
+            let subtotal = (quantities.item1 * prices.item1) + 
+                           (quantities.item2 * prices.item2) + 
+                           (quantities.item3 * prices.item3) +
+                           (quantities.item4 * prices.item4) + 
+                           addonTotal;
+
+            let total = subtotal;
+            if (discountPercent > 0) total -= (subtotal * (discountPercent / 100));
+            if (discountFlat > 0) total = Math.max(0, total - discountFlat);
 
             const totalCount = quantities.item1 + quantities.item2 + quantities.item3 + quantities.item4;
 
-            document.getElementById('bar-total-text').innerText = `Total: ₹${total}`;
+            document.getElementById('bar-total-text').innerText = `Total: ₹${Math.round(total)}`;
             document.getElementById('bar-items-text').innerText = `${totalCount} item(s) selected`;
-            return total;
+            return Math.round(total);
         }
 
         function clearCart() {
@@ -624,13 +810,19 @@
             quantities.item2 = 0;
             quantities.item3 = 0;
             quantities.item4 = 0;
+            discountPercent = 0;
+            discountFlat = 0;
             document.getElementById('item1-qty').innerText = 0;
             document.getElementById('item2-qty').innerText = 0;
             document.getElementById('item3-qty').innerText = 0;
             document.getElementById('item4-qty').innerText = 0;
             document.getElementById('addon-choco').checked = false;
             document.getElementById('addon-maple').checked = false;
+            document.getElementById('cust-note').value = '';
+            document.getElementById('promo-code').value = '';
+            document.getElementById('promo-msg').innerText = '';
             calculateTotal();
+            updatePreview();
         }
 
         function saveFormDetails() {
@@ -643,22 +835,30 @@
             if (localStorage.getItem('hp_loc')) document.getElementById('cust-loc').value = localStorage.getItem('hp_loc');
         }
 
+        function getCalculatedStatus(timeCreated) {
+            const diffMins = Math.floor((Date.now() - timeCreated) / (1000 * 60));
+            if (diffMins < 2) return { text: 'Received', class: 'status-received' };
+            if (diffMins < 6) return { text: 'Getting Prepared 🍳', class: 'status-preparing' };
+            if (diffMins < 12) return { text: 'Out for Delivery 🚀', class: 'status-delivering' };
+            return { text: 'Completed ✅', class: 'status-completed' };
+        }
+
         function loadOrders() {
             const savedOrders = JSON.parse(localStorage.getItem('hp_orders') || '[]');
             const listEl = document.getElementById('orders-list');
-            
             let totalPs5Slots = 0;
 
             if (savedOrders.length > 0) {
                 listEl.innerHTML = savedOrders.map(o => {
                     if (o.ps5Token !== "N/A") totalPs5Slots++;
+                    const st = getCalculatedStatus(o.timestamp || Date.now());
                     return `
-                    <tr>
+                    <tr class="order-row" data-search="${o.token} ${o.name.toLowerCase()}">
                         <td><strong>#${o.token}</strong></td>
                         <td>${o.name}</td>
                         <td>${o.items}</td>
-                        <td>${o.addons}</td>
                         <td><span style="color:var(--neon-green);">${o.ps5Token}</span></td>
+                        <td><span class="status-pill ${st.class}">${st.text}</span></td>
                         <td>₹${o.total}</td>
                     </tr>
                     `;
@@ -667,12 +867,50 @@
             document.getElementById('ps5-wait-indicator').innerHTML = `Estimated PS5 Queue Wait Time: <strong>~${totalPs5Slots * 15} Mins</strong>`;
         }
 
+        function filterOrders() {
+            const query = document.getElementById('order-search').value.toLowerCase();
+            const rows = document.querySelectorAll('.order-row');
+            rows.forEach(r => {
+                const searchData = r.getAttribute('data-search');
+                r.style.display = searchData.includes(query) ? '' : 'none';
+            });
+        }
+
+        function updatePreview() {
+            const name = document.getElementById('cust-name').value.trim() || '[Your Name]';
+            const location = document.getElementById('cust-loc').value.trim() || '[Your Location]';
+            const note = document.getElementById('cust-note').value.trim();
+
+            let itemDetails = [];
+            if (quantities.item1 > 0) itemDetails.push(`${quantities.item1}x Sugar-Free Cookie`);
+            if (quantities.item2 > 0) itemDetails.push(`${quantities.item2}x Sugar-Free Muffin`);
+            if (quantities.item3 > 0) itemDetails.push(`${quantities.item3}x Organic Honey Ice Cream (${selectedIceFlavor})`);
+            if (quantities.item4 > 0) itemDetails.push(`${quantities.item4}x PS5 Gaming Ticket (15 Mins)`);
+
+            let addOns = [];
+            if (document.getElementById('addon-choco').checked) addOns.push('Chocolate Syrup');
+            if (document.getElementById('addon-maple').checked) addOns.push('Maple Syrup');
+
+            const totalBill = calculateTotal();
+
+            let previewText = `*NEW ORDER - HUNGER POINTS GAMES AND FOOD*\n`;
+            previewText += `*Customer Name:* ${name}\n`;
+            previewText += `*Location:* ${location}\n`;
+            previewText += `*Items:* ${itemDetails.length > 0 ? itemDetails.join(', ') : 'None selected'}\n`;
+            previewText += `*Add-ons:* ${addOns.length > 0 ? addOns.join(', ') : 'None'}\n`;
+            if (note) previewText += `*Note:* ${note}\n`;
+            previewText += `*Total Amount:* Rs. ${totalBill}`;
+
+            document.getElementById('msg-preview').innerText = previewText;
+        }
+
         function openRulesModal() { document.getElementById('rulesModal').style.display = 'flex'; }
         function closeRulesModal() { document.getElementById('rulesModal').style.display = 'none'; }
 
         function sendWhatsAppOrder() {
             const name = document.getElementById('cust-name').value.trim();
             const location = document.getElementById('cust-loc').value.trim();
+            const note = document.getElementById('cust-note').value.trim();
             const totalItems = quantities.item1 + quantities.item2 + quantities.item3 + quantities.item4;
 
             if (totalItems === 0) {
@@ -685,20 +923,14 @@
                 return;
             }
 
-            let addonTotal = 0;
+            playBeep(1046, 0.15);
+
             let addOns = [];
-            if (document.getElementById('addon-choco').checked) {
-                addonTotal += 10;
-                addOns.push('Chocolate Syrup (+Rs. 10)');
-            }
-            if (document.getElementById('addon-maple').checked) {
-                addonTotal += 15;
-                addOns.push('Maple Syrup (+Rs. 15)');
-            }
+            if (document.getElementById('addon-choco').checked) addOns.push('Chocolate Syrup (+Rs. 10)');
+            if (document.getElementById('addon-maple').checked) addOns.push('Maple Syrup (+Rs. 15)');
             const addOnsText = addOns.length > 0 ? addOns.join(', ') : 'None';
 
             const totalBill = calculateTotal();
-
             const numericToken = Math.floor(1000 + Math.random() * 9000);
             const ps5TokenNumber = quantities.item4 > 0 ? "PS5-SLOT-#" + Math.floor(100 + Math.random() * 900) : "N/A";
 
@@ -712,7 +944,6 @@
                 ? `Active (${ps5TokenNumber}) - Turn by turn queue` 
                 : "No PS5 Gaming Ticket Selected";
 
-            // Save order locally for site display
             const savedOrders = JSON.parse(localStorage.getItem('hp_orders') || '[]');
             savedOrders.unshift({
                 token: numericToken,
@@ -720,17 +951,19 @@
                 items: itemDetails.join(', '),
                 addons: addOnsText,
                 ps5Token: ps5TokenNumber,
-                total: totalBill
+                total: totalBill,
+                timestamp: Date.now()
             });
             localStorage.setItem('hp_orders', JSON.stringify(savedOrders));
             loadOrders();
 
-            const message = `*NEW ORDER - HUNGER POINTS GAMES AND FOOD*%0A%0A` +
+            let message = `*NEW ORDER - HUNGER POINTS GAMES AND FOOD*%0A%0A` +
                             `*Food Token Number:* ${numericToken}%0A` +
                             `*Customer Name:* ${name}%0A` +
                             `*Delivery Location:* ${location}%0A` +
                             `*Items Ordered:* ${itemDetails.join(', ')}%0A` +
                             `*Selected Add-ons:* ${addOnsText}%0A` +
+                            (note ? `*Special Note:* ${encodeURIComponent(note)}%0A` : '') +
                             `*Total Amount:* Rs. ${totalBill}%0A` +
                             `*Payment Method:* Payment will be given to delivery boy%0A` +
                             `*PS5 Gaming Slot:* ${gameChallengeText}%0A` +
@@ -743,6 +976,8 @@
             loadSavedForm();
             loadOrders();
             calculateTotal();
+            updatePreview();
+            setInterval(loadOrders, 30000);
         };
     </script>
 </body>
