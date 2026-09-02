@@ -190,7 +190,7 @@
             border-radius: 12px;
             border: 1px solid #2C2C35;
             max-width: 600px;
-            margin: 0 auto;
+            margin: 0 auto 50px;
         }
 
         .form-group {
@@ -241,6 +241,32 @@
             transform: translateY(-2px);
         }
 
+        .orders-display {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            border: 1px solid var(--electric-blue);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .orders-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .orders-table th, .orders-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #2C2C35;
+            font-size: 0.9rem;
+        }
+
+        .orders-table th {
+            color: var(--electric-blue);
+        }
+
         footer {
             background: #0A0A0D;
             text-align: center;
@@ -261,11 +287,11 @@
 
     <header class="hero">
         <h1>Hunger Points <span>Games & Food</span></h1>
-        <p>Order fresh sugar-free treats & play PS5 games!</p>
+        <p>Order fresh sugar-free treats & book PS5 gaming slots!</p>
         
         <div class="perk-box">
             <h3>🎮 PS5 GAMING ZONE</h3>
-            <p><strong>₹120</strong> for <strong>15 MINUTES PS5 Gameplay!</strong> (Order-wise Slot Token System)</p>
+            <p><strong>₹120</strong> for <strong>15 MINUTES PS5 Gameplay!</strong></p>
             <p style="color: var(--accent-gold); margin-top: 5px; font-weight: bold;">🏆 Defeat our Game Champ & Win ₹50 Cash Back!</p>
         </div>
     </header>
@@ -317,7 +343,7 @@
                 <div>
                     <h3>🎮 PS5 Gaming Ticket (15 Mins)</h3>
                     <div class="price-tag">₹120</div>
-                    <p>Includes order-wise PS5 slot token. Defeat champ to win ₹50!</p>
+                    <p>15 mins PS5 play + Queue Token. Beat champ to win ₹50!</p>
                 </div>
                 <div class="qty-controls">
                     <button class="qty-btn" onclick="updateQty('item4', -1)">-</button>
@@ -342,6 +368,24 @@
 
             <button class="checkout-btn" onclick="sendWhatsAppOrder()">SEND ORDER VIA WHATSAPP</button>
         </div>
+
+        <div class="orders-display">
+            <h3 style="color: var(--electric-blue); text-align: center;">📋 Live Orders & PS5 Queue</h3>
+            <table class="orders-table">
+                <thead>
+                    <tr>
+                        <th>Token</th>
+                        <th>Name</th>
+                        <th>Items</th>
+                        <th>PS5 Slot Token</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody id="orders-list">
+                    <tr><td colspan="5" style="text-align:center; color: var(--text-gray);">No orders placed on this device yet.</td></tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <footer>
@@ -357,6 +401,22 @@
             if (quantities[item] + change >= 0) {
                 quantities[item] += change;
                 document.getElementById(item + '-qty').innerText = quantities[item];
+            }
+        }
+
+        function loadOrders() {
+            const savedOrders = JSON.parse(localStorage.getItem('hp_orders') || '[]');
+            const listEl = document.getElementById('orders-list');
+            if (savedOrders.length > 0) {
+                listEl.innerHTML = savedOrders.map(o => `
+                    <tr>
+                        <td><strong>#${o.token}</strong></td>
+                        <td>${o.name}</td>
+                        <td>${o.items}</td>
+                        <td><span style="color:var(--neon-green);">${o.ps5Token}</span></td>
+                        <td>₹${o.total}</td>
+                    </tr>
+                `).join('');
             }
         }
 
@@ -381,7 +441,7 @@
                               (quantities.item4 * prices.item4);
 
             const numericToken = Math.floor(1000 + Math.random() * 9000);
-            const ps5TokenNumber = "PS5-SLOT-#" + Math.floor(100 + Math.random() * 900);
+            const ps5TokenNumber = quantities.item4 > 0 ? "PS5-SLOT-#" + Math.floor(100 + Math.random() * 900) : "N/A";
 
             let itemDetails = [];
             if (quantities.item1 > 0) itemDetails.push(`${quantities.item1}x Sugar-Free Cookie`);
@@ -390,8 +450,20 @@
             if (quantities.item4 > 0) itemDetails.push(`${quantities.item4}x PS5 Gaming Ticket (15 Mins)`);
 
             let gameChallengeText = quantities.item4 > 0 
-                ? `Active (Token: ${ps5TokenNumber}) - Turn by turn queue system` 
+                ? `Active (${ps5TokenNumber}) - Turn by turn queue` 
                 : "No PS5 Gaming Ticket Selected";
+
+            // Save order locally for site display
+            const savedOrders = JSON.parse(localStorage.getItem('hp_orders') || '[]');
+            savedOrders.unshift({
+                token: numericToken,
+                name: name,
+                items: itemDetails.join(', '),
+                ps5Token: ps5TokenNumber,
+                total: totalBill
+            });
+            localStorage.setItem('hp_orders', JSON.stringify(savedOrders));
+            loadOrders();
 
             const message = `*NEW ORDER - HUNGER POINTS GAMES AND FOOD*%0A%0A` +
                             `*Food Token Number:* ${numericToken}%0A` +
@@ -405,6 +477,8 @@
 
             window.open(`https://wa.me/${stallPhoneNumber}?text=${message}`, '_blank');
         }
+
+        window.onload = loadOrders;
     </script>
 </body>
 </html>
