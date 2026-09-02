@@ -81,9 +81,6 @@
             font-weight: 700;
             font-size: 0.8rem;
             text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 4px;
         }
 
         .theme-btn {
@@ -98,14 +95,14 @@
         }
 
         .hero {
-            padding: 40px 5% 30px;
+            padding: 30px 5% 20px;
             text-align: center;
             background: radial-gradient(circle at center, rgba(0, 229, 255, 0.1) 0%, rgba(18, 18, 22, 1) 70%);
         }
 
         .hero h1 {
             font-size: 2.5rem;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             color: var(--text-light);
         }
 
@@ -113,11 +110,17 @@
             color: var(--neon-green);
         }
 
-        .hero p {
-            font-size: 1rem;
-            color: var(--text-gray);
-            max-width: 600px;
-            margin: 0 auto 15px;
+        /* Countdown Banner */
+        .timer-banner {
+            background: linear-gradient(90deg, #101014, #1E1E24);
+            border: 1px solid var(--electric-blue);
+            border-radius: 8px;
+            padding: 8px 15px;
+            display: inline-block;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: var(--electric-blue);
+            font-size: 0.9rem;
         }
 
         .perk-box {
@@ -363,6 +366,34 @@
             gap: 10px;
         }
 
+        /* Spin Box */
+        .spin-box {
+            background: var(--card-bg);
+            border: 2px solid var(--neon-green);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .spin-btn {
+            background: var(--neon-green);
+            color: #000;
+            border: none;
+            padding: 10px 25px;
+            font-size: 1rem;
+            font-weight: 800;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .spin-btn:disabled {
+            background: #444;
+            color: #888;
+            cursor: not-allowed;
+        }
+
         .leaderboard-box {
             background: var(--card-bg);
             border: 1px solid var(--accent-gold);
@@ -511,6 +542,7 @@
             margin-top: 50px;
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
 
@@ -523,6 +555,9 @@
     </nav>
 
     <header class="hero">
+        <div class="timer-banner">
+            ⏳ Next PS5 Gaming Slot Starts In: <span id="slot-countdown">14:59</span>
+        </div>
         <h1>Hunger Points <span>Games & Food</span></h1>
         <p>Order fresh sugar-free treats & book PS5 gaming slots!</p>
         
@@ -535,6 +570,14 @@
     </header>
 
     <div class="container">
+
+        <div class="spin-box">
+            <h3 style="color:var(--neon-green);">🎰 LUCKY SPIN (MAX 5 SPINS)</h3>
+            <p style="font-size:0.85rem; color:var(--text-gray);">Spin to win extra perks (Max ₹20 cash back, free syrup, or +2 mins PS5 play)!</p>
+            <div id="spin-result" style="font-size:1.1rem; font-weight:bold; color:var(--accent-gold); margin:10px 0;">Spins Left: <span id="spins-count">5</span></div>
+            <button id="spin-trigger-btn" class="spin-btn" onclick="spinWheel()">SPIN NOW!</button>
+        </div>
+
         <div class="leaderboard-box">
             <h3 style="color: var(--accent-gold);">🏆 PS5 CHAMP HALL OF FAME 🏆</h3>
             <p style="font-size: 0.8rem; color: var(--text-gray);">Players who beat our Champ & won ₹50 cash back!</p>
@@ -692,6 +735,16 @@
         </div>
     </div>
 
+    <div class="modal" id="receiptModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeReceiptModal()">&times;</span>
+            <h3 style="color: var(--neon-green); margin-bottom: 10px;">🧾 DIGITAL RECEIPT & TOKEN</h3>
+            <div id="receipt-details" style="font-size:0.85rem; text-align:left; margin-bottom:15px; color:var(--text-light);"></div>
+            <div id="qrcode-container" style="display:flex; justify-content:center; margin-bottom:15px;"></div>
+            <p style="font-size:0.75rem; color:var(--text-gray);">Show this digital ticket to the delivery boy or PS5 stall champ!</p>
+        </div>
+    </div>
+
     <div class="modal" id="rulesModal">
         <div class="modal-content">
             <span class="modal-close" onclick="closeRulesModal()">&times;</span>
@@ -715,9 +768,10 @@
         let selectedIceFlavor = "Vanilla";
         let discountPercent = 0;
         let discountFlat = 0;
+        let spinsRemaining = 5;
+        let activeSpinReward = "";
         const stallPhoneNumber = "916200892286";
 
-        // Web Audio API Retro Sound Effects
         function playBeep(freq = 440, type = 0.05) {
             try {
                 const ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -736,6 +790,46 @@
         function toggleTheme() {
             document.body.classList.toggle('light-theme');
             playBeep(600, 0.05);
+        }
+
+        function startTimer() {
+            let duration = 14 * 60 + 59;
+            const el = document.getElementById('slot-countdown');
+            setInterval(() => {
+                let mins = Math.floor(duration / 60);
+                let secs = duration % 60;
+                el.innerText = `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
+                if (--duration < 0) duration = 15 * 60;
+            }, 1000);
+        }
+
+        function spinWheel() {
+            if (spinsRemaining <= 0) return;
+            spinsRemaining--;
+            document.getElementById('spins-count').innerText = spinsRemaining;
+
+            const rewards = [
+                "🎉 ₹10 Cash Back Discount",
+                "🎉 Free Syrup Add-on",
+                "🎉 ₹20 Cash Back Discount",
+                "🎉 +2 Extra Mins PS5 Play",
+                "🙂 Better Luck Next Time"
+            ];
+            const chosen = rewards[Math.floor(Math.random() * rewards.length)];
+            activeSpinReward = chosen;
+            
+            if (chosen.includes("₹10")) discountFlat = 10;
+            if (chosen.includes("₹20")) discountFlat = 20;
+
+            document.getElementById('spin-result').innerText = chosen;
+            playBeep(880, 0.2);
+
+            if (spinsRemaining === 0) {
+                document.getElementById('spin-trigger-btn').disabled = true;
+                document.getElementById('spin-trigger-btn').innerText = "SPINS EXHAUSTED";
+            }
+            calculateTotal();
+            updatePreview();
         }
 
         function updateQty(item, change) {
@@ -762,19 +856,15 @@
             
             if (code === 'CHAMP') {
                 discountPercent = 10;
-                discountFlat = 0;
                 msgEl.style.color = 'var(--neon-green)';
                 msgEl.innerText = '✅ 10% Discount Applied!';
                 playBeep(880, 0.1);
             } else if (code === 'FRIENDS') {
                 discountFlat = 10;
-                discountPercent = 0;
                 msgEl.style.color = 'var(--neon-green)';
                 msgEl.innerText = '✅ ₹10 Discount Applied!';
                 playBeep(880, 0.1);
             } else {
-                discountPercent = 0;
-                discountFlat = 0;
                 msgEl.style.color = '#ff4d4d';
                 msgEl.innerText = '❌ Invalid Code';
                 playBeep(200, 0.15);
@@ -898,6 +988,7 @@
             previewText += `*Location:* ${location}\n`;
             previewText += `*Items:* ${itemDetails.length > 0 ? itemDetails.join(', ') : 'None selected'}\n`;
             previewText += `*Add-ons:* ${addOns.length > 0 ? addOns.join(', ') : 'None'}\n`;
+            if (activeSpinReward) previewText += `*Spin Perk:* ${activeSpinReward}\n`;
             if (note) previewText += `*Note:* ${note}\n`;
             previewText += `*Total Amount:* Rs. ${totalBill}`;
 
@@ -906,6 +997,28 @@
 
         function openRulesModal() { document.getElementById('rulesModal').style.display = 'flex'; }
         function closeRulesModal() { document.getElementById('rulesModal').style.display = 'none'; }
+        function closeReceiptModal() { document.getElementById('receiptModal').style.display = 'none'; }
+
+        function showDigitalReceipt(token, name, items, total, ps5Token) {
+            const details = `
+                <strong>Token:</strong> #${token}<br>
+                <strong>Name:</strong> ${name}<br>
+                <strong>Items:</strong> ${items}<br>
+                <strong>PS5 Slot:</strong> ${ps5Token}<br>
+                <strong>Total Amount:</strong> ₹${total}
+            `;
+            document.getElementById('receipt-details').innerHTML = details;
+            
+            const qrContainer = document.getElementById('qrcode-container');
+            qrContainer.innerHTML = '';
+            new QRCode(qrContainer, {
+                text: `HUNGERPOINTS-TOKEN-${token}-${name}`,
+                width: 128,
+                height: 128
+            });
+
+            document.getElementById('receiptModal').style.display = 'flex';
+        }
 
         function sendWhatsAppOrder() {
             const name = document.getElementById('cust-name').value.trim();
@@ -957,12 +1070,15 @@
             localStorage.setItem('hp_orders', JSON.stringify(savedOrders));
             loadOrders();
 
+            showDigitalReceipt(numericToken, name, itemDetails.join(', '), totalBill, ps5TokenNumber);
+
             let message = `*NEW ORDER - HUNGER POINTS GAMES AND FOOD*%0A%0A` +
                             `*Food Token Number:* ${numericToken}%0A` +
                             `*Customer Name:* ${name}%0A` +
                             `*Delivery Location:* ${location}%0A` +
                             `*Items Ordered:* ${itemDetails.join(', ')}%0A` +
                             `*Selected Add-ons:* ${addOnsText}%0A` +
+                            (activeSpinReward ? `*Spin Perk Won:* ${encodeURIComponent(activeSpinReward)}%0A` : '') +
                             (note ? `*Special Note:* ${encodeURIComponent(note)}%0A` : '') +
                             `*Total Amount:* Rs. ${totalBill}%0A` +
                             `*Payment Method:* Payment will be given to delivery boy%0A` +
@@ -977,6 +1093,7 @@
             loadOrders();
             calculateTotal();
             updatePreview();
+            startTimer();
             setInterval(loadOrders, 30000);
         };
     </script>
