@@ -392,31 +392,6 @@
             cursor: not-allowed;
         }
 
-        .leaderboard-box {
-            background: var(--card-bg);
-            border: 1px solid var(--accent-gold);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 40px;
-            text-align: center;
-        }
-
-        .leaderboard-grid {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-top: 15px;
-        }
-
-        .leader-card {
-            background: var(--input-bg);
-            border: 1px solid var(--accent-gold);
-            padding: 10px 15px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-        }
-
         .orders-display {
             background: var(--card-bg);
             border-radius: 12px;
@@ -569,23 +544,11 @@
 
     <div class="container">
 
-        <!-- Spin Wheel Box -->
         <div class="spin-box">
             <h3 style="color:var(--neon-green);">🎰 LUCKY SPIN (MAX 5 SPINS)</h3>
             <p style="font-size:0.85rem; color:var(--text-gray);">Spin to win extra perks (Max ₹20 cash back, free syrup, or +2 mins PS5 play)!</p>
             <div id="spin-result" style="font-size:1.1rem; font-weight:bold; color:var(--accent-gold); margin:10px 0;">Spins Left: <span id="spins-count">5</span></div>
             <button id="spin-trigger-btn" class="spin-btn" onclick="spinWheel()">SPIN NOW!</button>
-        </div>
-
-        <!-- Leaderboard -->
-        <div class="leaderboard-box">
-            <h3 style="color: var(--accent-gold);">🏆 MORTAL KOMBAT CHAMP HALL OF FAME 🏆</h3>
-            <p style="font-size: 0.85rem; color: var(--text-gray);">Defeat <strong>Champ Abeer</strong> in Mortal Kombat to feature here and win ₹50 cash back!</p>
-            <div class="leaderboard-grid">
-                <div class="leader-card">🎮 <strong>Spot #1:</strong> <em>Could be you!</em></div>
-                <div class="leader-card">🎮 <strong>Spot #2:</strong> <em>Could be you!</em></div>
-                <div class="leader-card">🎮 <strong>Spot #3:</strong> <em>Could be you!</em></div>
-            </div>
         </div>
 
         <h2 class="section-title">Select Your <span>Items</span></h2>
@@ -725,7 +688,6 @@
         </div>
     </div>
 
-    <!-- Sticky Bottom Cart -->
     <div class="sticky-bar">
         <div class="bar-info">
             <div class="bar-total" id="bar-total-text">Total: ₹0</div>
@@ -736,7 +698,6 @@
         </div>
     </div>
 
-    <!-- Receipt Modal -->
     <div class="modal" id="receiptModal">
         <div class="modal-content">
             <span class="modal-close" onclick="closeReceiptModal()">&times;</span>
@@ -747,7 +708,6 @@
         </div>
     </div>
 
-    <!-- Modal Rules -->
     <div class="modal" id="rulesModal">
         <div class="modal-content">
             <span class="modal-close" onclick="closeRulesModal()">&times;</span>
