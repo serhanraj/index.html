@@ -184,6 +184,21 @@
             font-size: 1.1rem;
         }
 
+        .custom-options {
+            background: #18181E;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 10px;
+            border: 1px dashed var(--electric-blue);
+        }
+
+        .custom-options label {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
         .order-form {
             background: var(--card-bg);
             padding: 30px;
@@ -246,7 +261,7 @@
             border-radius: 12px;
             padding: 30px;
             border: 1px solid var(--electric-blue);
-            max-width: 800px;
+            max-width: 850px;
             margin: 0 auto;
         }
 
@@ -260,7 +275,7 @@
             padding: 12px;
             text-align: left;
             border-bottom: 1px solid #2C2C35;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         .orders-table th {
@@ -331,8 +346,16 @@
                     <h3>Organic Honey Ice Cream</h3>
                     <div class="price-tag">₹60</div>
                     <p>Creamy artisanal scoop sweetened with pure honey.</p>
+                    
+                    <div class="custom-options">
+                        <strong style="color:var(--electric-blue); font-size:0.8rem; display:block; margin-bottom:5px;">Select Ice Cream Flavour:</strong>
+                        <label><input type="radio" name="ice_flavor" value="Vanilla" checked> Vanilla</label>
+                        <label><input type="radio" name="ice_flavor" value="Chocolate"> Chocolate</label>
+                        <label><input type="radio" name="ice_flavor" value="Mango"> Mango</label>
+                        <label><input type="radio" name="ice_flavor" value="Strawberry"> Strawberry</label>
+                    </div>
                 </div>
-                <div class="qty-controls">
+                <div class="qty-controls" style="margin-top:15px;">
                     <button class="qty-btn" onclick="updateQty('item3', -1)">-</button>
                     <span class="qty-val" id="item3-qty">0</span>
                     <button class="qty-btn" onclick="updateQty('item3', 1)">+</button>
@@ -354,7 +377,13 @@
         </div>
 
         <div class="order-form">
-            <h3 style="color: var(--neon-green); margin-bottom: 20px; text-align: center;">Delivery Details</h3>
+            <h3 style="color: var(--neon-green); margin-bottom: 20px; text-align: center;">Delivery & Customisation Details</h3>
+
+            <div class="custom-options" style="margin-bottom: 20px;">
+                <strong style="color:var(--neon-green); display:block; margin-bottom:8px;">🍯 Optional Syrups & Add-Ons:</strong>
+                <label><input type="checkbox" id="addon-choco" value="10"> Chocolate Syrup (+₹10)</label>
+                <label><input type="checkbox" id="addon-maple" value="15"> Maple Syrup (+₹15)</label>
+            </div>
 
             <div class="form-group">
                 <label for="cust-name">Customer Name</label>
@@ -376,13 +405,14 @@
                     <tr>
                         <th>Token</th>
                         <th>Name</th>
-                        <th>Items</th>
+                        <th>Items & Flavours</th>
+                        <th>Add-ons</th>
                         <th>PS5 Slot Token</th>
                         <th>Total</th>
                     </tr>
                 </thead>
                 <tbody id="orders-list">
-                    <tr><td colspan="5" style="text-align:center; color: var(--text-gray);">No orders placed on this device yet.</td></tr>
+                    <tr><td colspan="6" style="text-align:center; color: var(--text-gray);">No orders placed on this device yet.</td></tr>
                 </tbody>
             </table>
         </div>
@@ -413,6 +443,7 @@
                         <td><strong>#${o.token}</strong></td>
                         <td>${o.name}</td>
                         <td>${o.items}</td>
+                        <td>${o.addons}</td>
                         <td><span style="color:var(--neon-green);">${o.ps5Token}</span></td>
                         <td>₹${o.total}</td>
                     </tr>
@@ -435,10 +466,23 @@
                 return;
             }
 
+            let addonTotal = 0;
+            let addOns = [];
+            if (document.getElementById('addon-choco').checked) {
+                addonTotal += 10;
+                addOns.push('Chocolate Syrup (+Rs. 10)');
+            }
+            if (document.getElementById('addon-maple').checked) {
+                addonTotal += 15;
+                addOns.push('Maple Syrup (+Rs. 15)');
+            }
+            const addOnsText = addOns.length > 0 ? addOns.join(', ') : 'None';
+
             const totalBill = (quantities.item1 * prices.item1) + 
                               (quantities.item2 * prices.item2) + 
                               (quantities.item3 * prices.item3) +
-                              (quantities.item4 * prices.item4);
+                              (quantities.item4 * prices.item4) + 
+                              addonTotal;
 
             const numericToken = Math.floor(1000 + Math.random() * 9000);
             const ps5TokenNumber = quantities.item4 > 0 ? "PS5-SLOT-#" + Math.floor(100 + Math.random() * 900) : "N/A";
@@ -446,7 +490,12 @@
             let itemDetails = [];
             if (quantities.item1 > 0) itemDetails.push(`${quantities.item1}x Sugar-Free Cookie`);
             if (quantities.item2 > 0) itemDetails.push(`${quantities.item2}x Sugar-Free Muffin`);
-            if (quantities.item3 > 0) itemDetails.push(`${quantities.item3}x Organic Honey Ice Cream`);
+            
+            if (quantities.item3 > 0) {
+                const flavor = document.querySelector('input[name="ice_flavor"]:checked').value;
+                itemDetails.push(`${quantities.item3}x Organic Honey Ice Cream (${flavor})`);
+            }
+
             if (quantities.item4 > 0) itemDetails.push(`${quantities.item4}x PS5 Gaming Ticket (15 Mins)`);
 
             let gameChallengeText = quantities.item4 > 0 
@@ -459,6 +508,7 @@
                 token: numericToken,
                 name: name,
                 items: itemDetails.join(', '),
+                addons: addOnsText,
                 ps5Token: ps5TokenNumber,
                 total: totalBill
             });
@@ -470,6 +520,7 @@
                             `*Customer Name:* ${name}%0A` +
                             `*Delivery Location:* ${location}%0A` +
                             `*Items Ordered:* ${itemDetails.join(', ')}%0A` +
+                            `*Selected Add-ons:* ${addOnsText}%0A` +
                             `*Total Amount:* Rs. ${totalBill}%0A` +
                             `*Payment Method:* Payment will be given to delivery boy%0A` +
                             `*PS5 Gaming Slot:* ${gameChallengeText}%0A` +
