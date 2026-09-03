@@ -49,22 +49,22 @@
             top: 0;
             z-index: 1000;
             border-bottom: 2px solid var(--electric-blue);
-            padding: 15px 5%;
+            padding: 10px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .logo {
-            font-size: 1.2rem;
-            font-weight: 800;
-            color: var(--neon-green);
+        .logo-container {
+            display: flex;
+            align-items: center;
             text-decoration: none;
-            letter-spacing: 1px;
+            height: 50px;
         }
 
-        .logo span {
-            color: var(--electric-blue);
+        .logo-container svg {
+            height: 100%;
+            width: auto;
         }
 
         .nav-controls {
@@ -76,7 +76,7 @@
         .call-btn {
             background: #25D366;
             color: #000;
-            padding: 5px 10px;
+            padding: 6px 12px;
             border-radius: 20px;
             font-weight: 700;
             font-size: 0.8rem;
@@ -87,7 +87,7 @@
             background: transparent;
             border: 1px solid var(--electric-blue);
             color: var(--electric-blue);
-            padding: 4px 10px;
+            padding: 5px 12px;
             border-radius: 20px;
             cursor: pointer;
             font-size: 0.8rem;
@@ -515,12 +515,47 @@
             margin-top: 50px;
         }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
 
     <nav>
-        <a href="#" class="logo">HUNGER POINTS <span>GAMES</span></a>
+        <a href="#" class="logo-container">
+            <!-- Custom Hunger Points Logo SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 120" height="50">
+              <defs>
+                <filter id="glow-green" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur stdDeviation="3" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+                <filter id="glow-blue" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur stdDeviation="3" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+              <g transform="translate(10, 10)">
+                <path d="M 25,15 Q 45,8 65,15 Q 85,22 80,50 Q 72,70 60,67 Q 45,55 45,55 Q 45,55 30,55 Q 18,70 10,50 Q 5,22 25,15 Z" 
+                      fill="#1E1E24" stroke="#00E5FF" stroke-width="2.5" filter="url(#glow-blue)" />
+                <path d="M 22,30 H 30 V 22 H 34 V 30 H 42 V 34 H 34 V 42 H 30 V 34 H 22 Z" fill="#39FF14" filter="url(#glow-green)" />
+                <circle cx="60" cy="26" r="3" fill="#39FF14" />
+                <circle cx="67" cy="32" r="3" fill="#00E5FF" />
+                <circle cx="53" cy="32" r="3" fill="#00E5FF" />
+                <circle cx="60" cy="38" r="3" fill="#39FF14" />
+                <path d="M 25,58 L 65,80 M 65,58 L 25,80" stroke="#39FF14" stroke-width="2.5" stroke-linecap="round" filter="url(#glow-green)" />
+              </g>
+              <text x="110" y="55" font-family="'Segoe UI', Roboto, sans-serif" font-size="30" font-weight="900" fill="#39FF14" letter-spacing="1" filter="url(#glow-green)">
+                HUNGER<tspan fill="#00E5FF" filter="url(#glow-blue)">POINTS</tspan>
+              </text>
+              <text x="112" y="80" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" fill="#F4F6F9" letter-spacing="3">
+                GAMES &amp; FOOD
+              </text>
+            </svg>
+        </a>
         <div class="nav-controls">
             <a href="tel:916200892286" class="call-btn">📞 Call Stall</a>
             <button class="theme-btn" onclick="toggleTheme()">☀️ Light/Dark</button>
@@ -544,6 +579,7 @@
 
     <div class="container">
 
+        <!-- Spin Wheel Box -->
         <div class="spin-box">
             <h3 style="color:var(--neon-green);">🎰 LUCKY SPIN (MAX 5 SPINS)</h3>
             <p style="font-size:0.85rem; color:var(--text-gray);">Spin to win extra perks (Max ₹20 cash back, free syrup, or +2 mins PS5 play)!</p>
@@ -688,6 +724,7 @@
         </div>
     </div>
 
+    <!-- Sticky Bottom Cart -->
     <div class="sticky-bar">
         <div class="bar-info">
             <div class="bar-total" id="bar-total-text">Total: ₹0</div>
@@ -698,16 +735,7 @@
         </div>
     </div>
 
-    <div class="modal" id="receiptModal">
-        <div class="modal-content">
-            <span class="modal-close" onclick="closeReceiptModal()">&times;</span>
-            <h3 style="color: var(--neon-green); margin-bottom: 10px;">🧾 DIGITAL RECEIPT & TOKEN</h3>
-            <div id="receipt-details" style="font-size:0.85rem; text-align:left; margin-bottom:15px; color:var(--text-light);"></div>
-            <div id="qrcode-container" style="display:flex; justify-content:center; margin-bottom:15px;"></div>
-            <p style="font-size:0.75rem; color:var(--text-gray);">Show this digital ticket to the delivery boy or Champ Abeer at the PS5 stall!</p>
-        </div>
-    </div>
-
+    <!-- Modal Rules -->
     <div class="modal" id="rulesModal">
         <div class="modal-content">
             <span class="modal-close" onclick="closeRulesModal()">&times;</span>
@@ -961,28 +989,6 @@
 
         function openRulesModal() { document.getElementById('rulesModal').style.display = 'flex'; }
         function closeRulesModal() { document.getElementById('rulesModal').style.display = 'none'; }
-        function closeReceiptModal() { document.getElementById('receiptModal').style.display = 'none'; }
-
-        function showDigitalReceipt(token, name, items, total, ps5Token) {
-            const details = `
-                <strong>Token:</strong> #${token}<br>
-                <strong>Name:</strong> ${name}<br>
-                <strong>Items:</strong> ${items}<br>
-                <strong>PS5 Slot:</strong> ${ps5Token}<br>
-                <strong>Total Amount:</strong> ₹${total}
-            `;
-            document.getElementById('receipt-details').innerHTML = details;
-            
-            const qrContainer = document.getElementById('qrcode-container');
-            qrContainer.innerHTML = '';
-            new QRCode(qrContainer, {
-                text: `HUNGERPOINTS-TOKEN-${token}-${name}`,
-                width: 128,
-                height: 128
-            });
-
-            document.getElementById('receiptModal').style.display = 'flex';
-        }
 
         function sendWhatsAppOrder() {
             const name = document.getElementById('cust-name').value.trim();
@@ -1033,8 +1039,6 @@
             });
             localStorage.setItem('hp_orders', JSON.stringify(savedOrders));
             loadOrders();
-
-            showDigitalReceipt(numericToken, name, itemDetails.join(', '), totalBill, ps5TokenNumber);
 
             let message = `*NEW ORDER - HUNGER POINTS GAMES AND FOOD*%0A%0A` +
                             `*Food Token Number:* ${numericToken}%0A` +
