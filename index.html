@@ -6,25 +6,27 @@
     <title>Hunger Points Games and Food | Lovedale ke Dhurandar</title>
     <style>
         :root {
-            --bg-dark: #121216;
-            --card-bg: #1E1E24;
-            --neon-green: #39FF14;
-            --electric-blue: #00E5FF;
-            --text-light: #F4F6F9;
-            --text-gray: #A0A0AA;
-            --accent-gold: #D4A017;
-            --input-bg: #121216;
+            --bg-dark: #0D0E15;
+            --card-bg: #181922;
+            --neon-green: #00FF66;
+            --electric-blue: #00F0FF;
+            --vibrant-orange: #FFB703;
+            --coral-red: #FF3366;
+            --text-light: #FFFFFF;
+            --text-gray: #A0A5B5;
+            --input-bg: #10111A;
         }
 
         body.light-theme {
-            --bg-dark: #F0F2F5;
+            --bg-dark: #F4F6FB;
             --card-bg: #FFFFFF;
-            --neon-green: #00A86B;
-            --electric-blue: #0077FF;
-            --text-light: #1A1A1A;
-            --text-gray: #666666;
-            --accent-gold: #D48800;
-            --input-bg: #E4E6EB;
+            --neon-green: #00B348;
+            --electric-blue: #0066FF;
+            --vibrant-orange: #E67E00;
+            --coral-red: #D91244;
+            --text-light: #12131A;
+            --text-gray: #5A6072;
+            --input-bg: #EAEFF8;
         }
 
         * {
@@ -43,12 +45,12 @@
         }
 
         nav {
-            background: rgba(30, 30, 36, 0.95);
+            background: rgba(24, 25, 34, 0.95);
             backdrop-filter: blur(10px);
             position: sticky;
             top: 0;
             z-index: 1000;
-            border-bottom: 2px solid var(--electric-blue);
+            border-bottom: 3px solid var(--vibrant-orange);
             padding: 10px 5%;
             display: flex;
             justify-content: space-between;
@@ -74,79 +76,79 @@
         }
 
         .call-btn {
-            background: #25D366;
+            background: var(--neon-green);
             color: #000;
-            padding: 6px 12px;
+            padding: 8px 14px;
             border-radius: 20px;
-            font-weight: 700;
-            font-size: 0.8rem;
+            font-weight: 800;
+            font-size: 0.85rem;
             text-decoration: none;
+            box-shadow: 0 0 10px rgba(0, 255, 102, 0.4);
         }
 
         .theme-btn {
             background: transparent;
-            border: 1px solid var(--electric-blue);
+            border: 2px solid var(--electric-blue);
             color: var(--electric-blue);
-            padding: 5px 12px;
+            padding: 6px 12px;
             border-radius: 20px;
             cursor: pointer;
             font-size: 0.8rem;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .hero {
-            padding: 30px 5% 20px;
+            padding: 35px 5% 25px;
             text-align: center;
-            background: radial-gradient(circle at center, rgba(0, 229, 255, 0.1) 0%, rgba(18, 18, 22, 1) 70%);
+            background: radial-gradient(circle at center, rgba(255, 183, 3, 0.15) 0%, rgba(13, 14, 21, 1) 75%);
         }
 
         .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 5px;
+            font-size: 2.6rem;
+            margin-bottom: 6px;
             color: var(--text-light);
+            font-weight: 900;
         }
 
         .hero h1 span {
-            color: var(--neon-green);
+            color: var(--vibrant-orange);
+            text-shadow: 0 0 12px rgba(255, 183, 3, 0.5);
         }
 
-        .timer-banner {
-            background: linear-gradient(90deg, #101014, #1E1E24);
-            border: 1px solid var(--electric-blue);
-            border-radius: 8px;
-            padding: 8px 15px;
-            display: inline-block;
-            margin-bottom: 15px;
-            font-weight: bold;
+        .hero p {
             color: var(--electric-blue);
-            font-size: 0.9rem;
+            font-weight: 600;
+            font-size: 1.05rem;
         }
 
         .perk-box {
             display: inline-block;
-            background: linear-gradient(135deg, var(--card-bg), #2A2A35);
-            border: 2px solid var(--neon-green);
-            padding: 15px 25px;
-            border-radius: 12px;
-            max-width: 500px;
+            background: linear-gradient(135deg, var(--card-bg), #222433);
+            border: 2px solid var(--coral-red);
+            padding: 16px 26px;
+            border-radius: 14px;
+            max-width: 520px;
+            margin-top: 15px;
+            box-shadow: 0 4px 20px rgba(255, 51, 102, 0.25);
         }
 
         .perk-box h3 {
-            color: var(--electric-blue);
-            font-size: 1.1rem;
+            color: var(--coral-red);
+            font-size: 1.2rem;
             margin-bottom: 5px;
+            font-weight: 800;
         }
 
         .rules-btn {
             margin-top: 10px;
             background: transparent;
-            border: 1px solid var(--electric-blue);
+            border: 1.5px solid var(--electric-blue);
             color: var(--electric-blue);
-            padding: 5px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
             cursor: pointer;
             font-size: 0.8rem;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .container {
@@ -157,13 +159,14 @@
 
         .section-title {
             text-align: center;
-            font-size: 1.8rem;
+            font-size: 1.9rem;
             margin-bottom: 25px;
             color: var(--text-light);
+            font-weight: 900;
         }
 
         .section-title span {
-            color: var(--electric-blue);
+            color: var(--neon-green);
         }
 
         .menu-grid {
@@ -175,13 +178,14 @@
 
         .menu-card {
             background: var(--card-bg);
-            border-radius: 12px;
+            border-radius: 14px;
             padding: 20px;
-            border: 1px solid #2C2C35;
+            border: 2px solid #282A3A;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             position: relative;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
         .stock-badge {
@@ -189,24 +193,25 @@
             top: 12px;
             right: 12px;
             font-size: 0.7rem;
-            padding: 3px 8px;
-            border-radius: 10px;
-            background: rgba(255,255,255,0.08);
+            padding: 4px 10px;
+            border-radius: 12px;
+            background: rgba(0, 255, 102, 0.15);
             color: var(--neon-green);
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .menu-card h3 {
-            color: var(--electric-blue);
-            font-size: 1.2rem;
+            color: var(--vibrant-orange);
+            font-size: 1.25rem;
             margin-bottom: 5px;
             padding-right: 60px;
+            font-weight: 800;
         }
 
         .price-tag {
             color: var(--neon-green);
-            font-weight: bold;
-            font-size: 1.1rem;
+            font-weight: 900;
+            font-size: 1.2rem;
             margin-bottom: 8px;
         }
 
@@ -225,12 +230,12 @@
         }
 
         .qty-btn {
-            background: #2A2A35;
+            background: #232536;
             color: #FFF;
             border: 1px solid var(--electric-blue);
-            width: 32px;
-            height: 32px;
-            border-radius: 6px;
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
             font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
@@ -238,16 +243,17 @@
 
         .quick-add-btn {
             background: var(--input-bg);
-            color: var(--electric-blue);
-            border: 1px solid #333;
-            padding: 4px 8px;
+            color: var(--vibrant-orange);
+            border: 1px solid var(--vibrant-orange);
+            padding: 5px 10px;
             border-radius: 6px;
             font-size: 0.75rem;
+            font-weight: 700;
             cursor: pointer;
         }
 
         .qty-val {
-            font-weight: bold;
+            font-weight: 800;
             font-size: 1.1rem;
             min-width: 20px;
             text-align: center;
@@ -271,18 +277,18 @@
         }
 
         .flavor-chip.active {
-            border-color: var(--neon-green);
-            color: #000;
-            background: var(--neon-green);
+            border-color: var(--coral-red);
+            color: #FFF;
+            background: var(--coral-red);
             font-weight: bold;
         }
 
         .custom-options {
             background: var(--input-bg);
-            padding: 12px;
-            border-radius: 8px;
+            padding: 14px;
+            border-radius: 10px;
             margin-top: 10px;
-            border: 1px dashed var(--electric-blue);
+            border: 1.5px dashed var(--vibrant-orange);
         }
 
         .custom-options label {
@@ -290,37 +296,44 @@
             margin-right: 15px;
             font-size: 0.85rem;
             cursor: pointer;
+            font-weight: 600;
         }
 
         .order-form {
             background: var(--card-bg);
-            padding: 25px;
-            border-radius: 12px;
-            border: 1px solid #2C2C35;
-            max-width: 600px;
+            padding: 28px;
+            border-radius: 14px;
+            border: 2px solid var(--electric-blue);
+            max-width: 620px;
             margin: 0 auto 40px;
+            box-shadow: 0 4px 20px rgba(0, 240, 255, 0.15);
         }
 
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 16px;
         }
 
         .form-group label {
             display: block;
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 6px;
             color: var(--text-light);
             font-size: 0.9rem;
         }
 
-        .form-group input {
+        .form-group input, .form-group select {
             width: 100%;
-            padding: 10px 12px;
+            padding: 11px 13px;
             background: var(--input-bg);
-            border: 1px solid #333;
-            border-radius: 6px;
+            border: 1.5px solid #33394D;
+            border-radius: 8px;
             color: var(--text-light);
             font-size: 0.95rem;
+            outline: none;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--electric-blue);
         }
 
         .promo-group {
@@ -329,89 +342,89 @@
         }
 
         .promo-btn {
-            background: var(--electric-blue);
+            background: var(--vibrant-orange);
             color: #000;
             border: none;
-            padding: 0 15px;
-            border-radius: 6px;
-            font-weight: bold;
+            padding: 0 16px;
+            border-radius: 8px;
+            font-weight: 800;
             cursor: pointer;
         }
 
         .preview-box {
             background: var(--input-bg);
-            border: 1px solid #333;
-            padding: 12px;
+            border: 1px solid #33394D;
+            padding: 14px;
             border-radius: 8px;
-            font-size: 0.8rem;
+            font-size: 0.82rem;
             color: var(--text-gray);
-            margin-bottom: 15px;
+            margin-bottom: 16px;
             white-space: pre-wrap;
         }
 
         .checkout-btn {
             width: 100%;
-            background: #25D366;
+            background: var(--neon-green);
             color: #000;
             border: none;
-            padding: 14px;
-            border-radius: 8px;
-            font-weight: 800;
-            font-size: 1.05rem;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 900;
+            font-size: 1.1rem;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            box-shadow: 0 0 15px rgba(0, 255, 102, 0.4);
         }
 
         .spin-box {
             background: var(--card-bg);
-            border: 2px solid var(--neon-green);
-            border-radius: 12px;
-            padding: 20px;
+            border: 2px solid var(--vibrant-orange);
+            border-radius: 14px;
+            padding: 22px;
             text-align: center;
             margin-bottom: 40px;
+            box-shadow: 0 4px 18px rgba(255, 183, 3, 0.2);
         }
 
         .spin-btn {
-            background: var(--neon-green);
+            background: var(--vibrant-orange);
             color: #000;
             border: none;
-            padding: 10px 25px;
+            padding: 12px 28px;
             font-size: 1rem;
-            font-weight: 800;
-            border-radius: 20px;
+            font-weight: 900;
+            border-radius: 25px;
             cursor: pointer;
             margin-top: 10px;
+            box-shadow: 0 0 12px rgba(255, 183, 3, 0.4);
         }
 
         .spin-btn:disabled {
             background: #444;
             color: #888;
             cursor: not-allowed;
+            box-shadow: none;
         }
 
         .orders-display {
             background: var(--card-bg);
-            border-radius: 12px;
+            border-radius: 14px;
             padding: 25px;
-            border: 1px solid var(--electric-blue);
-            max-width: 900px;
+            border: 2px solid var(--electric-blue);
+            max-width: 950px;
             margin: 0 auto;
         }
 
         .status-pill {
-            padding: 4px 8px;
+            padding: 4px 10px;
             border-radius: 12px;
             font-size: 0.75rem;
-            font-weight: 700;
+            font-weight: 800;
             display: inline-block;
         }
-        .status-received { background: #333; color: var(--electric-blue); }
-        .status-preparing { background: #5c4300; color: #ffca28; }
-        .status-delivering { background: #1b4332; color: var(--neon-green); }
-        .status-completed { background: #1d2d50; color: #8ab4f8; }
+        .status-received { background: #2A2D3D; color: var(--electric-blue); }
+        .status-preparing { background: #5C4300; color: #FFD56B; }
+        .status-delivering { background: #004D25; color: var(--neon-green); }
+        .status-completed { background: #1D2D50; color: #8AB4F8; }
 
         .orders-table {
             width: 100%;
@@ -420,22 +433,23 @@
         }
 
         .orders-table th, .orders-table td {
-            padding: 10px;
+            padding: 11px;
             text-align: left;
-            border-bottom: 1px solid #2C2C35;
+            border-bottom: 1px solid #2C2F42;
             font-size: 0.85rem;
         }
 
         .orders-table th {
-            color: var(--electric-blue);
+            color: var(--vibrant-orange);
+            font-weight: 800;
         }
 
         .search-box {
             width: 100%;
-            padding: 8px 12px;
+            padding: 10px 14px;
             background: var(--input-bg);
-            border: 1px solid #333;
-            border-radius: 6px;
+            border: 1px solid #33394D;
+            border-radius: 8px;
             color: var(--text-light);
             margin-top: 10px;
             font-size: 0.85rem;
@@ -447,8 +461,8 @@
             left: 0;
             right: 0;
             background: var(--card-bg);
-            border-top: 2px solid var(--neon-green);
-            padding: 12px 5%;
+            border-top: 3px solid var(--neon-green);
+            padding: 14px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -457,19 +471,19 @@
 
         .bar-total {
             color: var(--neon-green);
-            font-weight: 800;
-            font-size: 1.1rem;
+            font-weight: 900;
+            font-size: 1.2rem;
         }
 
         .clear-btn {
             background: transparent;
-            border: 1px solid #ff4d4d;
-            color: #ff4d4d;
-            padding: 6px 12px;
-            border-radius: 6px;
+            border: 1.5px solid var(--coral-red);
+            color: var(--coral-red);
+            padding: 6px 14px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 0.8rem;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .modal {
@@ -480,15 +494,15 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.8);
+            background-color: rgba(0,0,0,0.85);
             align-items: center;
             justify-content: center;
         }
 
         .modal-content {
             background: var(--card-bg);
-            border: 2px solid var(--electric-blue);
-            border-radius: 12px;
+            border: 2px solid var(--coral-red);
+            border-radius: 14px;
             padding: 25px;
             max-width: 450px;
             width: 90%;
@@ -506,10 +520,10 @@
         }
 
         footer {
-            background: #0A0A0D;
+            background: #08090D;
             text-align: center;
-            padding: 20px 5%;
-            border-top: 1px solid #222;
+            padding: 22px 5%;
+            border-top: 1px solid #1C1E2B;
             color: var(--text-gray);
             font-size: 0.85rem;
             margin-top: 50px;
@@ -520,7 +534,6 @@
 
     <nav>
         <a href="#" class="logo-container">
-            <!-- Custom Hunger Points Logo SVG -->
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 120" height="50">
               <defs>
                 <filter id="glow-green" x="-20%" y="-20%" width="140%" height="140%">
@@ -540,18 +553,18 @@
               </defs>
               <g transform="translate(10, 10)">
                 <path d="M 25,15 Q 45,8 65,15 Q 85,22 80,50 Q 72,70 60,67 Q 45,55 45,55 Q 45,55 30,55 Q 18,70 10,50 Q 5,22 25,15 Z" 
-                      fill="#1E1E24" stroke="#00E5FF" stroke-width="2.5" filter="url(#glow-blue)" />
-                <path d="M 22,30 H 30 V 22 H 34 V 30 H 42 V 34 H 34 V 42 H 30 V 34 H 22 Z" fill="#39FF14" filter="url(#glow-green)" />
-                <circle cx="60" cy="26" r="3" fill="#39FF14" />
-                <circle cx="67" cy="32" r="3" fill="#00E5FF" />
-                <circle cx="53" cy="32" r="3" fill="#00E5FF" />
-                <circle cx="60" cy="38" r="3" fill="#39FF14" />
-                <path d="M 25,58 L 65,80 M 65,58 L 25,80" stroke="#39FF14" stroke-width="2.5" stroke-linecap="round" filter="url(#glow-green)" />
+                      fill="#181922" stroke="#00F0FF" stroke-width="2.5" filter="url(#glow-blue)" />
+                <path d="M 22,30 H 30 V 22 H 34 V 30 H 42 V 34 H 34 V 42 H 30 V 34 H 22 Z" fill="#00FF66" filter="url(#glow-green)" />
+                <circle cx="60" cy="26" r="3" fill="#00FF66" />
+                <circle cx="67" cy="32" r="3" fill="#00F0FF" />
+                <circle cx="53" cy="32" r="3" fill="#00F0FF" />
+                <circle cx="60" cy="38" r="3" fill="#00FF66" />
+                <path d="M 25,58 L 65,80 M 65,58 L 25,80" stroke="#FF3366" stroke-width="2.5" stroke-linecap="round" />
               </g>
-              <text x="110" y="55" font-family="'Segoe UI', Roboto, sans-serif" font-size="30" font-weight="900" fill="#39FF14" letter-spacing="1" filter="url(#glow-green)">
-                HUNGER<tspan fill="#00E5FF" filter="url(#glow-blue)">POINTS</tspan>
+              <text x="110" y="55" font-family="'Segoe UI', Roboto, sans-serif" font-size="30" font-weight="900" fill="#00FF66" letter-spacing="1" filter="url(#glow-green)">
+                HUNGER<tspan fill="#FFB703">POINTS</tspan>
               </text>
-              <text x="112" y="80" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" fill="#F4F6F9" letter-spacing="3">
+              <text x="112" y="80" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" fill="#00F0FF" letter-spacing="3">
                 GAMES &amp; FOOD
               </text>
             </svg>
@@ -563,27 +576,23 @@
     </nav>
 
     <header class="hero">
-        <div class="timer-banner">
-            ⏳ Next Mortal Kombat Slot Starts In: <span id="slot-countdown">14:59</span>
-        </div>
         <h1>Hunger Points <span>Games & Food</span></h1>
         <p>Order fresh sugar-free treats & book Mortal Kombat PS5 gaming slots!</p>
         
         <div class="perk-box">
             <h3>🎮 PS5 MORTAL KOMBAT ZONE</h3>
             <p><strong>₹120</strong> for <strong>15 MINUTES Gameplay!</strong></p>
-            <p style="color: var(--accent-gold); margin-top: 4px; font-size: 0.95rem; font-weight: bold;">🏆 Beat Stall Champ Abeer in Mortal Kombat to Win ₹50 Cash Back!</p>
+            <p style="color: var(--vibrant-orange); margin-top: 4px; font-size: 0.95rem; font-weight: bold;">🏆 Beat Stall Champ Abeer in Mortal Kombat to Win ₹50 Cash Back!</p>
             <button class="rules-btn" onclick="openRulesModal()">📖 Read Stall & Game Rules</button>
         </div>
     </header>
 
     <div class="container">
 
-        <!-- Spin Wheel Box -->
         <div class="spin-box">
-            <h3 style="color:var(--neon-green);">🎰 LUCKY SPIN (MAX 5 SPINS)</h3>
+            <h3 style="color:var(--vibrant-orange);">🎰 LUCKY SPIN (MAX 5 SPINS)</h3>
             <p style="font-size:0.85rem; color:var(--text-gray);">Spin to win extra perks (Max ₹20 cash back, free syrup, or +2 mins PS5 play)!</p>
-            <div id="spin-result" style="font-size:1.1rem; font-weight:bold; color:var(--accent-gold); margin:10px 0;">Spins Left: <span id="spins-count">5</span></div>
+            <div id="spin-result" style="font-size:1.1rem; font-weight:bold; color:var(--neon-green); margin:10px 0;">Spins Left: <span id="spins-count">5</span></div>
             <button id="spin-trigger-btn" class="spin-btn" onclick="spinWheel()">SPIN NOW!</button>
         </div>
 
@@ -622,7 +631,7 @@
             </div>
 
             <div class="menu-card">
-                <span class="stock-badge" style="color:var(--accent-gold);">🔥 Selling Fast</span>
+                <span class="stock-badge" style="color:var(--coral-red); background:rgba(255,51,102,0.15);">🔥 Selling Fast</span>
                 <div>
                     <h3>Organic Honey Ice Cream</h3>
                     <div class="price-tag">₹60</div>
@@ -645,7 +654,7 @@
             </div>
 
             <div class="menu-card">
-                <span class="stock-badge" style="color:var(--electric-blue);">🎮 Limited Slots</span>
+                <span class="stock-badge" style="color:var(--electric-blue); background:rgba(0,240,255,0.15);">🎮 Limited Slots</span>
                 <div>
                     <h3>🎮 PS5 Mortal Kombat Ticket (15 Mins)</h3>
                     <div class="price-tag">₹120</div>
@@ -660,7 +669,7 @@
         </div>
 
         <div class="order-form">
-            <h3 style="color: var(--neon-green); margin-bottom: 15px; text-align: center;">Delivery & Customisation</h3>
+            <h3 style="color: var(--vibrant-orange); margin-bottom: 15px; text-align: center;">Delivery & Verification Details</h3>
 
             <div class="custom-options" style="margin-bottom: 20px;">
                 <strong style="color:var(--neon-green); display:block; margin-bottom:6px;">🍯 Optional Syrups & Add-Ons:</strong>
@@ -669,12 +678,30 @@
             </div>
 
             <div class="form-group">
-                <label for="cust-name">Customer Name</label>
+                <label for="cust-name">Customer Full Name *</label>
                 <input type="text" id="cust-name" placeholder="Enter full name" onkeyup="saveFormDetails(); updatePreview();">
             </div>
 
             <div class="form-group">
-                <label for="cust-loc">Delivery Location (Classroom / Spot)</label>
+                <label for="cust-state">State / Territory (Anti-Fraud Verification) *</label>
+                <select id="cust-state" onchange="saveFormDetails(); updatePreview();">
+                    <option value="">-- Select Your State --</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Haryana">Haryana</option>
+                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                    <option value="Punjab">Punjab</option>
+                    <option value="Rajasthan">Rajasthan</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Tamil Nadu">Tamil Nadu</option>
+                    <option value="West Bengal">West Bengal</option>
+                    <option value="Gujarat">Gujarat</option>
+                    <option value="Other">Other State</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="cust-loc">Delivery Location (Classroom / Spot) *</label>
                 <input type="text" id="cust-loc" placeholder="e.g. Class 9B, Library, Playground..." onkeyup="saveFormDetails(); updatePreview();">
             </div>
 
@@ -693,59 +720,59 @@
             </div>
 
             <strong style="color:var(--electric-blue); font-size:0.8rem; display:block; margin-bottom:5px;">📱 Live Message Preview:</strong>
-            <div class="preview-box" id="msg-preview">Select items to preview WhatsApp order message...</div>
+            <div class="preview-box" id="msg-preview">Select items & fill details to preview WhatsApp order message...</div>
 
             <button class="checkout-btn" onclick="sendWhatsAppOrder()">SEND ORDER VIA WHATSAPP</button>
         </div>
 
         <div class="orders-display">
-            <h3 style="color: var(--electric-blue); text-align: center;">📋 Live Orders & PS5 Queue Status</h3>
+            <h3 style="color: var(--electric-blue); text-align: center;">📋 Live Orders & Verification Status</h3>
             <div style="text-align:center; font-size:0.85rem; color:var(--text-gray); margin-top:4px;" id="ps5-wait-indicator">
                 Estimated PS5 Queue Wait Time: <strong>0 Mins</strong>
             </div>
 
-            <input type="text" id="order-search" class="search-box" placeholder="🔍 Search token number or name..." onkeyup="filterOrders()">
+            <input type="text" id="order-search" class="search-box" placeholder="🔍 Search token number, state, or name..." onkeyup="filterOrders()">
 
             <table class="orders-table">
                 <thead>
                     <tr>
                         <th>Token</th>
                         <th>Name</th>
-                        <th>Items & Flavours</th>
+                        <th>State</th>
+                        <th>Items</th>
                         <th>PS5 Slot</th>
-                        <th>Live Status</th>
+                        <th>Status</th>
                         <th>Total</th>
                     </tr>
                 </thead>
                 <tbody id="orders-list">
-                    <tr><td colspan="6" style="text-align:center; color: var(--text-gray);">No orders placed on this device yet.</td></tr>
+                    <tr><td colspan="7" style="text-align:center; color: var(--text-gray);">No verified orders placed on this device yet.</td></tr>
                 </tbody>
             </table>
         </div>
     </div>
 
-    <!-- Sticky Bottom Cart -->
     <div class="sticky-bar">
         <div class="bar-info">
             <div class="bar-total" id="bar-total-text">Total: ₹0</div>
             <div class="bar-items" id="bar-items-text">0 items selected</div>
         </div>
         <div class="bar-actions">
-            <button class="clear-btn" onclick="clearCart()">Reset</button>
+            <button class="clear-btn" onclick="clearCart()">Reset Cart</button>
         </div>
     </div>
 
-    <!-- Modal Rules -->
     <div class="modal" id="rulesModal">
         <div class="modal-content">
             <span class="modal-close" onclick="closeRulesModal()">&times;</span>
-            <h3 style="color: var(--neon-green); margin-bottom: 10px;">🎮 Rules & Information</h3>
+            <h3 style="color: var(--vibrant-orange); margin-bottom: 10px;">🎮 Rules & Anti-Fraud Policy</h3>
             <p style="font-size: 0.85rem; text-align: left; color: var(--text-light); line-height: 1.5;">
+                • <strong>Fraud Prevention:</strong> Valid State selection and location details are required for order verification.<br>
                 • <strong>PS5 Game:</strong> Exclusive Mortal Kombat play!<br>
                 • <strong>Slot Fee:</strong> ₹120 flat per 15-minute time slot.<br>
-                • <strong>Queue System:</strong> PS5 Slot Tokens are assigned turn-by-turn based on order time.<br>
-                • <strong>Champ Abeer Challenge:</strong> Fight against stall champ Abeer in Mortal Kombat. Defeat him during your slot to claim <strong>₹50 cash back</strong> on the spot!<br>
-                • <strong>Delivery:</strong> Delivery boys deliver food items straight to your specified spot/classroom.
+                • <strong>Queue System:</strong> PS5 Tokens are assigned turn-by-turn.<br>
+                • <strong>Champ Challenge:</strong> Defeat stall champ Abeer during your slot to claim <strong>₹50 cash back</strong> on the spot!<br>
+                • <strong>Delivery:</strong> Delivery boys deliver food items directly to your spot.
             </p>
         </div>
     </div>
@@ -782,17 +809,6 @@
         function toggleTheme() {
             document.body.classList.toggle('light-theme');
             playBeep(600, 0.05);
-        }
-
-        function startTimer() {
-            let duration = 14 * 60 + 59;
-            const el = document.getElementById('slot-countdown');
-            setInterval(() => {
-                let mins = Math.floor(duration / 60);
-                let secs = duration % 60;
-                el.innerText = `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
-                if (--duration < 0) duration = 15 * 60;
-            }, 1000);
         }
 
         function spinWheel() {
@@ -857,7 +873,7 @@
                 msgEl.innerText = '✅ ₹10 Discount Applied!';
                 playBeep(880, 0.1);
             } else {
-                msgEl.style.color = '#ff4d4d';
+                msgEl.style.color = 'var(--coral-red)';
                 msgEl.innerText = '❌ Invalid Code';
                 playBeep(200, 0.15);
             }
@@ -909,18 +925,20 @@
 
         function saveFormDetails() {
             localStorage.setItem('hp_name', document.getElementById('cust-name').value);
+            localStorage.setItem('hp_state', document.getElementById('cust-state').value);
             localStorage.setItem('hp_loc', document.getElementById('cust-loc').value);
         }
 
         function loadSavedForm() {
             if (localStorage.getItem('hp_name')) document.getElementById('cust-name').value = localStorage.getItem('hp_name');
+            if (localStorage.getItem('hp_state')) document.getElementById('cust-state').value = localStorage.getItem('hp_state');
             if (localStorage.getItem('hp_loc')) document.getElementById('cust-loc').value = localStorage.getItem('hp_loc');
         }
 
         function getCalculatedStatus(timeCreated) {
             const diffMins = Math.floor((Date.now() - timeCreated) / (1000 * 60));
             if (diffMins < 2) return { text: 'Received', class: 'status-received' };
-            if (diffMins < 6) return { text: 'Getting Prepared 🍳', class: 'status-preparing' };
+            if (diffMins < 6) return { text: 'Preparing 🍳', class: 'status-preparing' };
             if (diffMins < 12) return { text: 'Out for Delivery 🚀', class: 'status-delivering' };
             return { text: 'Completed ✅', class: 'status-completed' };
         }
@@ -935,9 +953,10 @@
                     if (o.ps5Token !== "N/A") totalPs5Slots++;
                     const st = getCalculatedStatus(o.timestamp || Date.now());
                     return `
-                    <tr class="order-row" data-search="${o.token} ${o.name.toLowerCase()}">
+                    <tr class="order-row" data-search="${o.token} ${o.name.toLowerCase()} ${(o.state || '').toLowerCase()}">
                         <td><strong>#${o.token}</strong></td>
                         <td>${o.name}</td>
+                        <td><span style="color:var(--vibrant-orange); font-weight:700;">${o.state || 'N/A'}</span></td>
                         <td>${o.items}</td>
                         <td><span style="color:var(--neon-green);">${o.ps5Token}</span></td>
                         <td><span class="status-pill ${st.class}">${st.text}</span></td>
@@ -960,6 +979,7 @@
 
         function updatePreview() {
             const name = document.getElementById('cust-name').value.trim() || '[Your Name]';
+            const state = document.getElementById('cust-state').value || '[Your State]';
             const location = document.getElementById('cust-loc').value.trim() || '[Your Location]';
             const note = document.getElementById('cust-note').value.trim();
 
@@ -975,8 +995,9 @@
 
             const totalBill = calculateTotal();
 
-            let previewText = `*NEW ORDER - HUNGER POINTS GAMES AND FOOD*\n`;
+            let previewText = `*VERIFIED ORDER - HUNGER POINTS GAMES AND FOOD*\n`;
             previewText += `*Customer Name:* ${name}\n`;
+            previewText += `*State:* ${state}\n`;
             previewText += `*Location:* ${location}\n`;
             previewText += `*Items:* ${itemDetails.length > 0 ? itemDetails.join(', ') : 'None selected'}\n`;
             previewText += `*Add-ons:* ${addOns.length > 0 ? addOns.join(', ') : 'None'}\n`;
@@ -992,6 +1013,7 @@
 
         function sendWhatsAppOrder() {
             const name = document.getElementById('cust-name').value.trim();
+            const state = document.getElementById('cust-state').value;
             const location = document.getElementById('cust-loc').value.trim();
             const note = document.getElementById('cust-note').value.trim();
             const totalItems = quantities.item1 + quantities.item2 + quantities.item3 + quantities.item4;
@@ -1001,8 +1023,8 @@
                 return;
             }
 
-            if (name === '' || location === '') {
-                alert('Please fill out your name and delivery location!');
+            if (name === '' || state === '' || location === '') {
+                alert('Please enter your Name, State, and Location to verify your order!');
                 return;
             }
 
@@ -1031,6 +1053,7 @@
             savedOrders.unshift({
                 token: numericToken,
                 name: name,
+                state: state,
                 items: itemDetails.join(', '),
                 addons: addOnsText,
                 ps5Token: ps5TokenNumber,
@@ -1040,18 +1063,19 @@
             localStorage.setItem('hp_orders', JSON.stringify(savedOrders));
             loadOrders();
 
-            let message = `*NEW ORDER - HUNGER POINTS GAMES AND FOOD*%0A%0A` +
-                            `*Food Token Number:* ${numericToken}%0A` +
+            let message = `*VERIFIED ORDER - HUNGER POINTS GAMES AND FOOD*%0A%0A` +
+                            `*Order Token:* ${numericToken}%0A` +
                             `*Customer Name:* ${name}%0A` +
+                            `*State:* ${state}%0A` +
                             `*Delivery Location:* ${location}%0A` +
                             `*Items Ordered:* ${itemDetails.join(', ')}%0A` +
                             `*Selected Add-ons:* ${addOnsText}%0A` +
                             (activeSpinReward ? `*Spin Perk Won:* ${encodeURIComponent(activeSpinReward)}%0A` : '') +
                             (note ? `*Special Note:* ${encodeURIComponent(note)}%0A` : '') +
                             `*Total Amount:* Rs. ${totalBill}%0A` +
-                            `*Payment Method:* Payment will be given to delivery boy%0A` +
+                            `*Payment Method:* Payment to delivery boy on spot%0A` +
                             `*PS5 Gaming Slot:* ${gameChallengeText}%0A` +
-                            `*Champ Challenge:* Beat Champ Abeer in Mortal Kombat during your 15-min slot to win Rs. 50!`;
+                            `*Champ Challenge:* Beat Champ Abeer in Mortal Kombat during your slot to win Rs. 50!`;
 
             window.open(`https://wa.me/${stallPhoneNumber}?text=${message}`, '_blank');
         }
@@ -1061,7 +1085,6 @@
             loadOrders();
             calculateTotal();
             updatePreview();
-            startTimer();
             setInterval(loadOrders, 30000);
         };
     </script>
