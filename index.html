@@ -278,7 +278,7 @@
         <div id="owner-dashboard" class="card" style="display: none; border-color: var(--coral-red);">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                 <h2 style="color: var(--coral-red);">⚡ Owner Management Center</h2>
-                <div>Session Timeout: <span id="timer-display" style="color: var(--vibrant-orange); font-weight: bold;">60</span>s</div>
+                <span class="status-pill" style="background: var(--neon-green); color: #000;">Active Session</span>
             </div>
             <h3>📦 Stock Management</h3>
             <div id="owner-stock-list" style="margin-top: 10px;"></div>
@@ -414,8 +414,6 @@
         const prices = { item1: 40, item2: 50, item3: 60, item4: 120, item5: 190 };
         const quantities = { item1: 0, item2: 0, item3: 0, item4: 0, item5: 0 };
         const stallPhoneNumber = "916200892286";
-        let sessionTimer = null;
-        let timeLeft = 60;
 
         let defaultStock = { item1: 20, item2: 15, item3: 10, item4: 8, item5: 5 };
         let currentStock = JSON.parse(localStorage.getItem('hp_stock')) || defaultStock;
@@ -444,27 +442,13 @@
             if (pass === 'serhan__999me_rivals') {
                 document.getElementById('ownerModal').style.display = 'none';
                 document.getElementById('owner-dashboard').style.display = 'block';
-                startOwnerTimer();
                 renderOwnerStockControls();
             } else {
                 document.getElementById('owner-err').innerText = 'Invalid Owner Password';
             }
         }
 
-        function startOwnerTimer() {
-            timeLeft = 60;
-            clearInterval(sessionTimer);
-            sessionTimer = setInterval(() => {
-                timeLeft--;
-                document.getElementById('timer-display').innerText = timeLeft;
-                if (timeLeft <= 0) {
-                    closeOwnerSession();
-                }
-            }, 1000);
-        }
-
         function closeOwnerSession() {
-            clearInterval(sessionTimer);
             document.getElementById('owner-dashboard').style.display = 'none';
             document.getElementById('owner-pass-input').value = '';
             document.getElementById('owner-err').innerText = '';
@@ -503,7 +487,6 @@
                 return;
             }
 
-            // Deduct Stock locally
             for (let item in quantities) {
                 currentStock[item] = Math.max(0, currentStock[item] - quantities[item]);
             }
@@ -518,7 +501,6 @@
 
             const token = Math.floor(1000 + Math.random() * 9000);
 
-            // Save order locally
             const savedOrders = JSON.parse(localStorage.getItem('hp_local_orders') || '[]');
             savedOrders.unshift({ token, name, state, items: itemDetails.join(', '), total: totalBill, status: 'Received' });
             localStorage.setItem('hp_local_orders', JSON.stringify(savedOrders));
