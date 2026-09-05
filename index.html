@@ -45,7 +45,7 @@
             background-color: var(--bg-dark);
             color: var(--text-light);
             line-height: 1.6;
-            padding-bottom: 110px;
+            padding-bottom: 130px;
         }
 
         nav {
@@ -116,6 +116,18 @@
 
         .hero h1 span {
             color: var(--vibrant-orange);
+        }
+
+        .developer-badge {
+            display: inline-block;
+            background: rgba(0, 240, 255, 0.15);
+            color: var(--electric-blue);
+            border: 1px solid var(--electric-blue);
+            font-weight: 700;
+            font-size: 0.8rem;
+            padding: 2px 10px;
+            border-radius: 12px;
+            margin-top: 6px;
         }
 
         .stall-location-badge {
@@ -432,6 +444,19 @@
             text-align: center;
         }
 
+        footer {
+            text-align: center;
+            padding: 20px 10px;
+            color: var(--text-gray);
+            font-size: 0.88rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 20px;
+        }
+
+        footer strong {
+            color: var(--neon-green);
+        }
+
         .owner-control-row {
             display: flex;
             justify-content: space-between;
@@ -473,6 +498,7 @@
         <div class="hero">
             <h1>Hunger Points <span>Games & Food</span></h1>
             <p style="color: var(--electric-blue); font-weight: 600;">Fresh Treats, Chilled Beverages, Smart Combos & PS5 Mortal Kombat Gaming!</p>
+            <div><span class="developer-badge">⚡ Crafted by Serhan Raj</span></div>
             <div class="stall-location-badge">📍 Stall Location: FOIR</div>
         </div>
 
@@ -604,6 +630,11 @@
                 </table>
             </div>
         </div>
+
+        <footer>
+            <p>Designed & Developed with ❤️ by <strong>Serhan Raj</strong></p>
+            <p style="font-size: 0.75rem; margin-top: 4px;">Hunger Points Stall • FOIR Location</p>
+        </footer>
 
     </div>
 
