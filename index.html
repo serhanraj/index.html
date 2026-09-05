@@ -6,8 +6,8 @@
     <title>Hunger Points | Food, Drinks & PS5 Gaming</title>
     <style>
         :root {
-            --bg-dark: #1A1C23;
-            --card-bg: #242731;
+            --bg-dark: #121318;
+            --card-bg: rgba(36, 39, 49, 0.92);
             --neon-green: #00FF66;
             --electric-blue: #00F0FF;
             --vibrant-orange: #FFB703;
@@ -15,13 +15,13 @@
             --purple-neon: #BF5AF2;
             --text-light: #FFFFFF;
             --text-gray: #B0B7C6;
-            --input-bg: #12141A;
-            --border-color: #34384A;
+            --input-bg: rgba(18, 20, 26, 0.85);
+            --border-color: rgba(255, 255, 255, 0.15);
         }
 
         [data-theme="light"] {
             --bg-dark: #F4F6F9;
-            --card-bg: #FFFFFF;
+            --card-bg: rgba(255, 255, 255, 0.92);
             --neon-green: #00A843;
             --electric-blue: #0077B6;
             --vibrant-orange: #D97706;
@@ -29,7 +29,7 @@
             --purple-neon: #8E24AA;
             --text-light: #0F172A;
             --text-gray: #475569;
-            --input-bg: #E2E8F0;
+            --input-bg: rgba(226, 232, 240, 0.85);
             --border-color: #CBD5E1;
         }
 
@@ -43,6 +43,13 @@
 
         body {
             background-color: var(--bg-dark);
+            /* Food photo background with dark overlay for readability */
+            background-image: linear-gradient(rgba(18, 19, 24, 0.88), rgba(18, 19, 24, 0.88)), 
+                              url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1600&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
             color: var(--text-light);
             line-height: 1.6;
             padding-bottom: 130px;
@@ -50,7 +57,7 @@
 
         nav {
             background: rgba(36, 39, 49, 0.95);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -102,7 +109,8 @@
 
         .hero {
             text-align: center;
-            background: radial-gradient(circle at center, rgba(255, 183, 3, 0.15) 0%, rgba(26, 28, 35, 0.4) 80%);
+            background: radial-gradient(circle at center, rgba(255, 183, 3, 0.2) 0%, rgba(26, 28, 35, 0.75) 85%);
+            backdrop-filter: blur(8px);
             padding: 25px 15px;
             border-radius: 14px;
             margin-bottom: 20px;
@@ -169,7 +177,8 @@
         .analytics-card.left .num { color: var(--coral-red); }
 
         .promo-banner {
-            background: linear-gradient(135deg, rgba(255, 51, 102, 0.2), rgba(0, 240, 255, 0.2));
+            background: linear-gradient(135deg, rgba(255, 51, 102, 0.25), rgba(0, 240, 255, 0.25));
+            backdrop-filter: blur(6px);
             border: 2px dashed var(--neon-green);
             border-radius: 12px;
             padding: 15px;
@@ -194,6 +203,7 @@
             flex: 1;
             padding: 12px 18px;
             background: var(--card-bg);
+            backdrop-filter: blur(8px);
             color: var(--text-gray);
             border: 2px solid var(--border-color);
             border-radius: 12px;
@@ -201,7 +211,7 @@
             font-size: 1rem;
             cursor: pointer;
             text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
         .tab-btn.active {
@@ -216,6 +226,7 @@
             align-items: center;
             justify-content: space-between;
             background: var(--input-bg);
+            backdrop-filter: blur(8px);
             padding: 12px 18px;
             border-radius: 10px;
             border: 1.5px solid var(--electric-blue);
@@ -239,11 +250,12 @@
 
         .card {
             background: var(--card-bg);
+            backdrop-filter: blur(12px);
             border-radius: 14px;
             padding: 20px;
             border: 2px solid var(--border-color);
             margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
         }
 
         .menu-grid {
@@ -477,6 +489,9 @@
             font-size: 0.88rem;
             border-top: 1px solid var(--border-color);
             margin-top: 20px;
+            background: rgba(26, 28, 35, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 12px;
         }
 
         footer strong {
@@ -738,7 +753,6 @@
         let defaultStock = { item1: 20, item2: 15, item3: 10, item4: 8, item5: 5, item8: 15, item9: 20, item10: 10 };
         let currentStock = JSON.parse(localStorage.getItem('hp_stock')) || defaultStock;
 
-        // ANALYTICS TRACKER
         function trackPageVisit() {
             let views = parseInt(localStorage.getItem('hp_site_views') || '0');
             views += 1;
