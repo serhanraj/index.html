@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,6 +15,20 @@
             --text-light: #FFFFFF;
             --text-gray: #A0A5B5;
             --input-bg: #10111A;
+            --border-color: #282A3A;
+        }
+
+        [data-theme="light"] {
+            --bg-dark: #F4F6F9;
+            --card-bg: #FFFFFF;
+            --neon-green: #00A843;
+            --electric-blue: #0077B6;
+            --vibrant-orange: #D97706;
+            --coral-red: #E11D48;
+            --text-light: #0F172A;
+            --text-gray: #475569;
+            --input-bg: #E2E8F0;
+            --border-color: #CBD5E1;
         }
 
         * {
@@ -22,15 +36,17 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background 0.2s, color 0.2s;
         }
 
         body {
             background-color: var(--bg-dark);
             color: var(--text-light);
             line-height: 1.6;
-            padding-bottom: 90px;
+            padding-bottom: 110px;
         }
 
+        /* 12. Sticky Navigation Bar */
         nav {
             background: rgba(24, 25, 34, 0.95);
             backdrop-filter: blur(10px);
@@ -56,47 +72,54 @@
 
         .nav-controls {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             align-items: center;
+        }
+
+        /* 11. Dark/Light Mode Toggle */
+        .theme-toggle, .owner-btn {
+            background: var(--card-bg);
+            color: var(--text-light);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            border: 1.5px solid var(--border-color);
+            cursor: pointer;
         }
 
         .owner-btn {
             background: var(--coral-red);
             color: #FFF;
-            padding: 8px 14px;
-            border-radius: 20px;
-            font-weight: 800;
-            font-size: 0.85rem;
             border: none;
-            cursor: pointer;
         }
 
         .container {
             max-width: 1100px;
             margin: 0 auto;
-            padding: 25px 20px;
+            padding: 20px 15px;
         }
 
         .card {
             background: var(--card-bg);
             border-radius: 14px;
-            padding: 22px;
-            border: 2px solid #282A3A;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            padding: 20px;
+            border: 2px solid var(--border-color);
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         }
 
         .hero {
             text-align: center;
-            background: radial-gradient(circle at center, rgba(255, 183, 3, 0.15) 0%, rgba(13, 14, 21, 1) 75%);
-            padding: 30px 20px;
+            background: radial-gradient(circle at center, rgba(255, 183, 3, 0.15) 0%, rgba(13, 14, 21, 0.2) 80%);
+            padding: 25px 15px;
             border-radius: 14px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             border: 2px solid var(--vibrant-orange);
         }
 
         .hero h1 {
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: 900;
         }
 
@@ -104,33 +127,119 @@
             color: var(--vibrant-orange);
         }
 
+        /* 15. Offline Indicator */
+        #offline-banner {
+            display: none;
+            background: var(--coral-red);
+            color: #FFF;
+            text-align: center;
+            padding: 8px;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+
+        /* 5. Live PS5 Slot Availability Banner */
+        .ps5-status-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--input-bg);
+            padding: 12px 18px;
+            border-radius: 10px;
+            border: 1.5px solid var(--electric-blue);
+            margin-bottom: 20px;
+        }
+
+        .ps5-badge {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--neon-green);
+            margin-right: 6px;
+            box-shadow: 0 0 8px var(--neon-green);
+        }
+
+        .ps5-badge.busy {
+            background: var(--coral-red);
+            box-shadow: 0 0 8px var(--coral-red);
+        }
+
+        /* 3. One-Click Order Bundles */
+        .bundle-bar {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .bundle-chip {
+            background: var(--input-bg);
+            border: 1.5px solid var(--vibrant-orange);
+            color: var(--text-light);
+            padding: 8px 14px;
+            border-radius: 20px;
+            white-space: nowrap;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
         .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 18px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
         }
 
         .menu-card {
             background: var(--input-bg);
             border-radius: 12px;
-            padding: 18px;
-            border: 1.5px solid #282A3A;
+            padding: 15px;
+            border: 1.5px solid var(--border-color);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            position: relative;
+        }
+
+        /* 2. Item Images / Icons */
+        .item-icon {
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        /* 1. Item Highlighters & Badges */
+        .badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--vibrant-orange);
+            color: #000;
+            font-weight: 900;
+            font-size: 0.65rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            text-transform: uppercase;
+        }
+
+        .badge.low-stock {
+            background: var(--coral-red);
+            color: #FFF;
         }
 
         .price-tag {
             color: var(--neon-green);
             font-weight: 900;
-            font-size: 1.15rem;
-            margin-bottom: 6px;
+            font-size: 1.1rem;
+            margin-bottom: 4px;
         }
 
         .stock-tag {
-            font-size: 0.8rem;
-            color: var(--vibrant-orange);
-            font-weight: bold;
+            font-size: 0.78rem;
+            color: var(--text-gray);
+            font-weight: 600;
             margin-bottom: 10px;
         }
 
@@ -142,8 +251,8 @@
         }
 
         .qty-btn {
-            background: #232536;
-            color: #FFF;
+            background: var(--card-bg);
+            color: var(--text-light);
             border: 1px solid var(--electric-blue);
             width: 32px;
             height: 32px;
@@ -175,7 +284,7 @@
             width: 100%;
             padding: 10px 12px;
             background: var(--input-bg);
-            border: 1.5px solid #33394D;
+            border: 1.5px solid var(--border-color);
             border-radius: 8px;
             color: var(--text-light);
             font-size: 0.9rem;
@@ -192,7 +301,34 @@
             font-weight: 900;
             font-size: 1rem;
             cursor: pointer;
-            box-shadow: 0 0 12px rgba(0, 255, 102, 0.4);
+            box-shadow: 0 0 12px rgba(0, 255, 102, 0.3);
+        }
+
+        /* 4. Live Bill Calculator Bar */
+        .live-cart-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(24, 25, 34, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 2px solid var(--neon-green);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .cart-info {
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .cart-info span {
+            color: var(--neon-green);
+            font-size: 1.2rem;
+            font-weight: 900;
         }
 
         .table-responsive {
@@ -203,12 +339,12 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 12px;
-            min-width: 800px;
+            min-width: 750px;
         }
 
         th, td {
             padding: 10px;
-            border-bottom: 1px solid #2C2F42;
+            border-bottom: 1px solid var(--border-color);
             text-align: left;
             font-size: 0.85rem;
         }
@@ -219,8 +355,8 @@
 
         .editable-input {
             background: var(--input-bg);
-            border: 1px solid #33394D;
-            color: #FFF;
+            border: 1px solid var(--border-color);
+            color: var(--text-light);
             padding: 4px 6px;
             border-radius: 4px;
             font-size: 0.82rem;
@@ -228,7 +364,7 @@
         }
 
         .status-select {
-            background: #2A2D3D;
+            background: var(--input-bg);
             color: var(--electric-blue);
             border: none;
             padding: 4px 8px;
@@ -249,7 +385,7 @@
         .btn-delete { background: var(--coral-red); color: #FFF; }
         .btn-save { background: var(--neon-green); color: #000; }
 
-        /* Owner Modal */
+        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -264,7 +400,7 @@
             border: 2px solid var(--vibrant-orange);
             border-radius: 14px;
             padding: 25px;
-            max-width: 400px;
+            max-width: 420px;
             width: 90%;
             text-align: center;
         }
@@ -297,10 +433,13 @@
 </head>
 <body>
 
+    <div id="offline-banner">⚠️ Offline Mode - Orders will sync when online</div>
+
     <nav>
         <div class="logo-text">HUNGER<span>POINTS</span></div>
         <div class="nav-controls">
-            <button class="owner-btn" onclick="openOwnerModal()">👑 Owner Login</button>
+            <button class="theme-toggle" onclick="toggleTheme()">☀️ / 🌙</button>
+            <button class="owner-btn" onclick="openOwnerModal()">👑 Owner</button>
         </div>
     </nav>
 
@@ -308,7 +447,16 @@
 
         <div class="hero">
             <h1>Hunger Points <span>Games & Food</span></h1>
-            <p style="color: var(--electric-blue); font-weight: 600;">Sugar-free treats & PS5 Mortal Kombat Gaming!</p>
+            <p style="color: var(--electric-blue); font-weight: 600;">Sugar-Free Treats & PS5 Mortal Kombat Gaming!</p>
+        </div>
+
+        <!-- 5. PS5 Slot Availability Bar -->
+        <div class="ps5-status-bar">
+            <div>
+                <span class="ps5-badge" id="ps5-indicator"></span>
+                <strong id="ps5-status-text">PS5 Available Now</strong>
+            </div>
+            <span style="font-size: 0.8rem; color: var(--text-gray);" id="ps5-wait-time">No Queue</span>
         </div>
 
         <!-- OWNER PANEL (Hidden by Default) -->
@@ -318,10 +466,17 @@
                 <span style="background: var(--neon-green); color: #000; padding: 3px 8px; border-radius: 10px; font-weight: 800; font-size: 0.75rem;">Active Session</span>
             </div>
             
-            <h3>📦 Stock Management</h3>
-            <div id="owner-stock-list" style="margin-top: 10px;"></div>
+            <h3>📦 Stock & PS5 Slot Settings</h3>
+            <div style="margin-top: 10px; margin-bottom: 15px;">
+                <label style="font-size: 0.85rem; font-weight: bold;">PS5 Status Override:</label>
+                <select id="owner-ps5-toggle" onchange="togglePS5Status(this.value)" class="editable-input" style="width: auto; margin-left: 10px;">
+                    <option value="available">Available Now</option>
+                    <option value="busy">Occupied / Busy</option>
+                </select>
+            </div>
 
-            <!-- MANUAL ORDER ENTRY FOR OWNER -->
+            <div id="owner-stock-list"></div>
+
             <div class="manual-order-box">
                 <h4 style="color: var(--vibrant-orange); margin-bottom: 10px;">➕ Add Manual / Offline Order Record</h4>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px;">
@@ -336,11 +491,22 @@
             <button class="checkout-btn" style="background: var(--vibrant-orange); margin-top: 15px;" onclick="closeOwnerSession()">Exit Owner Mode</button>
         </div>
 
+        <!-- 3. One-Click Order Bundles -->
+        <h3 style="margin-bottom: 10px; font-size: 0.95rem; color: var(--text-gray);">🚀 Quick Order Bundles</h3>
+        <div class="bundle-bar">
+            <button class="bundle-chip" onclick="applyBundle('gamer')">⚡ Gamer Pack (1x Cookie + 1x PS5 Ticket)</button>
+            <button class="bundle-chip" onclick="applyBundle('sweet')">🍪 Sweet Pair (1x Cookie + 1x Muffin)</button>
+            <button class="bundle-chip" onclick="applyBundle('chill')">🍦 Chill Combo (1x Ice Cream + 1x Muffin)</button>
+        </div>
+
         <!-- MENU ITEMS -->
         <div class="card">
             <h2 style="color: var(--vibrant-orange); margin-bottom: 15px;">🛒 Menu & Tickets</h2>
             <div class="menu-grid">
+                
                 <div class="menu-card">
+                    <span class="badge">Healthy</span>
+                    <div class="item-icon">🍪</div>
                     <h3>Sugar-Free Cookie</h3>
                     <div class="price-tag">₹40</div>
                     <div class="stock-tag">Stock: <span id="stock-item1">20</span></div>
@@ -352,6 +518,7 @@
                 </div>
 
                 <div class="menu-card">
+                    <div class="item-icon">🧁</div>
                     <h3>Sugar-Free Muffin</h3>
                     <div class="price-tag">₹50</div>
                     <div class="stock-tag">Stock: <span id="stock-item2">15</span></div>
@@ -363,6 +530,7 @@
                 </div>
 
                 <div class="menu-card">
+                    <div class="item-icon">🍨</div>
                     <h3>Organic Honey Ice Cream</h3>
                     <div class="price-tag">₹60</div>
                     <div class="stock-tag">Stock: <span id="stock-item3">10</span></div>
@@ -374,7 +542,9 @@
                 </div>
 
                 <div class="menu-card">
-                    <h3>🎮 PS5 Ticket (15 Mins)</h3>
+                    <span class="badge">Popular</span>
+                    <div class="item-icon">🎮</div>
+                    <h3>PS5 Ticket (15 Mins)</h3>
                     <div class="price-tag">₹120</div>
                     <div class="stock-tag">Stock: <span id="stock-item4">8</span></div>
                     <div class="qty-controls">
@@ -385,7 +555,9 @@
                 </div>
 
                 <div class="menu-card" style="border-color: var(--vibrant-orange);">
-                    <h3>⚡ Gamer Combo Pack</h3>
+                    <span class="badge">Best Value</span>
+                    <div class="item-icon">🔥</div>
+                    <h3>Gamer Combo Pack</h3>
                     <div class="price-tag">₹190</div>
                     <div class="stock-tag">Stock: <span id="stock-item5">5</span></div>
                     <div class="qty-controls">
@@ -394,6 +566,7 @@
                         <button class="qty-btn" onclick="updateQty('item5', 1)">+</button>
                     </div>
                 </div>
+
             </div>
         </div>
 
@@ -403,7 +576,8 @@
             
             <div class="form-group">
                 <label for="cust-name">Customer Full Name *</label>
-                <input type="text" id="cust-name" placeholder="Enter full name">
+                <!-- 14. Auto-Fill Saved Data -->
+                <input type="text" id="cust-name" placeholder="Enter full name" oninput="saveCustomerData()">
             </div>
 
             <div class="form-group">
@@ -426,18 +600,35 @@
 
             <div class="form-group">
                 <label for="cust-loc">Delivery Location (Classroom / Spot) *</label>
-                <input type="text" id="cust-loc" placeholder="e.g. FOIR, Library...">
+                <input type="text" id="cust-loc" placeholder="e.g. FOIR, Library..." oninput="saveCustomerData()">
+            </div>
+
+            <!-- 7. Game Selector for PS5 Ticket Holders -->
+            <div class="form-group" id="mk-char-group" style="display: none;">
+                <label for="mk-char">🎮 Preferred Mortal Kombat Fighter (Optional)</label>
+                <select id="mk-char">
+                    <option value="Scorpion">Scorpion</option>
+                    <option value="Sub-Zero">Sub-Zero</option>
+                    <option value="Raiden">Raiden</option>
+                    <option value="Liu Kang">Liu Kang</option>
+                    <option value="No Preference">No Preference</option>
+                </select>
             </div>
 
             <button class="checkout-btn" onclick="sendWhatsAppOrder()">SEND CASH ORDER VIA WHATSAPP</button>
         </div>
 
-        <!-- LIVE ORDERS TABLE -->
+        <!-- 6. DIGITAL QUEUE BOARD & ORDER TRACKER -->
         <div class="card">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                <h2>📋 Order Records & Live Orders</h2>
-                <button class="btn-sm btn-delete" onclick="clearAllOrders()">Clear Records</button>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 10px;">
+                <h2>📋 Live Order Tracker & Queue</h2>
+                
+                <!-- 10. Order Tracking Search -->
+                <input type="text" id="tracker-search" placeholder="🔍 Search Token #..." class="editable-input" style="width: 160px;" onkeyup="filterOrdersUI()">
+                
+                <button class="btn-sm btn-delete" id="clear-all-btn" style="display: none;" onclick="clearAllOrders()">Clear Records</button>
             </div>
+
             <div class="table-responsive">
                 <table>
                     <thead>
@@ -461,11 +652,33 @@
 
     </div>
 
+    <!-- 4. LIVE BILL CALCULATOR BAR -->
+    <div class="live-cart-bar">
+        <div class="cart-info">Total Bill: <span id="cart-total-val">₹0</span> (<span id="cart-count-val">0</span> items)</div>
+        <button class="btn-sm btn-save" style="padding: 8px 16px; font-size: 0.9rem;" onclick="scrollToCheckout()">Checkout ➔</button>
+    </div>
+
+    <!-- 9. ORDER CONFIRMATION MODAL -->
+    <div class="modal" id="confirmModal">
+        <div class="modal-content">
+            <h2 style="color: var(--neon-green); margin-bottom: 5px;">🎉 Order Created!</h2>
+            <p style="color: var(--text-gray); font-size: 0.9rem; margin-bottom: 15px;">Your WhatsApp receipt is ready to send.</p>
+            
+            <div style="background: var(--input-bg); padding: 15px; border-radius: 10px; border: 1.5px solid var(--neon-green); margin-bottom: 15px;">
+                <div style="font-size: 0.85rem; color: var(--text-gray);">YOUR TOKEN NUMBER</div>
+                <div style="font-size: 2.5rem; font-weight: 900; color: var(--vibrant-orange);" id="modal-token">#0000</div>
+                <div style="font-size: 0.85rem; color: var(--electric-blue); margin-top: 5px;" id="modal-time-est">Est. Pickup: 5-10 mins</div>
+            </div>
+
+            <button class="checkout-btn" onclick="confirmAndOpenWhatsApp()">Open WhatsApp & Complete</button>
+        </div>
+    </div>
+
     <!-- OWNER LOGIN MODAL -->
     <div class="modal" id="ownerModal">
         <div class="modal-content">
             <h3 style="color: var(--vibrant-orange); margin-bottom: 10px;">👑 Owner Login</h3>
-            <input type="password" id="owner-pass-input" style="width: 100%; padding: 10px; margin-bottom: 10px; background: var(--input-bg); border: 1px solid #333; color: #FFF; border-radius: 6px;" placeholder="Enter Owner Password">
+            <input type="password" id="owner-pass-input" style="width: 100%; padding: 10px; margin-bottom: 10px; background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-light); border-radius: 6px;" placeholder="Enter Owner Password">
             <button class="checkout-btn" onclick="verifyOwner()">Login</button>
             <p id="owner-err" style="color: var(--coral-red); margin-top: 10px; font-size: 0.85rem;"></p>
         </div>
@@ -476,9 +689,37 @@
         const quantities = { item1: 0, item2: 0, item3: 0, item4: 0, item5: 0 };
         const stallPhoneNumber = "916200892286";
         let isOwner = false;
+        let pendingWhatsAppUrl = "";
 
         let defaultStock = { item1: 20, item2: 15, item3: 10, item4: 8, item5: 5 };
         let currentStock = JSON.parse(localStorage.getItem('hp_stock')) || defaultStock;
+
+        // 13. Retro Audio Feedback Synth
+        function playBeep(freq = 440, type = 'sine') {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = type;
+                osc.frequency.value = freq;
+                gain.gain.value = 0.05;
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.08);
+            } catch(e){}
+        }
+
+        // 11. Dark/Light Theme Toggle
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const target = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', target);
+        }
+
+        // 15. Offline Status Detector
+        window.addEventListener('online', () => document.getElementById('offline-banner').style.display = 'none');
+        window.addEventListener('offline', () => document.getElementById('offline-banner').style.display = 'block');
 
         function renderStockUI() {
             for (let item in currentStock) {
@@ -492,6 +733,69 @@
             if (quantities[item] + change >= 0 && quantities[item] + change <= currentStock[item]) {
                 quantities[item] += change;
                 document.getElementById(item + '-qty').innerText = quantities[item];
+                playBeep(change > 0 ? 587 : 330);
+                updateLiveCartBar();
+            }
+        }
+
+        // 4. Live Bill Calculator Bar Updates
+        function updateLiveCartBar() {
+            let total = 0;
+            let count = 0;
+            for (let item in quantities) {
+                total += quantities[item] * prices[item];
+                count += quantities[item];
+            }
+            document.getElementById('cart-total-val').innerText = '₹' + total;
+            document.getElementById('cart-count-val').innerText = count;
+
+            // 7. Toggle Game Selector visibility
+            const ps5Count = quantities.item4 + quantities.item5;
+            document.getElementById('mk-char-group').style.display = ps5Count > 0 ? 'block' : 'none';
+        }
+
+        // 3. One-Click Order Bundles
+        function applyBundle(type) {
+            for (let i in quantities) { quantities[i] = 0; document.getElementById(i + '-qty').innerText = '0'; }
+            if (type === 'gamer') { quantities.item1 = 1; quantities.item4 = 1; }
+            if (type === 'sweet') { quantities.item1 = 1; quantities.item2 = 1; }
+            if (type === 'chill') { quantities.item2 = 1; quantities.item3 = 1; }
+            
+            for (let i in quantities) {
+                document.getElementById(i + '-qty').innerText = quantities[i];
+            }
+            playBeep(880, 'triangle');
+            updateLiveCartBar();
+        }
+
+        function scrollToCheckout() {
+            document.querySelector('.card[style*="electric-blue"]').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 14. Auto-Fill Saved Data
+        function saveCustomerData() {
+            localStorage.setItem('hp_cust_name', document.getElementById('cust-name').value);
+            localStorage.setItem('hp_cust_loc', document.getElementById('cust-loc').value);
+        }
+
+        function loadCustomerData() {
+            document.getElementById('cust-name').value = localStorage.getItem('hp_cust_name') || '';
+            document.getElementById('cust-loc').value = localStorage.getItem('hp_cust_loc') || '';
+        }
+
+        // 5. Toggle PS5 Status
+        function togglePS5Status(status) {
+            const ind = document.getElementById('ps5-indicator');
+            const txt = document.getElementById('ps5-status-text');
+            const wait = document.getElementById('ps5-wait-time');
+            if (status === 'busy') {
+                ind.classList.add('busy');
+                txt.innerText = 'PS5 Session in Progress';
+                wait.innerText = 'Next Slot: ~10-15 Mins';
+            } else {
+                ind.classList.remove('busy');
+                txt.innerText = 'PS5 Available Now';
+                wait.innerText = 'No Queue';
             }
         }
 
@@ -505,6 +809,7 @@
                 isOwner = true;
                 document.getElementById('ownerModal').style.display = 'none';
                 document.getElementById('owner-dashboard').style.display = 'block';
+                document.getElementById('clear-all-btn').style.display = 'inline-block';
                 renderOwnerStockControls();
                 loadOrdersUI();
             } else {
@@ -515,6 +820,7 @@
         function closeOwnerSession() {
             isOwner = false;
             document.getElementById('owner-dashboard').style.display = 'none';
+            document.getElementById('clear-all-btn').style.display = 'none';
             document.getElementById('owner-pass-input').value = '';
             document.getElementById('owner-err').innerText = '';
             loadOrdersUI();
@@ -545,6 +851,7 @@
             const state = document.getElementById('cust-state').value;
             const pay = document.getElementById('cust-pay').value;
             const loc = document.getElementById('cust-loc').value.trim();
+            const fighter = document.getElementById('mk-char').value;
 
             const totalBill = (quantities.item1 * prices.item1) + (quantities.item2 * prices.item2) + (quantities.item3 * prices.item3) + (quantities.item4 * prices.item4) + (quantities.item5 * prices.item5);
 
@@ -573,17 +880,34 @@
             localStorage.setItem('hp_local_orders', JSON.stringify(savedOrders));
             loadOrdersUI();
 
-            let message = `*CASH ORDER - HUNGER POINTS*%0A%0A` +
-                          `*Token:* ${token}%0A` +
-                          `*Time:* ${timeNow}%0A` +
-                          `*Name:* ${name}%0A` +
-                          `*State:* ${state}%0A` +
-                          `*Payment Option:* ${encodeURIComponent(pay)}%0A` +
-                          `*Delivery Spot:* ${encodeURIComponent(loc)}%0A` +
-                          `*Items:* ${encodeURIComponent(itemDetails.join(', '))}%0A` +
-                          `*Total Cash Due:* Rs. ${totalBill}`;
+            // 8. Formatted WhatsApp Receipt
+            let message = `*CASH ORDER - HUNGER POINTS*%0A` +
+                          `──────────────────%0A` +
+                          `🎫 *Token:* #${token}%0A` +
+                          `⏰ *Time:* ${timeNow}%0A` +
+                          `👤 *Name:* ${name}%0A` +
+                          `📍 *Spot:* ${encodeURIComponent(loc)}%0A` +
+                          `💳 *Pay Mode:* ${encodeURIComponent(pay)}%0A` +
+                          `🛒 *Items:* ${encodeURIComponent(itemDetails.join(', '))}%0A`;
+            
+            if (quantities.item4 + quantities.item5 > 0) {
+                message += `🎮 *MK Fighter:* ${encodeURIComponent(fighter)}%0A`;
+            }
 
-            window.open(`https://wa.me/${stallPhoneNumber}?text=${message}`, '_blank');
+            message += `──────────────────%0A` +
+                       `💰 *Total Cash Due:* Rs. ${totalBill}`;
+
+            pendingWhatsAppUrl = `https://wa.me/${stallPhoneNumber}?text=${message}`;
+
+            // 9. Pop Confirmation Modal
+            document.getElementById('modal-token').innerText = '#' + token;
+            document.getElementById('confirmModal').style.display = 'flex';
+            playBeep(700, 'square');
+        }
+
+        function confirmAndOpenWhatsApp() {
+            document.getElementById('confirmModal').style.display = 'none';
+            if (pendingWhatsAppUrl) window.open(pendingWhatsAppUrl, '_blank');
         }
 
         function addManualOrder() {
@@ -629,12 +953,22 @@
             }
         }
 
+        // 10. Filter Orders UI by Search Query
+        function filterOrdersUI() {
+            loadOrdersUI();
+        }
+
         function loadOrdersUI() {
-            const savedOrders = JSON.parse(localStorage.getItem('hp_local_orders') || '[]');
+            let savedOrders = JSON.parse(localStorage.getItem('hp_local_orders') || '[]');
             const listEl = document.getElementById('orders-list');
-            
+            const searchVal = document.getElementById('tracker-search').value.toLowerCase().trim();
+
+            if (searchVal) {
+                savedOrders = savedOrders.filter(o => o.token.toString().includes(searchVal) || o.name.toLowerCase().includes(searchVal));
+            }
+
             if (savedOrders.length === 0) {
-                listEl.innerHTML = `<tr><td colspan="8" style="text-align:center;">No orders recorded yet.</td></tr>`;
+                listEl.innerHTML = `<tr><td colspan="8" style="text-align:center;">No matching orders found.</td></tr>`;
                 return;
             }
 
@@ -662,12 +996,12 @@
                 } else {
                     return `
                         <tr>
-                            <td>#${o.token}</td>
+                            <td><strong>#${o.token}</strong></td>
                             <td>${o.time || 'N/A'}</td>
                             <td>${o.name}</td>
                             <td>${o.loc}</td>
                             <td>${o.items}</td>
-                            <td><span style="background: #2A2D3D; color: var(--electric-blue); padding: 3px 8px; border-radius: 10px; font-weight: bold; font-size: 0.75rem;">${o.status}</span></td>
+                            <td><span style="background: var(--input-bg); color: var(--electric-blue); padding: 3px 8px; border-radius: 10px; font-weight: bold; font-size: 0.75rem;">${o.status}</span></td>
                             <td>₹${o.total}</td>
                             <td>-</td>
                         </tr>
@@ -679,6 +1013,8 @@
         window.onload = function() {
             renderStockUI();
             loadOrdersUI();
+            loadCustomerData();
+            updateLiveCartBar();
         };
     </script>
 </body>
