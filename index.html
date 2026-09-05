@@ -72,7 +72,7 @@
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 25px 20px;
         }
@@ -195,10 +195,15 @@
             box-shadow: 0 0 12px rgba(0, 255, 102, 0.4);
         }
 
+        .table-responsive {
+            overflow-x: auto;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 12px;
+            min-width: 800px;
         }
 
         th, td {
@@ -212,14 +217,37 @@
             color: var(--vibrant-orange);
         }
 
-        .status-pill {
-            padding: 3px 8px;
-            border-radius: 10px;
-            font-size: 0.75rem;
-            font-weight: 800;
+        .editable-input {
+            background: var(--input-bg);
+            border: 1px solid #33394D;
+            color: #FFF;
+            padding: 4px 6px;
+            border-radius: 4px;
+            font-size: 0.82rem;
+            width: 100%;
+        }
+
+        .status-select {
             background: #2A2D3D;
             color: var(--electric-blue);
+            border: none;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.78rem;
         }
+
+        .btn-sm {
+            padding: 4px 8px;
+            font-size: 0.75rem;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-delete { background: var(--coral-red); color: #FFF; }
+        .btn-save { background: var(--neon-green); color: #000; }
 
         /* Owner Modal */
         .modal {
@@ -257,6 +285,14 @@
             text-align: center;
             margin: 0;
         }
+
+        .manual-order-box {
+            background: var(--input-bg);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px dashed var(--vibrant-orange);
+            margin-top: 15px;
+        }
     </style>
 </head>
 <body>
@@ -275,16 +311,32 @@
             <p style="color: var(--electric-blue); font-weight: 600;">Sugar-free treats & PS5 Mortal Kombat Gaming!</p>
         </div>
 
+        <!-- OWNER PANEL (Hidden by Default) -->
         <div id="owner-dashboard" class="card" style="display: none; border-color: var(--coral-red);">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                 <h2 style="color: var(--coral-red);">⚡ Owner Management Center</h2>
-                <span class="status-pill" style="background: var(--neon-green); color: #000;">Active Session</span>
+                <span style="background: var(--neon-green); color: #000; padding: 3px 8px; border-radius: 10px; font-weight: 800; font-size: 0.75rem;">Active Session</span>
             </div>
+            
             <h3>📦 Stock Management</h3>
             <div id="owner-stock-list" style="margin-top: 10px;"></div>
-            <button class="checkout-btn" style="background: var(--vibrant-orange); margin-top: 10px;" onclick="closeOwnerSession()">Exit Owner Mode</button>
+
+            <!-- MANUAL ORDER ENTRY FOR OWNER -->
+            <div class="manual-order-box">
+                <h4 style="color: var(--vibrant-orange); margin-bottom: 10px;">➕ Add Manual / Offline Order Record</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px;">
+                    <input type="text" id="man-name" placeholder="Customer Name" class="editable-input">
+                    <input type="text" id="man-loc" placeholder="Spot / Location (e.g. FOIR)" class="editable-input">
+                    <input type="text" id="man-items" placeholder="Items (e.g. 1x Cookie, 1x PS5)" class="editable-input">
+                    <input type="number" id="man-total" placeholder="Total Amount (₹)" class="editable-input">
+                </div>
+                <button class="btn-sm btn-save" style="margin-top: 10px; width: 100%; padding: 8px;" onclick="addManualOrder()">Add Record</button>
+            </div>
+
+            <button class="checkout-btn" style="background: var(--vibrant-orange); margin-top: 15px;" onclick="closeOwnerSession()">Exit Owner Mode</button>
         </div>
 
+        <!-- MENU ITEMS -->
         <div class="card">
             <h2 style="color: var(--vibrant-orange); margin-bottom: 15px;">🛒 Menu & Tickets</h2>
             <div class="menu-grid">
@@ -345,6 +397,7 @@
             </div>
         </div>
 
+        <!-- CASH ORDER FORM -->
         <div class="card" style="border-color: var(--electric-blue);">
             <h2 style="color: var(--electric-blue); margin-bottom: 15px;">📋 Delivery & Order Details</h2>
             
@@ -356,7 +409,6 @@
             <div class="form-group">
                 <label for="cust-state">State / Territory *</label>
                 <select id="cust-state">
-                    <option value="">-- Select State --</option>
                     <option value="Delhi">Delhi</option>
                     <option value="Haryana">Haryana</option>
                     <option value="Uttar Pradesh">Uttar Pradesh</option>
@@ -374,33 +426,42 @@
 
             <div class="form-group">
                 <label for="cust-loc">Delivery Location (Classroom / Spot) *</label>
-                <input type="text" id="cust-loc" placeholder="e.g. Class 9B, Library...">
+                <input type="text" id="cust-loc" placeholder="e.g. FOIR, Library...">
             </div>
 
             <button class="checkout-btn" onclick="sendWhatsAppOrder()">SEND CASH ORDER VIA WHATSAPP</button>
         </div>
 
+        <!-- LIVE ORDERS TABLE -->
         <div class="card">
-            <h2>📋 Live Placed Orders</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Token</th>
-                        <th>Name</th>
-                        <th>State</th>
-                        <th>Items</th>
-                        <th>Status</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody id="orders-list">
-                    <tr><td colspan="6" style="text-align:center;">No orders placed on this device yet.</td></tr>
-                </tbody>
-            </table>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <h2>📋 Order Records & Live Orders</h2>
+                <button class="btn-sm btn-delete" onclick="clearAllOrders()">Clear Records</button>
+            </div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Token</th>
+                            <th>Time</th>
+                            <th>Name</th>
+                            <th>Spot</th>
+                            <th>Items</th>
+                            <th>Status</th>
+                            <th>Total</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orders-list">
+                        <tr><td colspan="8" style="text-align:center;">No orders placed on this device yet.</td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
     </div>
 
+    <!-- OWNER LOGIN MODAL -->
     <div class="modal" id="ownerModal">
         <div class="modal-content">
             <h3 style="color: var(--vibrant-orange); margin-bottom: 10px;">👑 Owner Login</h3>
@@ -414,6 +475,7 @@
         const prices = { item1: 40, item2: 50, item3: 60, item4: 120, item5: 190 };
         const quantities = { item1: 0, item2: 0, item3: 0, item4: 0, item5: 0 };
         const stallPhoneNumber = "916200892286";
+        let isOwner = false;
 
         let defaultStock = { item1: 20, item2: 15, item3: 10, item4: 8, item5: 5 };
         let currentStock = JSON.parse(localStorage.getItem('hp_stock')) || defaultStock;
@@ -440,18 +502,22 @@
         function verifyOwner() {
             const pass = document.getElementById('owner-pass-input').value;
             if (pass === 'serhan__999me_rivals') {
+                isOwner = true;
                 document.getElementById('ownerModal').style.display = 'none';
                 document.getElementById('owner-dashboard').style.display = 'block';
                 renderOwnerStockControls();
+                loadOrdersUI();
             } else {
                 document.getElementById('owner-err').innerText = 'Invalid Owner Password';
             }
         }
 
         function closeOwnerSession() {
+            isOwner = false;
             document.getElementById('owner-dashboard').style.display = 'none';
             document.getElementById('owner-pass-input').value = '';
             document.getElementById('owner-err').innerText = '';
+            loadOrdersUI();
         }
 
         function renderOwnerStockControls() {
@@ -500,14 +566,16 @@
             if (quantities.item5 > 0) itemDetails.push(`${quantities.item5}x Gamer Combo`);
 
             const token = Math.floor(1000 + Math.random() * 9000);
+            const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
             const savedOrders = JSON.parse(localStorage.getItem('hp_local_orders') || '[]');
-            savedOrders.unshift({ token, name, state, items: itemDetails.join(', '), total: totalBill, status: 'Received' });
+            savedOrders.unshift({ token, time: timeNow, name, loc, items: itemDetails.join(', '), total: totalBill, status: 'Received' });
             localStorage.setItem('hp_local_orders', JSON.stringify(savedOrders));
             loadOrdersUI();
 
             let message = `*CASH ORDER - HUNGER POINTS*%0A%0A` +
                           `*Token:* ${token}%0A` +
+                          `*Time:* ${timeNow}%0A` +
                           `*Name:* ${name}%0A` +
                           `*State:* ${state}%0A` +
                           `*Payment Option:* ${encodeURIComponent(pay)}%0A` +
@@ -518,21 +586,94 @@
             window.open(`https://wa.me/${stallPhoneNumber}?text=${message}`, '_blank');
         }
 
+        function addManualOrder() {
+            const name = document.getElementById('man-name').value.trim() || 'Walk-in Customer';
+            const loc = document.getElementById('man-loc').value.trim() || 'Stall';
+            const items = document.getElementById('man-items').value.trim() || 'Manual Entry';
+            const total = parseInt(document.getElementById('man-total').value) || 0;
+            
+            const token = Math.floor(1000 + Math.random() * 9000);
+            const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            const savedOrders = JSON.parse(localStorage.getItem('hp_local_orders') || '[]');
+            savedOrders.unshift({ token, time: timeNow, name, loc, items, total, status: 'Completed' });
+            localStorage.setItem('hp_local_orders', JSON.stringify(savedOrders));
+            
+            document.getElementById('man-name').value = '';
+            document.getElementById('man-loc').value = '';
+            document.getElementById('man-items').value = '';
+            document.getElementById('man-total').value = '';
+
+            loadOrdersUI();
+        }
+
+        function updateOrderField(index, field, value) {
+            const savedOrders = JSON.parse(localStorage.getItem('hp_local_orders') || '[]');
+            savedOrders[index][field] = value;
+            localStorage.setItem('hp_local_orders', JSON.stringify(savedOrders));
+        }
+
+        function deleteOrder(index) {
+            if (confirm('Delete this order record?')) {
+                const savedOrders = JSON.parse(localStorage.getItem('hp_local_orders') || '[]');
+                savedOrders.splice(index, 1);
+                localStorage.setItem('hp_local_orders', JSON.stringify(savedOrders));
+                loadOrdersUI();
+            }
+        }
+
+        function clearAllOrders() {
+            if (confirm('Are you sure you want to clear ALL order records?')) {
+                localStorage.removeItem('hp_local_orders');
+                loadOrdersUI();
+            }
+        }
+
         function loadOrdersUI() {
             const savedOrders = JSON.parse(localStorage.getItem('hp_local_orders') || '[]');
             const listEl = document.getElementById('orders-list');
-            if (savedOrders.length > 0) {
-                listEl.innerHTML = savedOrders.map(o => `
-                    <tr>
-                        <td>#${o.token}</td>
-                        <td>${o.name}</td>
-                        <td>${o.state}</td>
-                        <td>${o.items}</td>
-                        <td><span class="status-pill">${o.status}</span></td>
-                        <td>₹${o.total}</td>
-                    </tr>
-                `).join('');
+            
+            if (savedOrders.length === 0) {
+                listEl.innerHTML = `<tr><td colspan="8" style="text-align:center;">No orders recorded yet.</td></tr>`;
+                return;
             }
+
+            listEl.innerHTML = savedOrders.map((o, index) => {
+                if (isOwner) {
+                    return `
+                        <tr>
+                            <td>#${o.token}</td>
+                            <td>${o.time || 'N/A'}</td>
+                            <td><input class="editable-input" value="${o.name}" onchange="updateOrderField(${index}, 'name', this.value)"></td>
+                            <td><input class="editable-input" value="${o.loc}" onchange="updateOrderField(${index}, 'loc', this.value)"></td>
+                            <td><input class="editable-input" value="${o.items}" onchange="updateOrderField(${index}, 'items', this.value)"></td>
+                            <td>
+                                <select class="status-select" onchange="updateOrderField(${index}, 'status', this.value)">
+                                    <option value="Received" ${o.status === 'Received' ? 'selected' : ''}>Received</option>
+                                    <option value="Preparing" ${o.status === 'Preparing' ? 'selected' : ''}>Preparing</option>
+                                    <option value="Completed" ${o.status === 'Completed' ? 'selected' : ''}>Completed</option>
+                                    <option value="Cancelled" ${o.status === 'Cancelled' ? 'selected' : ''}>Cancelled</option>
+                                </select>
+                            </td>
+                            <td>₹<input class="editable-input" style="width: 60px;" type="number" value="${o.total}" onchange="updateOrderField(${index}, 'total', this.value)"></td>
+                            <td><button class="btn-sm btn-delete" onclick="deleteOrder(${index})">X</button></td>
+                        </tr>
+                    `;
+                } else {
+                    return `
+                        <tr>
+                            <td>#${o.token}</td>
+                            <td>${o.time || 'N/A'}</td>
+                            <td>${o.name}</td>
+                            <td>${o.loc}</td>
+                            <td>${o.items}</td>
+                            <td><span style="background: #2A2D3D; color: var(--electric-blue); padding: 3px 8px; border-radius: 10px; font-weight: bold; font-size: 0.75rem;">${o.status}</span></td>
+                            <td>₹${o.total}</td>
+                            <td>-</td>
+                        </tr>
+                    `;
+                }
+            }).join('');
         }
 
         window.onload = function() {
