@@ -142,6 +142,32 @@
             box-shadow: 0 0 10px rgba(191, 90, 242, 0.4);
         }
 
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        .analytics-card {
+            background: var(--input-bg);
+            border: 1.5px solid var(--border-color);
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .analytics-card .num {
+            font-size: 1.6rem;
+            font-weight: 900;
+            margin-top: 4px;
+        }
+
+        .analytics-card.views .num { color: var(--electric-blue); }
+        .analytics-card.orders .num { color: var(--neon-green); }
+        .analytics-card.left .num { color: var(--coral-red); }
+
         .promo-banner {
             background: linear-gradient(135deg, rgba(255, 51, 102, 0.2), rgba(0, 240, 255, 0.2));
             border: 2px dashed var(--neon-green);
@@ -528,6 +554,23 @@
                 <span style="background: var(--neon-green); color: #000; padding: 3px 8px; border-radius: 10px; font-weight: 800; font-size: 0.75rem;">Active Session</span>
             </div>
             
+            <h3>📊 Live Traffic & Visitor Analytics</h3>
+            <div class="analytics-grid">
+                <div class="analytics-card views">
+                    <span style="font-size: 0.75rem; color: var(--text-gray);">Total Visits</span>
+                    <div class="num" id="stat-views">0</div>
+                </div>
+                <div class="analytics-card orders">
+                    <span style="font-size: 0.75rem; color: var(--text-gray);">Orders Placed</span>
+                    <div class="num" id="stat-orders">0</div>
+                </div>
+                <div class="analytics-card left">
+                    <span style="font-size: 0.75rem; color: var(--text-gray);">Visited & Left</span>
+                    <div class="num" id="stat-left">0</div>
+                </div>
+            </div>
+            <button class="btn-sm btn-delete" style="margin-bottom: 15px;" onclick="resetAnalytics()">Reset Visitor Stats</button>
+
             <h3>📦 Stock & PS5 Slot Settings</h3>
             <div style="margin-top: 10px; margin-bottom: 15px;">
                 <label style="font-size: 0.85rem; font-weight: bold;">PS5 Status Override:</label>
@@ -695,6 +738,43 @@
         let defaultStock = { item1: 20, item2: 15, item3: 10, item4: 8, item5: 5, item8: 15, item9: 20, item10: 10 };
         let currentStock = JSON.parse(localStorage.getItem('hp_stock')) || defaultStock;
 
+        // ANALYTICS TRACKER
+        function trackPageVisit() {
+            let views = parseInt(localStorage.getItem('hp_site_views') || '0');
+            views += 1;
+            localStorage.setItem('hp_site_views', views.toString());
+            updateAnalyticsUI();
+        }
+
+        function incrementOrderStat() {
+            let orders = parseInt(localStorage.getItem('hp_site_orders') || '0');
+            orders += 1;
+            localStorage.setItem('hp_site_orders', orders.toString());
+            updateAnalyticsUI();
+        }
+
+        function updateAnalyticsUI() {
+            let views = parseInt(localStorage.getItem('hp_site_views') || '0');
+            let orders = parseInt(localStorage.getItem('hp_site_orders') || '0');
+            let leftWithoutOrder = Math.max(0, views - orders);
+
+            const vEl = document.getElementById('stat-views');
+            const oEl = document.getElementById('stat-orders');
+            const lEl = document.getElementById('stat-left');
+
+            if (vEl) vEl.innerText = views;
+            if (oEl) oEl.innerText = orders;
+            if (lEl) lEl.innerText = leftWithoutOrder;
+        }
+
+        function resetAnalytics() {
+            if (confirm('Reset visitor and order tracking statistics?')) {
+                localStorage.setItem('hp_site_views', '0');
+                localStorage.setItem('hp_site_orders', '0');
+                updateAnalyticsUI();
+            }
+        }
+
         function playBeep(freq = 440, type = 'sine') {
             try {
                 const ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -829,6 +909,7 @@
                 document.getElementById('owner-dashboard').style.display = 'block';
                 document.getElementById('clear-all-btn').style.display = 'inline-block';
                 renderOwnerStockControls();
+                updateAnalyticsUI();
                 loadOrdersUI();
             } else {
                 document.getElementById('owner-err').innerText = 'Invalid Owner Password';
@@ -903,6 +984,8 @@
             const savedOrders = JSON.parse(localStorage.getItem('hp_local_orders') || '[]');
             savedOrders.unshift({ token, time: timeNow, name, loc, items: itemDetails.join(', '), total: totalBill, status: 'Received' });
             localStorage.setItem('hp_local_orders', JSON.stringify(savedOrders));
+            
+            incrementOrderStat();
             loadOrdersUI();
 
             let message = `*CASH ORDER - HUNGER POINTS*%0A` +
@@ -947,6 +1030,8 @@
             savedOrders.unshift({ token, time: timeNow, name, loc, items, total, status: 'Completed' });
             localStorage.setItem('hp_local_orders', JSON.stringify(savedOrders));
             
+            incrementOrderStat();
+
             document.getElementById('man-name').value = '';
             document.getElementById('man-loc').value = 'FOIR';
             document.getElementById('man-items').value = '';
@@ -1034,6 +1119,7 @@
         }
 
         window.onload = function() {
+            trackPageVisit();
             renderCategoryItems();
             loadOrdersUI();
             loadCustomerData();
