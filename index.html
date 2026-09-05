@@ -46,7 +46,6 @@
             padding-bottom: 110px;
         }
 
-        /* 12. Sticky Navigation Bar */
         nav {
             background: rgba(24, 25, 34, 0.95);
             backdrop-filter: blur(10px);
@@ -76,7 +75,6 @@
             align-items: center;
         }
 
-        /* 11. Dark/Light Mode Toggle */
         .theme-toggle, .owner-btn {
             background: var(--card-bg);
             color: var(--text-light);
@@ -127,18 +125,21 @@
             color: var(--vibrant-orange);
         }
 
-        /* 15. Offline Indicator */
-        #offline-banner {
-            display: none;
-            background: var(--coral-red);
-            color: #FFF;
+        .promo-banner {
+            background: linear-gradient(135deg, rgba(255, 51, 102, 0.2), rgba(0, 240, 255, 0.2));
+            border: 2px dashed var(--neon-green);
+            border-radius: 12px;
+            padding: 15px;
             text-align: center;
-            padding: 8px;
-            font-weight: bold;
-            font-size: 0.85rem;
+            margin-bottom: 20px;
         }
 
-        /* 5. Live PS5 Slot Availability Banner */
+        .promo-banner h3 {
+            color: var(--neon-green);
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
         .ps5-status-bar {
             display: flex;
             align-items: center;
@@ -165,7 +166,6 @@
             box-shadow: 0 0 8px var(--coral-red);
         }
 
-        /* 3. One-Click Order Bundles */
         .bundle-bar {
             display: flex;
             gap: 10px;
@@ -203,14 +203,12 @@
             position: relative;
         }
 
-        /* 2. Item Images / Icons */
         .item-icon {
             font-size: 2.2rem;
             text-align: center;
             margin-bottom: 8px;
         }
 
-        /* 1. Item Highlighters & Badges */
         .badge {
             position: absolute;
             top: 10px;
@@ -222,11 +220,6 @@
             padding: 2px 8px;
             border-radius: 10px;
             text-transform: uppercase;
-        }
-
-        .badge.low-stock {
-            background: var(--coral-red);
-            color: #FFF;
         }
 
         .price-tag {
@@ -304,7 +297,6 @@
             box-shadow: 0 0 12px rgba(0, 255, 102, 0.3);
         }
 
-        /* 4. Live Bill Calculator Bar */
         .live-cart-bar {
             position: fixed;
             bottom: 0;
@@ -385,7 +377,6 @@
         .btn-delete { background: var(--coral-red); color: #FFF; }
         .btn-save { background: var(--neon-green); color: #000; }
 
-        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -433,8 +424,6 @@
 </head>
 <body>
 
-    <div id="offline-banner">⚠️ Offline Mode - Orders will sync when online</div>
-
     <nav>
         <div class="logo-text">HUNGER<span>POINTS</span></div>
         <div class="nav-controls">
@@ -447,10 +436,14 @@
 
         <div class="hero">
             <h1>Hunger Points <span>Games & Food</span></h1>
-            <p style="color: var(--electric-blue); font-weight: 600;">Sugar-Free Treats & PS5 Mortal Kombat Gaming!</p>
+            <p style="color: var(--electric-blue); font-weight: 600;">Sugar-Free Treats, Fresh Coolers & PS5 Mortal Kombat Gaming!</p>
         </div>
 
-        <!-- 5. PS5 Slot Availability Bar -->
+        <div class="promo-banner">
+            <h3>🎮 MORTAL KOMBAT CHALLENGE: WIN ₹150 CASHBACK!</h3>
+            <p style="font-size: 0.88rem; color: var(--text-gray);">Beat our stall champ or achieve a 3-match win streak to claim ₹150 instant cashback or stall credit!</p>
+        </div>
+
         <div class="ps5-status-bar">
             <div>
                 <span class="ps5-badge" id="ps5-indicator"></span>
@@ -459,7 +452,7 @@
             <span style="font-size: 0.8rem; color: var(--text-gray);" id="ps5-wait-time">No Queue</span>
         </div>
 
-        <!-- OWNER PANEL (Hidden by Default) -->
+        <!-- OWNER PANEL -->
         <div id="owner-dashboard" class="card" style="display: none; border-color: var(--coral-red);">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                 <h2 style="color: var(--coral-red);">⚡ Owner Management Center</h2>
@@ -491,12 +484,11 @@
             <button class="checkout-btn" style="background: var(--vibrant-orange); margin-top: 15px;" onclick="closeOwnerSession()">Exit Owner Mode</button>
         </div>
 
-        <!-- 3. One-Click Order Bundles -->
         <h3 style="margin-bottom: 10px; font-size: 0.95rem; color: var(--text-gray);">🚀 Quick Order Bundles</h3>
         <div class="bundle-bar">
             <button class="bundle-chip" onclick="applyBundle('gamer')">⚡ Gamer Pack (1x Cookie + 1x PS5 Ticket)</button>
+            <button class="bundle-chip" onclick="applyBundle('refresh')">🍉 Refresh Combo (1x Slush + 1x Muffin)</button>
             <button class="bundle-chip" onclick="applyBundle('sweet')">🍪 Sweet Pair (1x Cookie + 1x Muffin)</button>
-            <button class="bundle-chip" onclick="applyBundle('chill')">🍦 Chill Combo (1x Ice Cream + 1x Muffin)</button>
         </div>
 
         <!-- MENU ITEMS -->
@@ -542,6 +534,32 @@
                 </div>
 
                 <div class="menu-card">
+                    <span class="badge">Low Sugar</span>
+                    <div class="item-icon">🍉</div>
+                    <h3>Watermelon Mint Slush</h3>
+                    <div class="price-tag">₹50</div>
+                    <div class="stock-tag">Stock: <span id="stock-item6">15</span></div>
+                    <div class="qty-controls">
+                        <button class="qty-btn" onclick="updateQty('item6', -1)">-</button>
+                        <span class="qty-val" id="item6-qty">0</span>
+                        <button class="qty-btn" onclick="updateQty('item6', 1)">+</button>
+                    </div>
+                </div>
+
+                <div class="menu-card">
+                    <span class="badge">Desi Cooler</span>
+                    <div class="item-icon">🥭</div>
+                    <h3>No-Sugar Mango Lassi</h3>
+                    <div class="price-tag">₹60</div>
+                    <div class="stock-tag">Stock: <span id="stock-item7">12</span></div>
+                    <div class="qty-controls">
+                        <button class="qty-btn" onclick="updateQty('item7', -1)">-</button>
+                        <span class="qty-val" id="item7-qty">0</span>
+                        <button class="qty-btn" onclick="updateQty('item7', 1)">+</button>
+                    </div>
+                </div>
+
+                <div class="menu-card">
                     <span class="badge">Popular</span>
                     <div class="item-icon">🎮</div>
                     <h3>PS5 Ticket (15 Mins)</h3>
@@ -576,7 +594,6 @@
             
             <div class="form-group">
                 <label for="cust-name">Customer Full Name *</label>
-                <!-- 14. Auto-Fill Saved Data -->
                 <input type="text" id="cust-name" placeholder="Enter full name" oninput="saveCustomerData()">
             </div>
 
@@ -600,10 +617,9 @@
 
             <div class="form-group">
                 <label for="cust-loc">Delivery Location (Classroom / Spot) *</label>
-                <input type="text" id="cust-loc" placeholder="e.g. FOIR, Library..." oninput="saveCustomerData()">
+                <input type="text" id="cust-loc" value="FOIR" placeholder="e.g. FOIR, Library..." oninput="saveCustomerData()">
             </div>
 
-            <!-- 7. Game Selector for PS5 Ticket Holders -->
             <div class="form-group" id="mk-char-group" style="display: none;">
                 <label for="mk-char">🎮 Preferred Mortal Kombat Fighter (Optional)</label>
                 <select id="mk-char">
@@ -618,14 +634,11 @@
             <button class="checkout-btn" onclick="sendWhatsAppOrder()">SEND CASH ORDER VIA WHATSAPP</button>
         </div>
 
-        <!-- 6. DIGITAL QUEUE BOARD & ORDER TRACKER -->
+        <!-- DIGITAL QUEUE BOARD & ORDER TRACKER -->
         <div class="card">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 10px;">
                 <h2>📋 Live Order Tracker & Queue</h2>
-                
-                <!-- 10. Order Tracking Search -->
                 <input type="text" id="tracker-search" placeholder="🔍 Search Token #..." class="editable-input" style="width: 160px;" onkeyup="filterOrdersUI()">
-                
                 <button class="btn-sm btn-delete" id="clear-all-btn" style="display: none;" onclick="clearAllOrders()">Clear Records</button>
             </div>
 
@@ -652,13 +665,13 @@
 
     </div>
 
-    <!-- 4. LIVE BILL CALCULATOR BAR -->
+    <!-- LIVE BILL CALCULATOR BAR -->
     <div class="live-cart-bar">
         <div class="cart-info">Total Bill: <span id="cart-total-val">₹0</span> (<span id="cart-count-val">0</span> items)</div>
         <button class="btn-sm btn-save" style="padding: 8px 16px; font-size: 0.9rem;" onclick="scrollToCheckout()">Checkout ➔</button>
     </div>
 
-    <!-- 9. ORDER CONFIRMATION MODAL -->
+    <!-- ORDER CONFIRMATION MODAL -->
     <div class="modal" id="confirmModal">
         <div class="modal-content">
             <h2 style="color: var(--neon-green); margin-bottom: 5px;">🎉 Order Created!</h2>
@@ -667,7 +680,7 @@
             <div style="background: var(--input-bg); padding: 15px; border-radius: 10px; border: 1.5px solid var(--neon-green); margin-bottom: 15px;">
                 <div style="font-size: 0.85rem; color: var(--text-gray);">YOUR TOKEN NUMBER</div>
                 <div style="font-size: 2.5rem; font-weight: 900; color: var(--vibrant-orange);" id="modal-token">#0000</div>
-                <div style="font-size: 0.85rem; color: var(--electric-blue); margin-top: 5px;" id="modal-time-est">Est. Pickup: 5-10 mins</div>
+                <div style="font-size: 0.85rem; color: var(--electric-blue); margin-top: 5px;">Est. Pickup: 5-10 mins</div>
             </div>
 
             <button class="checkout-btn" onclick="confirmAndOpenWhatsApp()">Open WhatsApp & Complete</button>
@@ -685,16 +698,15 @@
     </div>
 
     <script>
-        const prices = { item1: 40, item2: 50, item3: 60, item4: 120, item5: 190 };
-        const quantities = { item1: 0, item2: 0, item3: 0, item4: 0, item5: 0 };
+        const prices = { item1: 40, item2: 50, item3: 60, item4: 120, item5: 190, item6: 50, item7: 60 };
+        const quantities = { item1: 0, item2: 0, item3: 0, item4: 0, item5: 0, item6: 0, item7: 0 };
         const stallPhoneNumber = "916200892286";
         let isOwner = false;
         let pendingWhatsAppUrl = "";
 
-        let defaultStock = { item1: 20, item2: 15, item3: 10, item4: 8, item5: 5 };
+        let defaultStock = { item1: 20, item2: 15, item3: 10, item4: 8, item5: 5, item6: 15, item7: 12 };
         let currentStock = JSON.parse(localStorage.getItem('hp_stock')) || defaultStock;
 
-        // 13. Retro Audio Feedback Synth
         function playBeep(freq = 440, type = 'sine') {
             try {
                 const ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -710,16 +722,11 @@
             } catch(e){}
         }
 
-        // 11. Dark/Light Theme Toggle
         function toggleTheme() {
             const current = document.documentElement.getAttribute('data-theme');
             const target = current === 'dark' ? 'light' : 'dark';
             document.documentElement.setAttribute('data-theme', target);
         }
-
-        // 15. Offline Status Detector
-        window.addEventListener('online', () => document.getElementById('offline-banner').style.display = 'none');
-        window.addEventListener('offline', () => document.getElementById('offline-banner').style.display = 'block');
 
         function renderStockUI() {
             for (let item in currentStock) {
@@ -738,7 +745,6 @@
             }
         }
 
-        // 4. Live Bill Calculator Bar Updates
         function updateLiveCartBar() {
             let total = 0;
             let count = 0;
@@ -749,17 +755,15 @@
             document.getElementById('cart-total-val').innerText = '₹' + total;
             document.getElementById('cart-count-val').innerText = count;
 
-            // 7. Toggle Game Selector visibility
             const ps5Count = quantities.item4 + quantities.item5;
             document.getElementById('mk-char-group').style.display = ps5Count > 0 ? 'block' : 'none';
         }
 
-        // 3. One-Click Order Bundles
         function applyBundle(type) {
             for (let i in quantities) { quantities[i] = 0; document.getElementById(i + '-qty').innerText = '0'; }
             if (type === 'gamer') { quantities.item1 = 1; quantities.item4 = 1; }
+            if (type === 'refresh') { quantities.item6 = 1; quantities.item2 = 1; }
             if (type === 'sweet') { quantities.item1 = 1; quantities.item2 = 1; }
-            if (type === 'chill') { quantities.item2 = 1; quantities.item3 = 1; }
             
             for (let i in quantities) {
                 document.getElementById(i + '-qty').innerText = quantities[i];
@@ -772,7 +776,6 @@
             document.querySelector('.card[style*="electric-blue"]').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // 14. Auto-Fill Saved Data
         function saveCustomerData() {
             localStorage.setItem('hp_cust_name', document.getElementById('cust-name').value);
             localStorage.setItem('hp_cust_loc', document.getElementById('cust-loc').value);
@@ -780,10 +783,9 @@
 
         function loadCustomerData() {
             document.getElementById('cust-name').value = localStorage.getItem('hp_cust_name') || '';
-            document.getElementById('cust-loc').value = localStorage.getItem('hp_cust_loc') || '';
+            document.getElementById('cust-loc').value = localStorage.getItem('hp_cust_loc') || 'FOIR';
         }
 
-        // 5. Toggle PS5 Status
         function togglePS5Status(status) {
             const ind = document.getElementById('ps5-indicator');
             const txt = document.getElementById('ps5-status-text');
@@ -828,7 +830,7 @@
 
         function renderOwnerStockControls() {
             const container = document.getElementById('owner-stock-list');
-            const itemNames = { item1: "Cookie", item2: "Muffin", item3: "Ice Cream", item4: "PS5 Ticket", item5: "Combo" };
+            const itemNames = { item1: "Cookie", item2: "Muffin", item3: "Ice Cream", item4: "PS5 Ticket", item5: "Combo", item6: "Watermelon Slush", item7: "Mango Lassi" };
             container.innerHTML = Object.keys(currentStock).map(i => `
                 <div class="owner-control-row">
                     <span>${itemNames[i]}</span>
@@ -853,7 +855,7 @@
             const loc = document.getElementById('cust-loc').value.trim();
             const fighter = document.getElementById('mk-char').value;
 
-            const totalBill = (quantities.item1 * prices.item1) + (quantities.item2 * prices.item2) + (quantities.item3 * prices.item3) + (quantities.item4 * prices.item4) + (quantities.item5 * prices.item5);
+            const totalBill = (quantities.item1 * prices.item1) + (quantities.item2 * prices.item2) + (quantities.item3 * prices.item3) + (quantities.item4 * prices.item4) + (quantities.item5 * prices.item5) + (quantities.item6 * prices.item6) + (quantities.item7 * prices.item7);
 
             if (totalBill === 0 || !name || !state || !loc) {
                 alert('Please select items and fill all required details!');
@@ -869,6 +871,8 @@
             if (quantities.item1 > 0) itemDetails.push(`${quantities.item1}x Cookie`);
             if (quantities.item2 > 0) itemDetails.push(`${quantities.item2}x Muffin`);
             if (quantities.item3 > 0) itemDetails.push(`${quantities.item3}x Ice Cream`);
+            if (quantities.item6 > 0) itemDetails.push(`${quantities.item6}x Watermelon Slush`);
+            if (quantities.item7 > 0) itemDetails.push(`${quantities.item7}x Mango Lassi`);
             if (quantities.item4 > 0) itemDetails.push(`${quantities.item4}x PS5 Ticket`);
             if (quantities.item5 > 0) itemDetails.push(`${quantities.item5}x Gamer Combo`);
 
@@ -880,7 +884,6 @@
             localStorage.setItem('hp_local_orders', JSON.stringify(savedOrders));
             loadOrdersUI();
 
-            // 8. Formatted WhatsApp Receipt
             let message = `*CASH ORDER - HUNGER POINTS*%0A` +
                           `──────────────────%0A` +
                           `🎫 *Token:* #${token}%0A` +
@@ -899,7 +902,6 @@
 
             pendingWhatsAppUrl = `https://wa.me/${stallPhoneNumber}?text=${message}`;
 
-            // 9. Pop Confirmation Modal
             document.getElementById('modal-token').innerText = '#' + token;
             document.getElementById('confirmModal').style.display = 'flex';
             playBeep(700, 'square');
@@ -912,7 +914,7 @@
 
         function addManualOrder() {
             const name = document.getElementById('man-name').value.trim() || 'Walk-in Customer';
-            const loc = document.getElementById('man-loc').value.trim() || 'Stall';
+            const loc = document.getElementById('man-loc').value.trim() || 'FOIR';
             const items = document.getElementById('man-items').value.trim() || 'Manual Entry';
             const total = parseInt(document.getElementById('man-total').value) || 0;
             
@@ -953,7 +955,6 @@
             }
         }
 
-        // 10. Filter Orders UI by Search Query
         function filterOrdersUI() {
             loadOrdersUI();
         }
