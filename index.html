@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+\<!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hunger Points Games and Food | Lovedale ke Dhurandar</title>
+    <title>Hunger Points | Food, Drinks & PS5 Gaming</title>
     <style>
         :root {
             --bg-dark: #0D0E15;
@@ -12,6 +12,7 @@
             --electric-blue: #00F0FF;
             --vibrant-orange: #FFB703;
             --coral-red: #FF3366;
+            --purple-neon: #BF5AF2;
             --text-light: #FFFFFF;
             --text-gray: #A0A5B5;
             --input-bg: #10111A;
@@ -25,6 +26,7 @@
             --electric-blue: #0077B6;
             --vibrant-orange: #D97706;
             --coral-red: #E11D48;
+            --purple-neon: #8E24AA;
             --text-light: #0F172A;
             --text-gray: #475569;
             --input-bg: #E2E8F0;
@@ -98,15 +100,6 @@
             padding: 20px 15px;
         }
 
-        .card {
-            background: var(--card-bg);
-            border-radius: 14px;
-            padding: 20px;
-            border: 2px solid var(--border-color);
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-        }
-
         .hero {
             text-align: center;
             background: radial-gradient(circle at center, rgba(255, 183, 3, 0.15) 0%, rgba(13, 14, 21, 0.2) 80%);
@@ -140,6 +133,35 @@
             margin-bottom: 5px;
         }
 
+        /* CATEGORY TABS STYLING */
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px 18px;
+            background: var(--card-bg);
+            color: var(--text-gray);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .tab-btn.active {
+            background: var(--input-bg);
+            color: var(--neon-green);
+            border-color: var(--neon-green);
+            box-shadow: 0 0 12px rgba(0, 255, 102, 0.25);
+        }
+
         .ps5-status-bar {
             display: flex;
             align-items: center;
@@ -166,24 +188,13 @@
             box-shadow: 0 0 8px var(--coral-red);
         }
 
-        .bundle-bar {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            padding-bottom: 10px;
-            margin-bottom: 15px;
-        }
-
-        .bundle-chip {
-            background: var(--input-bg);
-            border: 1.5px solid var(--vibrant-orange);
-            color: var(--text-light);
-            padding: 8px 14px;
-            border-radius: 20px;
-            white-space: nowrap;
-            font-size: 0.82rem;
-            font-weight: 700;
-            cursor: pointer;
+        .card {
+            background: var(--card-bg);
+            border-radius: 14px;
+            padding: 20px;
+            border: 2px solid var(--border-color);
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         }
 
         .menu-grid {
@@ -221,6 +232,9 @@
             border-radius: 10px;
             text-transform: uppercase;
         }
+
+        .badge.purple { background: var(--purple-neon); color: #FFF; }
+        .badge.blue { background: var(--electric-blue); color: #000; }
 
         .price-tag {
             color: var(--neon-green);
@@ -260,6 +274,17 @@
             font-size: 1.05rem;
             min-width: 20px;
             text-align: center;
+        }
+
+        .flavor-select {
+            background: var(--card-bg);
+            color: var(--text-light);
+            border: 1px solid var(--electric-blue);
+            border-radius: 6px;
+            padding: 4px 6px;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+            width: 100%;
         }
 
         .form-group {
@@ -436,12 +461,18 @@
 
         <div class="hero">
             <h1>Hunger Points <span>Games & Food</span></h1>
-            <p style="color: var(--electric-blue); font-weight: 600;">Sugar-Free Treats, Fresh Coolers & PS5 Mortal Kombat Gaming!</p>
+            <p style="color: var(--electric-blue); font-weight: 600;">Fresh Treats, Chilled Beverages, Smart Combos & PS5 Mortal Kombat Gaming!</p>
         </div>
 
         <div class="promo-banner">
             <h3>🎮 MORTAL KOMBAT CHALLENGE: WIN ₹150 CASHBACK!</h3>
             <p style="font-size: 0.88rem; color: var(--text-gray);">Beat our stall champ or achieve a 3-match win streak to claim ₹150 instant cashback or stall credit!</p>
+        </div>
+
+        <div class="category-tabs">
+            <button class="tab-btn active" id="tab-foods" onclick="switchCategory('foods')">🍕 Foods</button>
+            <button class="tab-btn" id="tab-beverages" onclick="switchCategory('beverages')">🥤 Beverages</button>
+            <button class="tab-btn" id="tab-combos" onclick="switchCategory('combos')">🔥 Combos & Games</button>
         </div>
 
         <div class="ps5-status-bar">
@@ -452,7 +483,6 @@
             <span style="font-size: 0.8rem; color: var(--text-gray);" id="ps5-wait-time">No Queue</span>
         </div>
 
-        <!-- OWNER PANEL -->
         <div id="owner-dashboard" class="card" style="display: none; border-color: var(--coral-red);">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                 <h2 style="color: var(--coral-red);">⚡ Owner Management Center</h2>
@@ -475,7 +505,7 @@
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px;">
                     <input type="text" id="man-name" placeholder="Customer Name" class="editable-input">
                     <input type="text" id="man-loc" placeholder="Spot / Location (e.g. FOIR)" class="editable-input">
-                    <input type="text" id="man-items" placeholder="Items (e.g. 1x Cookie, 1x PS5)" class="editable-input">
+                    <input type="text" id="man-items" placeholder="Items (e.g. Nutella Shake, Muffin)" class="editable-input">
                     <input type="number" id="man-total" placeholder="Total Amount (₹)" class="editable-input">
                 </div>
                 <button class="btn-sm btn-save" style="margin-top: 10px; width: 100%; padding: 8px;" onclick="addManualOrder()">Add Record</button>
@@ -484,111 +514,12 @@
             <button class="checkout-btn" style="background: var(--vibrant-orange); margin-top: 15px;" onclick="closeOwnerSession()">Exit Owner Mode</button>
         </div>
 
-        <h3 style="margin-bottom: 10px; font-size: 0.95rem; color: var(--text-gray);">🚀 Quick Order Bundles</h3>
-        <div class="bundle-bar">
-            <button class="bundle-chip" onclick="applyBundle('gamer')">⚡ Gamer Pack (1x Cookie + 1x PS5 Ticket)</button>
-            <button class="bundle-chip" onclick="applyBundle('refresh')">🍉 Refresh Combo (1x Slush + 1x Muffin)</button>
-            <button class="bundle-chip" onclick="applyBundle('sweet')">🍪 Sweet Pair (1x Cookie + 1x Muffin)</button>
-        </div>
-
-        <!-- MENU ITEMS -->
         <div class="card">
-            <h2 style="color: var(--vibrant-orange); margin-bottom: 15px;">🛒 Menu & Tickets</h2>
-            <div class="menu-grid">
-                
-                <div class="menu-card">
-                    <span class="badge">Healthy</span>
-                    <div class="item-icon">🍪</div>
-                    <h3>Sugar-Free Cookie</h3>
-                    <div class="price-tag">₹40</div>
-                    <div class="stock-tag">Stock: <span id="stock-item1">20</span></div>
-                    <div class="qty-controls">
-                        <button class="qty-btn" onclick="updateQty('item1', -1)">-</button>
-                        <span class="qty-val" id="item1-qty">0</span>
-                        <button class="qty-btn" onclick="updateQty('item1', 1)">+</button>
-                    </div>
+            <h2 id="category-title" style="color: var(--vibrant-orange); margin-bottom: 15px;">🍕 Food Items</h2>
+            <div class="menu-grid" id="menu-container">
                 </div>
-
-                <div class="menu-card">
-                    <div class="item-icon">🧁</div>
-                    <h3>Sugar-Free Muffin</h3>
-                    <div class="price-tag">₹50</div>
-                    <div class="stock-tag">Stock: <span id="stock-item2">15</span></div>
-                    <div class="qty-controls">
-                        <button class="qty-btn" onclick="updateQty('item2', -1)">-</button>
-                        <span class="qty-val" id="item2-qty">0</span>
-                        <button class="qty-btn" onclick="updateQty('item2', 1)">+</button>
-                    </div>
-                </div>
-
-                <div class="menu-card">
-                    <div class="item-icon">🍨</div>
-                    <h3>Organic Honey Ice Cream</h3>
-                    <div class="price-tag">₹60</div>
-                    <div class="stock-tag">Stock: <span id="stock-item3">10</span></div>
-                    <div class="qty-controls">
-                        <button class="qty-btn" onclick="updateQty('item3', -1)">-</button>
-                        <span class="qty-val" id="item3-qty">0</span>
-                        <button class="qty-btn" onclick="updateQty('item3', 1)">+</button>
-                    </div>
-                </div>
-
-                <div class="menu-card">
-                    <span class="badge">Low Sugar</span>
-                    <div class="item-icon">🍉</div>
-                    <h3>Watermelon Mint Slush</h3>
-                    <div class="price-tag">₹50</div>
-                    <div class="stock-tag">Stock: <span id="stock-item6">15</span></div>
-                    <div class="qty-controls">
-                        <button class="qty-btn" onclick="updateQty('item6', -1)">-</button>
-                        <span class="qty-val" id="item6-qty">0</span>
-                        <button class="qty-btn" onclick="updateQty('item6', 1)">+</button>
-                    </div>
-                </div>
-
-                <div class="menu-card">
-                    <span class="badge">Desi Cooler</span>
-                    <div class="item-icon">🥭</div>
-                    <h3>No-Sugar Mango Lassi</h3>
-                    <div class="price-tag">₹60</div>
-                    <div class="stock-tag">Stock: <span id="stock-item7">12</span></div>
-                    <div class="qty-controls">
-                        <button class="qty-btn" onclick="updateQty('item7', -1)">-</button>
-                        <span class="qty-val" id="item7-qty">0</span>
-                        <button class="qty-btn" onclick="updateQty('item7', 1)">+</button>
-                    </div>
-                </div>
-
-                <div class="menu-card">
-                    <span class="badge">Popular</span>
-                    <div class="item-icon">🎮</div>
-                    <h3>PS5 Ticket (15 Mins)</h3>
-                    <div class="price-tag">₹120</div>
-                    <div class="stock-tag">Stock: <span id="stock-item4">8</span></div>
-                    <div class="qty-controls">
-                        <button class="qty-btn" onclick="updateQty('item4', -1)">-</button>
-                        <span class="qty-val" id="item4-qty">0</span>
-                        <button class="qty-btn" onclick="updateQty('item4', 1)">+</button>
-                    </div>
-                </div>
-
-                <div class="menu-card" style="border-color: var(--vibrant-orange);">
-                    <span class="badge">Best Value</span>
-                    <div class="item-icon">🔥</div>
-                    <h3>Gamer Combo Pack</h3>
-                    <div class="price-tag">₹190</div>
-                    <div class="stock-tag">Stock: <span id="stock-item5">5</span></div>
-                    <div class="qty-controls">
-                        <button class="qty-btn" onclick="updateQty('item5', -1)">-</button>
-                        <span class="qty-val" id="item5-qty">0</span>
-                        <button class="qty-btn" onclick="updateQty('item5', 1)">+</button>
-                    </div>
-                </div>
-
-            </div>
         </div>
 
-        <!-- CASH ORDER FORM -->
         <div class="card" style="border-color: var(--electric-blue);">
             <h2 style="color: var(--electric-blue); margin-bottom: 15px;">📋 Delivery & Order Details</h2>
             
@@ -634,7 +565,6 @@
             <button class="checkout-btn" onclick="sendWhatsAppOrder()">SEND CASH ORDER VIA WHATSAPP</button>
         </div>
 
-        <!-- DIGITAL QUEUE BOARD & ORDER TRACKER -->
         <div class="card">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 10px;">
                 <h2>📋 Live Order Tracker & Queue</h2>
@@ -665,13 +595,11 @@
 
     </div>
 
-    <!-- LIVE BILL CALCULATOR BAR -->
     <div class="live-cart-bar">
         <div class="cart-info">Total Bill: <span id="cart-total-val">₹0</span> (<span id="cart-count-val">0</span> items)</div>
         <button class="btn-sm btn-save" style="padding: 8px 16px; font-size: 0.9rem;" onclick="scrollToCheckout()">Checkout ➔</button>
     </div>
 
-    <!-- ORDER CONFIRMATION MODAL -->
     <div class="modal" id="confirmModal">
         <div class="modal-content">
             <h2 style="color: var(--neon-green); margin-bottom: 5px;">🎉 Order Created!</h2>
@@ -687,7 +615,6 @@
         </div>
     </div>
 
-    <!-- OWNER LOGIN MODAL -->
     <div class="modal" id="ownerModal">
         <div class="modal-content">
             <h3 style="color: var(--vibrant-orange); margin-bottom: 10px;">👑 Owner Login</h3>
@@ -698,13 +625,33 @@
     </div>
 
     <script>
-        const prices = { item1: 40, item2: 50, item3: 60, item4: 120, item5: 190, item6: 50, item7: 60 };
-        const quantities = { item1: 0, item2: 0, item3: 0, item4: 0, item5: 0, item6: 0, item7: 0 };
+        const menuData = {
+            foods: [
+                { id: 'item1', name: 'Sugar-Free Cookie', price: 40, icon: '🍪', badge: 'Healthy', badgeClass: '' },
+                { id: 'item2', name: 'Sugar-Free Muffin', price: 50, icon: '🧁', badge: '', badgeClass: '' },
+                { id: 'item3', name: 'Organic Honey Ice Cream', price: 60, icon: '🍨', badge: 'Organic', badgeClass: 'purple' }
+            ],
+            beverages: [
+                { id: 'item8', name: 'Nutella Chocolate Shake', price: 90, icon: '🥤', badge: 'Bestseller', badgeClass: 'purple' },
+                { id: 'item9', name: 'Flavored Mocktails', price: 70, icon: '🍹', badge: 'Refreshing', badgeClass: 'blue', hasFlavors: true },
+                { id: 'item6', name: 'Watermelon Mint Slush', price: 50, icon: '🍉', badge: 'Zero Sugar', badgeClass: '' },
+                { id: 'item7', name: 'No-Sugar Mango Lassi', price: 60, icon: '🥭', badge: 'Desi Cooler', badgeClass: '' }
+            ],
+            combos: [
+                { id: 'item4', name: 'PS5 Gaming Slot (15 Mins)', price: 120, icon: '🎮', badge: 'Popular', badgeClass: 'blue' },
+                { id: 'item5', name: 'Gamer Combo (Shake + PS5)', price: 190, icon: '🔥', badge: 'Save ₹20', badgeClass: '' },
+                { id: 'item10', name: 'Snack & Sip (Muffin + Mocktail)', price: 110, icon: '🎉', badge: 'Save ₹10', badgeClass: 'purple' }
+            ]
+        };
+
+        const prices = { item1: 40, item2: 50, item3: 60, item4: 120, item5: 190, item6: 50, item7: 60, item8: 90, item9: 70, item10: 110 };
+        const quantities = { item1: 0, item2: 0, item3: 0, item4: 0, item5: 0, item6: 0, item7: 0, item8: 0, item9: 0, item10: 0 };
         const stallPhoneNumber = "916200892286";
+        let currentCategory = 'foods';
         let isOwner = false;
         let pendingWhatsAppUrl = "";
 
-        let defaultStock = { item1: 20, item2: 15, item3: 10, item4: 8, item5: 5, item6: 15, item7: 12 };
+        let defaultStock = { item1: 20, item2: 15, item3: 10, item4: 8, item5: 5, item6: 15, item7: 12, item8: 15, item9: 20, item10: 10 };
         let currentStock = JSON.parse(localStorage.getItem('hp_stock')) || defaultStock;
 
         function playBeep(freq = 440, type = 'sine') {
@@ -728,6 +675,46 @@
             document.documentElement.setAttribute('data-theme', target);
         }
 
+        function switchCategory(cat) {
+            currentCategory = cat;
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('tab-' + cat).classList.add('active');
+
+            const titles = { foods: '🍕 Food Items', beverages: '🥤 Cold Beverages & Shakes', combos: '🔥 Combos & Gaming Tickets' };
+            document.getElementById('category-title').innerText = titles[cat];
+            renderCategoryItems();
+        }
+
+        function renderCategoryItems() {
+            const container = document.getElementById('menu-container');
+            const items = menuData[currentCategory];
+
+            container.innerHTML = items.map(item => `
+                <div class="menu-card">
+                    ${item.badge ? `<span class="badge ${item.badgeClass}">${item.badge}</span>` : ''}
+                    <div class="item-icon">${item.icon}</div>
+                    <h3>${item.name}</h3>
+                    <div class="price-tag">₹${item.price}</div>
+                    <div class="stock-tag">Stock: <span id="stock-${item.id}">${currentStock[item.id] || 0}</span></div>
+                    ${item.hasFlavors ? `
+                        <select id="mocktail-flavor" class="flavor-select">
+                            <option value="Virgin Mojito">Virgin Mint Mojito</option>
+                            <option value="Blue Lagoon">Blue Lagoon</option>
+                            <option value="Green Apple">Green Apple Fizz</option>
+                            <option value="Watermelon Breeze">Watermelon Breeze</option>
+                            <option value="Peach Passion">Peach Passion</option>
+                        </select>
+                    ` : ''}
+                    <div class="qty-controls">
+                        <button class="qty-btn" onclick="updateQty('${item.id}', -1)">-</button>
+                        <span class="qty-val" id="${item.id}-qty">${quantities[item.id]}</span>
+                        <button class="qty-btn" onclick="updateQty('${item.id}', 1)">+</button>
+                    </div>
+                </div>
+            `).join('');
+            renderStockUI();
+        }
+
         function renderStockUI() {
             for (let item in currentStock) {
                 const el = document.getElementById('stock-' + item);
@@ -739,7 +726,8 @@
         function updateQty(item, change) {
             if (quantities[item] + change >= 0 && quantities[item] + change <= currentStock[item]) {
                 quantities[item] += change;
-                document.getElementById(item + '-qty').innerText = quantities[item];
+                const qtyEl = document.getElementById(item + '-qty');
+                if (qtyEl) qtyEl.innerText = quantities[item];
                 playBeep(change > 0 ? 587 : 330);
                 updateLiveCartBar();
             }
@@ -757,19 +745,6 @@
 
             const ps5Count = quantities.item4 + quantities.item5;
             document.getElementById('mk-char-group').style.display = ps5Count > 0 ? 'block' : 'none';
-        }
-
-        function applyBundle(type) {
-            for (let i in quantities) { quantities[i] = 0; document.getElementById(i + '-qty').innerText = '0'; }
-            if (type === 'gamer') { quantities.item1 = 1; quantities.item4 = 1; }
-            if (type === 'refresh') { quantities.item6 = 1; quantities.item2 = 1; }
-            if (type === 'sweet') { quantities.item1 = 1; quantities.item2 = 1; }
-            
-            for (let i in quantities) {
-                document.getElementById(i + '-qty').innerText = quantities[i];
-            }
-            playBeep(880, 'triangle');
-            updateLiveCartBar();
         }
 
         function scrollToCheckout() {
@@ -830,7 +805,7 @@
 
         function renderOwnerStockControls() {
             const container = document.getElementById('owner-stock-list');
-            const itemNames = { item1: "Cookie", item2: "Muffin", item3: "Ice Cream", item4: "PS5 Ticket", item5: "Combo", item6: "Watermelon Slush", item7: "Mango Lassi" };
+            const itemNames = { item1: "Cookie", item2: "Muffin", item3: "Ice Cream", item4: "PS5 Ticket", item5: "Gamer Combo", item6: "Watermelon Slush", item7: "Mango Lassi", item8: "Nutella Shake", item9: "Mocktails", item10: "Snack & Sip" };
             container.innerHTML = Object.keys(currentStock).map(i => `
                 <div class="owner-control-row">
                     <span>${itemNames[i]}</span>
@@ -855,7 +830,8 @@
             const loc = document.getElementById('cust-loc').value.trim();
             const fighter = document.getElementById('mk-char').value;
 
-            const totalBill = (quantities.item1 * prices.item1) + (quantities.item2 * prices.item2) + (quantities.item3 * prices.item3) + (quantities.item4 * prices.item4) + (quantities.item5 * prices.item5) + (quantities.item6 * prices.item6) + (quantities.item7 * prices.item7);
+            let totalBill = 0;
+            for (let item in quantities) totalBill += quantities[item] * prices[item];
 
             if (totalBill === 0 || !name || !state || !loc) {
                 alert('Please select items and fill all required details!');
@@ -871,10 +847,16 @@
             if (quantities.item1 > 0) itemDetails.push(`${quantities.item1}x Cookie`);
             if (quantities.item2 > 0) itemDetails.push(`${quantities.item2}x Muffin`);
             if (quantities.item3 > 0) itemDetails.push(`${quantities.item3}x Ice Cream`);
+            if (quantities.item8 > 0) itemDetails.push(`${quantities.item8}x Nutella Shake`);
+            if (quantities.item9 > 0) {
+                const flavor = document.getElementById('mocktail-flavor') ? document.getElementById('mocktail-flavor').value : 'Virgin Mojito';
+                itemDetails.push(`${quantities.item9}x Mocktail (${flavor})`);
+            }
             if (quantities.item6 > 0) itemDetails.push(`${quantities.item6}x Watermelon Slush`);
             if (quantities.item7 > 0) itemDetails.push(`${quantities.item7}x Mango Lassi`);
             if (quantities.item4 > 0) itemDetails.push(`${quantities.item4}x PS5 Ticket`);
             if (quantities.item5 > 0) itemDetails.push(`${quantities.item5}x Gamer Combo`);
+            if (quantities.item10 > 0) itemDetails.push(`${quantities.item10}x Snack & Sip Combo`);
 
             const token = Math.floor(1000 + Math.random() * 9000);
             const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -1012,7 +994,7 @@
         }
 
         window.onload = function() {
-            renderStockUI();
+            renderCategoryItems();
             loadOrdersUI();
             loadCustomerData();
             updateLiveCartBar();
