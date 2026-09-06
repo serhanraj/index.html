@@ -43,7 +43,6 @@
 
         body {
             background-color: var(--bg-dark);
-            /* Food photo background with dark overlay for readability */
             background-image: linear-gradient(rgba(18, 19, 24, 0.88), rgba(18, 19, 24, 0.88)), 
                               url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1600&auto=format&fit=crop');
             background-size: cover;
@@ -562,7 +561,6 @@
             <span style="font-size: 0.8rem; color: var(--text-gray);" id="ps5-wait-time">No Queue</span>
         </div>
 
-        <!-- OWNER PANEL -->
         <div id="owner-dashboard" class="card" style="display: none; border-color: var(--coral-red);">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                 <h2 style="color: var(--coral-red);">⚡ Owner Management Center</h2>
@@ -917,7 +915,7 @@
 
         function verifyOwner() {
             const pass = document.getElementById('owner-pass-input').value;
-            if (pass === 'serhan__999me_rivals') {
+            if (pass === '67meHUNGER') {
                 isOwner = true;
                 document.getElementById('ownerModal').style.display = 'none';
                 document.getElementById('owner-dashboard').style.display = 'block';
@@ -1002,24 +1000,27 @@
             incrementOrderStat();
             loadOrdersUI();
 
-            let message = `*CASH ORDER - HUNGER POINTS*%0A` +
-                          `──────────────────%0A` +
-                          `📍 *Stall Location:* FOIR%0A` +
-                          `🎫 *Token:* #${token}%0A` +
-                          `⏰ *Time:* ${timeNow}%0A` +
-                          `👤 *Name:* ${name}%0A` +
-                          `📍 *Spot:* ${encodeURIComponent(loc)}%0A` +
-                          `💳 *Pay Mode:* ${encodeURIComponent(pay)}%0A` +
-                          `🛒 *Items:* ${encodeURIComponent(itemDetails.join(', '))}%0A`;
-            
+            let messageLines = [
+                `*CASH ORDER - HUNGER POINTS*`,
+                `----------------------------------------`,
+                `📍 *Stall Location:* FOIR`,
+                `🎫 *Token:* #${token}`,
+                `⏰ *Time:* ${timeNow}`,
+                `👤 *Name:* ${name}`,
+                `📍 *Spot:* ${loc}`,
+                `💳 *Pay Mode:* ${pay}`,
+                `🛒 *Items:* ${itemDetails.join(', ')}`
+            ];
+
             if (quantities.item4 + quantities.item5 > 0) {
-                message += `🎮 *MK Fighter:* ${encodeURIComponent(fighter)}%0A`;
+                messageLines.push(`🎮 *MK Fighter:* ${fighter}`);
             }
 
-            message += `──────────────────%0A` +
-                       `💰 *Total Cash Due:* Rs. ${totalBill}`;
+            messageLines.push(`----------------------------------------`);
+            messageLines.push(`💰 *Total Cash Due:* Rs. ${totalBill}`);
 
-            pendingWhatsAppUrl = `https://wa.me/${stallPhoneNumber}?text=${message}`;
+            const fullText = messageLines.join('\n');
+            pendingWhatsAppUrl = `https://wa.me/${stallPhoneNumber}?text=${encodeURIComponent(fullText)}`;
 
             document.getElementById('modal-token').innerText = '#' + token;
             document.getElementById('confirmModal').style.display = 'flex';
