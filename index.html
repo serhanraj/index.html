@@ -699,7 +699,7 @@
                 </select>
             </div>
 
-            <button class="checkout-btn" onclick="sendWhatsAppOrder()">SEND CASH ORDER VIA WHATSAPP</button>
+            <button class="checkout-btn" onclick="submitOrder()">SUBMIT ORDER (AUTOMATED BACKEND)</button>
         </div>
 
         <div class="card">
@@ -744,8 +744,8 @@
 
     <div class="modal" id="confirmModal">
         <div class="modal-content">
-            <h2 style="color: var(--neon-green); margin-bottom: 5px;">🎉 Order Created!</h2>
-            <p style="color: var(--text-gray); font-size: 0.9rem; margin-bottom: 15px;">Your WhatsApp receipt is ready to send. Pickup at FOIR Stall!</p>
+            <h2 style="color: var(--neon-green); margin-bottom: 5px;">🎉 Order Placed Successfully!</h2>
+            <p style="color: var(--text-gray); font-size: 0.9rem; margin-bottom: 15px;">Your order has been logged automatically to our team sheet!</p>
             
             <div style="background: var(--input-bg); padding: 15px; border-radius: 10px; border: 1.5px solid var(--neon-green); margin-bottom: 15px;">
                 <div style="font-size: 0.85rem; color: var(--text-gray);">YOUR TOKEN NUMBER</div>
@@ -753,7 +753,7 @@
                 <div style="font-size: 0.85rem; color: var(--electric-blue); margin-top: 5px;">Pickup / Delivery Spot: FOIR (5-10 mins)</div>
             </div>
 
-            <button class="checkout-btn" onclick="confirmAndOpenWhatsApp()">Open WhatsApp & Complete</button>
+            <button class="checkout-btn" onclick="closeModal()">Awesome, Got It!</button>
         </div>
     </div>
 
@@ -781,10 +781,8 @@
 
         const prices = { item1: 50, item2: 30, item3: 50, item4: 120, item5: 160 };
         const quantities = { item1: 0, item2: 0, item3: 0, item4: 0, item5: 0 };
-        const stallPhoneNumber = "918448092503";
         let currentCategory = 'foods';
         let isOwner = false;
-        let pendingWhatsAppUrl = "";
 
         let defaultStock = { item1: 25, item2: 20, item3: 25, item4: 8, item5: 5 };
         let currentStock = JSON.parse(localStorage.getItem('hp_stock')) || defaultStock;
@@ -986,12 +984,12 @@
             renderStockUI();
         }
 
-        function sendWhatsAppOrder() {
+        async function submitOrder() {
             const name = document.getElementById('cust-name').value.trim();
             const state = document.getElementById('cust-state').value;
             const pay = document.getElementById('cust-pay').value;
             const loc = document.getElementById('cust-loc').value.trim();
-            const fighter = document.getElementById('mk-char').value;
+            const fighter = document.getElementById('mk-char') ? document.getElementById('mk-char').value : 'N/A';
 
             let totalBill = 0;
             for (let item in quantities) totalBill += quantities[item] * prices[item];
@@ -1016,43 +1014,46 @@
             const token = Math.floor(1000 + Math.random() * 9000);
             const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
+            const orderPayload = {
+                token: '#' + token,
+                time: timeNow,
+                name: name,
+                loc: loc,
+                items: itemDetails.join(', '),
+                total: totalBill,
+                pay: pay,
+                fighter: fighter,
+                status: 'Received'
+            };
+
+            // Save locally for owner tracker dashboard
             const savedOrders = JSON.parse(localStorage.getItem('hp_local_orders') || '[]');
-            savedOrders.unshift({ token, time: timeNow, name, loc, items: itemDetails.join(', '), total: totalBill, status: 'Received' });
+            savedOrders.unshift(orderPayload);
             localStorage.setItem('hp_local_orders', JSON.stringify(savedOrders));
             
             incrementOrderStat();
             loadOrdersUI();
 
-            let messageLines = [
-                `*CASH ORDER - HUNGER POINTS*`,
-                `----------------------------------------`,
-                `📍 *Stall Location:* FOIR`,
-                `🎫 *Token:* #${token}`,
-                `⏰ *Time:* ${timeNow}`,
-                `👤 *Name:* ${name}`,
-                `📍 *Spot:* ${loc}`,
-                `💳 *Pay Mode:* ${pay}`,
-                `🛒 *Items:* ${itemDetails.join(', ')}`
-            ];
-
-            if (quantities.item4 + quantities.item5 > 0) {
-                messageLines.push(`🎮 *MK Fighter:* ${fighter}`);
+            // SEND TO GOOGLE SHEETS BACKEND (Replace URL with your deployed web app URL)
+            const webAppUrl = "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
+            try {
+                await fetch(webAppUrl, {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(orderPayload)
+                });
+            } catch (err) {
+                console.error("Backend sync error:", err);
             }
-
-            messageLines.push(`----------------------------------------`);
-            messageLines.push(`💰 *Total Cash Due:* Rs. ${totalBill}`);
-
-            const fullText = messageLines.join('\n');
-            pendingWhatsAppUrl = `https://wa.me/${stallPhoneNumber}?text=${encodeURIComponent(fullText)}`;
 
             document.getElementById('modal-token').innerText = '#' + token;
             document.getElementById('confirmModal').style.display = 'flex';
             playBeep(700, 'square');
         }
 
-        function confirmAndOpenWhatsApp() {
+        function closeModal() {
             document.getElementById('confirmModal').style.display = 'none';
-            if (pendingWhatsAppUrl) window.open(pendingWhatsAppUrl, '_blank');
         }
 
         function addManualOrder() {
@@ -1065,7 +1066,7 @@
             const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
             const savedOrders = JSON.parse(localStorage.getItem('hp_local_orders') || '[]');
-            savedOrders.unshift({ token, time: timeNow, name, loc, items, total, status: 'Completed' });
+            savedOrders.unshift({ token: '#' + token, time: timeNow, name, loc, items, total, status: 'Completed' });
             localStorage.setItem('hp_local_orders', JSON.stringify(savedOrders));
             
             incrementOrderStat();
@@ -1110,7 +1111,7 @@
             const searchVal = document.getElementById('tracker-search').value.toLowerCase().trim();
 
             if (searchVal) {
-                savedOrders = savedOrders.filter(o => o.token.toString().includes(searchVal) || o.name.toLowerCase().includes(searchVal));
+                savedOrders = savedOrders.filter(o => o.token.toString().toLowerCase().includes(searchVal) || o.name.toLowerCase().includes(searchVal));
             }
 
             if (savedOrders.length === 0) {
@@ -1122,7 +1123,7 @@
                 if (isOwner) {
                     return `
                         <tr>
-                            <td>#${o.token}</td>
+                            <td>${o.token}</td>
                             <td>${o.time || 'N/A'}</td>
                             <td><input class="editable-input" value="${o.name}" onchange="updateOrderField(${index}, 'name', this.value)"></td>
                             <td><input class="editable-input" value="${o.loc}" onchange="updateOrderField(${index}, 'loc', this.value)"></td>
@@ -1142,7 +1143,7 @@
                 } else {
                     return `
                         <tr>
-                            <td><strong>#${o.token}</strong></td>
+                            <td><strong>${o.token}</strong></td>
                             <td>${o.time || 'N/A'}</td>
                             <td>${o.name}</td>
                             <td>${o.loc}</td>
