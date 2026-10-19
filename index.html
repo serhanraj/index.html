@@ -1,1169 +1,222 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hunger Points | Snacks & PS5 Gaming</title>
-    <style>
-        :root {
-            --bg-dark: #121318;
-            --card-bg: rgba(36, 39, 49, 0.92);
-            --neon-green: #00FF66;
-            --electric-blue: #00F0FF;
-            --vibrant-orange: #FFB703;
-            --coral-red: #FF3366;
-            --purple-neon: #BF5AF2;
-            --text-light: #FFFFFF;
-            --text-gray: #B0B7C6;
-            --input-bg: rgba(18, 20, 26, 0.85);
-            --border-color: rgba(255, 255, 255, 0.15);
-        }
-
-        [data-theme="light"] {
-            --bg-dark: #F4F6F9;
-            --card-bg: rgba(255, 255, 255, 0.92);
-            --neon-green: #00A843;
-            --electric-blue: #0077B6;
-            --vibrant-orange: #D97706;
-            --coral-red: #E11D48;
-            --purple-neon: #8E24AA;
-            --text-light: #0F172A;
-            --text-gray: #475569;
-            --input-bg: rgba(226, 232, 240, 0.85);
-            --border-color: #CBD5E1;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            transition: background 0.2s, color 0.2s;
-        }
-
-        body {
-            background-color: var(--bg-dark);
-            background-image: linear-gradient(rgba(18, 19, 24, 0.88), rgba(18, 19, 24, 0.88)), 
-                              url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1600&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-            color: var(--text-light);
-            line-height: 1.6;
-            padding-bottom: 130px;
-        }
-
-        nav {
-            background: rgba(36, 39, 49, 0.95);
-            backdrop-filter: blur(12px);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 3px solid var(--vibrant-orange);
-            padding: 10px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-text {
-            font-size: 1.4rem;
-            font-weight: 900;
-            color: var(--neon-green);
-        }
-
-        .logo-text span {
-            color: var(--vibrant-orange);
-        }
-
-        .nav-controls {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-
-        .theme-toggle, .owner-btn {
-            background: var(--card-bg);
-            color: var(--text-light);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 0.8rem;
-            border: 1.5px solid var(--border-color);
-            cursor: pointer;
-        }
-
-        .owner-btn {
-            background: var(--coral-red);
-            color: #FFF;
-            border: none;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 20px 15px;
-        }
-
-        .hero {
-            text-align: center;
-            background: radial-gradient(circle at center, rgba(255, 183, 3, 0.2) 0%, rgba(26, 28, 35, 0.75) 85%);
-            backdrop-filter: blur(8px);
-            padding: 25px 15px;
-            border-radius: 14px;
-            margin-bottom: 20px;
-            border: 2px solid var(--vibrant-orange);
-        }
-
-        .hero h1 {
-            font-size: 2rem;
-            font-weight: 900;
-        }
-
-        .hero h1 span {
-            color: var(--vibrant-orange);
-        }
-
-        .developer-badge {
-            display: inline-block;
-            background: rgba(0, 240, 255, 0.15);
-            color: var(--electric-blue);
-            border: 1px solid var(--electric-blue);
-            font-weight: 700;
-            font-size: 0.8rem;
-            padding: 2px 10px;
-            border-radius: 12px;
-            margin-top: 6px;
-        }
-
-        .stall-location-badge {
-            display: inline-block;
-            background: var(--purple-neon);
-            color: #FFF;
-            font-weight: 800;
-            font-size: 0.9rem;
-            padding: 4px 14px;
-            border-radius: 20px;
-            margin-top: 10px;
-            box-shadow: 0 0 10px rgba(191, 90, 242, 0.4);
-        }
-
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 12px;
-            margin-top: 10px;
-        }
-
-        .team-card {
-            background: var(--input-bg);
-            border: 1.5px solid var(--electric-blue);
-            border-radius: 10px;
-            padding: 12px;
-            text-align: center;
-        }
-
-        .team-card h4 {
-            color: var(--neon-green);
-            font-size: 1rem;
-            margin-bottom: 2px;
-        }
-
-        .team-card p {
-            font-size: 0.75rem;
-            color: var(--text-gray);
-        }
-
-        .analytics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 12px;
-            margin-top: 15px;
-            margin-bottom: 15px;
-        }
-
-        .analytics-card {
-            background: var(--input-bg);
-            border: 1.5px solid var(--border-color);
-            padding: 12px;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        .analytics-card .num {
-            font-size: 1.6rem;
-            font-weight: 900;
-            margin-top: 4px;
-        }
-
-        .analytics-card.views .num { color: var(--electric-blue); }
-        .analytics-card.orders .num { color: var(--neon-green); }
-        .analytics-card.left .num { color: var(--coral-red); }
-
-        .promo-banner {
-            background: linear-gradient(135deg, rgba(255, 51, 102, 0.25), rgba(0, 240, 255, 0.25));
-            backdrop-filter: blur(6px);
-            border: 2px dashed var(--neon-green);
-            border-radius: 12px;
-            padding: 15px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .promo-banner h3 {
-            color: var(--neon-green);
-            font-size: 1.2rem;
-            margin-bottom: 5px;
-        }
-
-        .category-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .tab-btn {
-            flex: 1;
-            padding: 12px 18px;
-            background: var(--card-bg);
-            backdrop-filter: blur(8px);
-            color: var(--text-gray);
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            font-weight: 800;
-            font-size: 1rem;
-            cursor: pointer;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-
-        .tab-btn.active {
-            background: var(--input-bg);
-            color: var(--neon-green);
-            border-color: var(--neon-green);
-            box-shadow: 0 0 12px rgba(0, 255, 102, 0.25);
-        }
-
-        .ps5-status-bar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: var(--input-bg);
-            backdrop-filter: blur(8px);
-            padding: 12px 18px;
-            border-radius: 10px;
-            border: 1.5px solid var(--electric-blue);
-            margin-bottom: 20px;
-        }
-
-        .ps5-badge {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: var(--neon-green);
-            margin-right: 6px;
-            box-shadow: 0 0 8px var(--neon-green);
-        }
-
-        .ps5-badge.busy {
-            background: var(--coral-red);
-            box-shadow: 0 0 8px var(--coral-red);
-        }
-
-        .card {
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            border-radius: 14px;
-            padding: 20px;
-            border: 2px solid var(--border-color);
-            margin-bottom: 20px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-        }
-
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 16px;
-        }
-
-        .menu-card {
-            background: var(--input-bg);
-            border-radius: 12px;
-            padding: 15px;
-            border: 1.5px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            position: relative;
-        }
-
-        .item-icon {
-            font-size: 2.2rem;
-            text-align: center;
-            margin-bottom: 8px;
-        }
-
-        .badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: var(--vibrant-orange);
-            color: #000;
-            font-weight: 900;
-            font-size: 0.65rem;
-            padding: 2px 8px;
-            border-radius: 10px;
-            text-transform: uppercase;
-        }
-
-        .badge.purple { background: var(--purple-neon); color: #FFF; }
-        .badge.blue { background: var(--electric-blue); color: #000; }
-
-        .price-tag {
-            color: var(--neon-green);
-            font-weight: 900;
-            font-size: 1.1rem;
-            margin-bottom: 4px;
-        }
-
-        .stock-tag {
-            font-size: 0.78rem;
-            color: var(--text-gray);
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .qty-controls {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 10px;
-        }
-
-        .qty-btn {
-            background: var(--card-bg);
-            color: var(--text-light);
-            border: 1px solid var(--electric-blue);
-            width: 32px;
-            height: 32px;
-            border-radius: 6px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .qty-val {
-            font-weight: 800;
-            font-size: 1.05rem;
-            min-width: 20px;
-            text-align: center;
-        }
-
-        .form-group {
-            margin-bottom: 14px;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: 700;
-            margin-bottom: 5px;
-            font-size: 0.88rem;
-        }
-
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 10px 12px;
-            background: var(--input-bg);
-            border: 1.5px solid var(--border-color);
-            border-radius: 8px;
-            color: var(--text-light);
-            font-size: 0.9rem;
-            outline: none;
-        }
-
-        .checkout-btn {
-            width: 100%;
-            background: var(--neon-green);
-            color: #000;
-            border: none;
-            padding: 14px;
-            border-radius: 10px;
-            font-weight: 900;
-            font-size: 1rem;
-            cursor: pointer;
-            box-shadow: 0 0 12px rgba(0, 255, 102, 0.3);
-        }
-
-        .live-cart-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(36, 39, 49, 0.95);
-            backdrop-filter: blur(10px);
-            border-top: 2px solid var(--neon-green);
-            padding: 12px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 999;
-        }
-
-        .cart-info {
-            font-size: 0.95rem;
-            font-weight: 700;
-        }
-
-        .cart-info span {
-            color: var(--neon-green);
-            font-size: 1.2rem;
-            font-weight: 900;
-        }
-
-        .table-responsive {
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 12px;
-            min-width: 750px;
-        }
-
-        th, td {
-            padding: 10px;
-            border-bottom: 1px solid var(--border-color);
-            text-align: left;
-            font-size: 0.85rem;
-        }
-
-        th {
-            color: var(--vibrant-orange);
-        }
-
-        .editable-input {
-            background: var(--input-bg);
-            border: 1px solid var(--border-color);
-            color: var(--text-light);
-            padding: 4px 6px;
-            border-radius: 4px;
-            font-size: 0.82rem;
-            width: 100%;
-        }
-
-        .status-select {
-            background: var(--input-bg);
-            color: var(--electric-blue);
-            border: none;
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-weight: bold;
-            font-size: 0.78rem;
-        }
-
-        .btn-sm {
-            padding: 4px 8px;
-            font-size: 0.75rem;
-            border-radius: 4px;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .btn-delete { background: var(--coral-red); color: #FFF; }
-        .btn-save { background: var(--neon-green); color: #000; }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            left: 0; top: 0; width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.85);
-            align-items: center; justify-content: center;
-        }
-
-        .modal-content {
-            background: var(--card-bg);
-            border: 2px solid var(--vibrant-orange);
-            border-radius: 14px;
-            padding: 25px;
-            max-width: 420px;
-            width: 90%;
-            text-align: center;
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px 10px;
-            color: var(--text-gray);
-            font-size: 0.88rem;
-            border-top: 1px solid var(--border-color);
-            margin-top: 20px;
-            background: rgba(26, 28, 35, 0.7);
-            backdrop-filter: blur(8px);
-            border-radius: 12px;
-        }
-
-        footer strong {
-            color: var(--neon-green);
-        }
-
-        .owner-control-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            background: var(--input-bg);
-            padding: 8px 12px;
-            border-radius: 8px;
-        }
-
-        .owner-control-row input {
-            width: 70px;
-            padding: 5px;
-            text-align: center;
-            margin: 0;
-        }
-
-        .manual-order-box {
-            background: var(--input-bg);
-            padding: 15px;
-            border-radius: 10px;
-            border: 1px dashed var(--vibrant-orange);
-            margin-top: 15px;
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hunger Points | Snacks &amp; PS5 Gaming</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FFF8EC;--card:#FFFFFF;--ink:#1B1230;--mut:#5B5370;--line:#E6DCC8;--pin:#D63A1A;--acc:#FFC93C;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1B1230;--card:#271A42;--ink:#FFF4E0;--mut:#B9AFD0;--line:#3A2C5C}}
+:root[data-theme="dark"]{--bg:#1B1230;--card:#271A42;--ink:#FFF4E0;--mut:#B9AFD0;--line:#3A2C5C}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:500 16px/1.45 'Space Grotesk',system-ui,sans-serif;min-height:100vh}
+h1,h2,h3{font-family:'Lilita One','Arial Black',sans-serif;font-weight:400;margin:0;letter-spacing:.5px}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer;min-height:44px;border-radius:12px;border:2px solid var(--line);background:var(--card);padding:0 16px;font-weight:700}
+button.p{background:var(--pin);border-color:var(--pin);color:#fff}
+button.y{background:var(--acc);border-color:var(--acc);color:#1B1230}
+button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+input,select{width:100%;min-height:44px;padding:0 12px;border-radius:12px;border:2px solid var(--line);background:var(--card)}
+label{display:block;font-weight:700;margin:12px 0 6px}
+.wrap{max-width:1000px;margin:0 auto;padding:16px 16px 120px}
+.card{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.sp{justify-content:space-between}
+.mut{color:var(--mut)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0 16px}
+.brand{font-family:'Lilita One',sans-serif;font-size:26px;display:flex;align-items:center;gap:8px}
+.brand span,.big span{color:var(--pin)}
+.hero{background:var(--ink);color:var(--bg);border-radius:22px;padding:24px;margin-bottom:16px}
+.hero h1{font-size:clamp(34px,7vw,56px);line-height:1}
+.hero h1 span{color:var(--acc);text-shadow:3px 3px 0 var(--pin)}
+.chip{display:inline-block;padding:4px 12px;border-radius:999px;font-weight:700;font-size:14px;background:var(--acc);color:#1B1230}
+.chip.r{background:var(--pin);color:#fff}
+.mk{border:2px dashed var(--pin);border-radius:18px;padding:14px 16px;margin:16px 0}
+.pi{font-size:40px;line-height:1}
+.price{font-family:'Lilita One',sans-serif;font-size:22px}
+.qty{display:flex;align-items:center;gap:10px}
+.qty button{width:44px;padding:0}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--ink);color:var(--bg);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));display:flex;justify-content:space-between;align-items:center;gap:10px;z-index:5}
+.ov{position:fixed;inset:0;background:rgba(10,5,25,.7);display:flex;align-items:center;justify-content:center;padding:16px;z-index:9;overflow:auto}
+.ov .card{width:100%;max-width:440px}
+.login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.lc{width:100%;max-width:400px;text-align:center}
+.big{font-size:52px;line-height:1;margin:6px 0}
+.tabs{display:flex;gap:8px;margin:18px 0 6px}
+.tabs button{flex:1}
+.err{color:var(--pin);font-weight:700;min-height:22px;margin:8px 0 0}
+.st{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:16px}
+.st b{display:block;font-family:'Lilita One',sans-serif;font-size:34px;line-height:1.1}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:620px}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top;font-size:14px}
+.toast{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);background:var(--acc);color:#1B1230;padding:12px 20px;border-radius:14px;font-weight:700;z-index:20;box-shadow:0 6px 0 var(--pin)}
+.se{display:grid;grid-template-columns:1fr 84px 84px;gap:8px;align-items:center;margin-bottom:8px}
+.se input{padding:0 8px}
+</style>
 </head>
 <body>
-
-    <nav>
-        <div class="logo-text">HUNGER<span>POINTS</span></div>
-        <div class="nav-controls">
-            <button class="theme-toggle" onclick="toggleTheme()">☀️ / 🌙</button>
-            <button class="owner-btn" onclick="openOwnerModal()">👑 Owner</button>
-        </div>
-    </nav>
-
-    <div class="container">
-
-        <div class="hero">
-            <h1>Hunger Points <span>Games & Snacks</span></h1>
-            <p style="color: var(--electric-blue); font-weight: 600;">Healthy Namkeen, Sweet Treats, Crunchy Chips & PS5 Mortal Kombat Gaming!</p>
-            <div><span class="developer-badge">⚡ Crafted by Serhan Raj</span></div>
-            <div class="stall-location-badge">📍 Stall Location: FOIR</div>
-        </div>
-
-        <!-- ABOUT THE TEAM SECTION -->
-        <div class="card" style="border-color: var(--vibrant-orange);">
-            <h2 style="color: var(--vibrant-orange); margin-bottom: 5px;">👥 Meet Our Stall Team</h2>
-            <p style="font-size: 0.85rem; color: var(--text-gray); margin-bottom: 12px;">Proudly managed by 7th Grade Students of <strong>Lovedale School</strong>!</p>
-            <div class="team-grid">
-                <div class="team-card">
-                    <h4>Serhan</h4>
-                    <p>7th Lovedale</p>
-                </div>
-                <div class="team-card">
-                    <h4>Vivaan</h4>
-                    <p>7th Lovedale</p>
-                </div>
-                <div class="team-card">
-                    <h4>Abeer</h4>
-                    <p>7th Lovedale</p>
-                </div>
-                <div class="team-card">
-                    <h4>Darsh</h4>
-                    <p>7th Lovedale</p>
-                </div>
-                <div class="team-card">
-                    <h4>Hiren</h4>
-                    <p>7th Lovedale</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="promo-banner">
-            <h3>🎮 MORTAL KOMBAT CHALLENGE: WIN ₹150 CASHBACK!</h3>
-            <p style="font-size: 0.88rem; color: var(--text-gray);">Beat our stall champ or achieve a 3-match win streak to claim ₹150 instant cashback or stall credit!</p>
-        </div>
-
-        <div class="category-tabs">
-            <button class="tab-btn active" id="tab-foods" onclick="switchCategory('foods')">🍿 Snacks & Treats</button>
-            <button class="tab-btn" id="tab-combos" onclick="switchCategory('combos')">🔥 Combos & Games</button>
-        </div>
-
-        <div class="ps5-status-bar">
-            <div>
-                <span class="ps5-badge" id="ps5-indicator"></span>
-                <strong id="ps5-status-text">PS5 Available Now (Stall: FOIR)</strong>
-            </div>
-            <span style="font-size: 0.8rem; color: var(--text-gray);" id="ps5-wait-time">No Queue</span>
-        </div>
-
-        <!-- OWNER PANEL -->
-        <div id="owner-dashboard" class="card" style="display: none; border-color: var(--coral-red);">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                <h2 style="color: var(--coral-red);">⚡ Owner Management Center</h2>
-                <span style="background: var(--neon-green); color: #000; padding: 3px 8px; border-radius: 10px; font-weight: 800; font-size: 0.75rem;">Active Session</span>
-            </div>
-            
-            <h3>📊 Live Traffic & Visitor Analytics</h3>
-            <div class="analytics-grid">
-                <div class="analytics-card views">
-                    <span style="font-size: 0.75rem; color: var(--text-gray);">Total Visits</span>
-                    <div class="num" id="stat-views">0</div>
-                </div>
-                <div class="analytics-card orders">
-                    <span style="font-size: 0.75rem; color: var(--text-gray);">Orders Placed</span>
-                    <div class="num" id="stat-orders">0</div>
-                </div>
-                <div class="analytics-card left">
-                    <span style="font-size: 0.75rem; color: var(--text-gray);">Visited & Left</span>
-                    <div class="num" id="stat-left">0</div>
-                </div>
-            </div>
-            <button class="btn-sm btn-delete" style="margin-bottom: 15px;" onclick="resetAnalytics()">Reset Visitor Stats</button>
-
-            <h3>📦 Stock & PS5 Slot Settings</h3>
-            <div style="margin-top: 10px; margin-bottom: 15px;">
-                <label style="font-size: 0.85rem; font-weight: bold;">PS5 Status Override:</label>
-                <select id="owner-ps5-toggle" onchange="togglePS5Status(this.value)" class="editable-input" style="width: auto; margin-left: 10px;">
-                    <option value="available">Available Now</option>
-                    <option value="busy">Occupied / Busy</option>
-                </select>
-            </div>
-
-            <div id="owner-stock-list"></div>
-
-            <div class="manual-order-box">
-                <h4 style="color: var(--vibrant-orange); margin-bottom: 10px;">➕ Add Manual / Offline Order Record</h4>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px;">
-                    <input type="text" id="man-name" placeholder="Customer Name" class="editable-input">
-                    <input type="text" id="man-loc" value="FOIR" placeholder="Spot / Location (e.g. FOIR)" class="editable-input">
-                    <input type="text" id="man-items" placeholder="Items (e.g. BY Chips, Namkeen)" class="editable-input">
-                    <input type="number" id="man-total" placeholder="Total Amount (₹)" class="editable-input">
-                </div>
-                <button class="btn-sm btn-save" style="margin-top: 10px; width: 100%; padding: 8px;" onclick="addManualOrder()">Add Record</button>
-            </div>
-
-            <button class="checkout-btn" style="background: var(--vibrant-orange); margin-top: 15px;" onclick="closeOwnerSession()">Exit Owner Mode</button>
-        </div>
-
-        <div class="card">
-            <h2 id="category-title" style="color: var(--vibrant-orange); margin-bottom: 15px;">🍿 Snacks & Treats</h2>
-            <div class="menu-grid" id="menu-container"></div>
-        </div>
-
-        <div class="card" style="border-color: var(--electric-blue);">
-            <h2 style="color: var(--electric-blue); margin-bottom: 15px;">📋 Delivery & Order Details</h2>
-            
-            <div class="form-group">
-                <label for="cust-name">Customer Full Name *</label>
-                <input type="text" id="cust-name" placeholder="Enter full name" oninput="saveCustomerData()">
-            </div>
-
-            <div class="form-group">
-                <label for="cust-state">State / Territory *</label>
-                <select id="cust-state">
-                    <option value="Delhi">Delhi</option>
-                    <option value="Haryana">Haryana</option>
-                    <option value="Uttar Pradesh">Uttar Pradesh</option>
-                    <option value="Other">Other</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="cust-pay">Cash Payment Option *</label>
-                <select id="cust-pay">
-                    <option value="Cash on Delivery">Cash on Delivery (Classroom/Spot)</option>
-                    <option value="Cash at Stall (FOIR)">Cash at Stall (Self-Pickup @ FOIR)</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="cust-loc">Delivery Location (Classroom / Spot) *</label>
-                <input type="text" id="cust-loc" value="FOIR" placeholder="e.g. FOIR, Library..." oninput="saveCustomerData()">
-            </div>
-
-            <div class="form-group" id="mk-char-group" style="display: none;">
-                <label for="mk-char">🎮 Preferred Mortal Kombat Fighter (Optional)</label>
-                <select id="mk-char">
-                    <option value="Scorpion">Scorpion</option>
-                    <option value="Sub-Zero">Sub-Zero</option>
-                    <option value="Raiden">Raiden</option>
-                    <option value="Liu Kang">Liu Kang</option>
-                    <option value="No Preference">No Preference</option>
-                </select>
-            </div>
-
-            <button class="checkout-btn" onclick="submitOrder()">SUBMIT ORDER (AUTOMATED BACKEND)</button>
-        </div>
-
-        <div class="card">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 10px;">
-                <h2>📋 Live Order Tracker & Queue</h2>
-                <input type="text" id="tracker-search" placeholder="🔍 Search Token #..." class="editable-input" style="width: 160px;" onkeyup="filterOrdersUI()">
-                <button class="btn-sm btn-delete" id="clear-all-btn" style="display: none;" onclick="clearAllOrders()">Clear Records</button>
-            </div>
-
-            <div class="table-responsive">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Token</th>
-                            <th>Time</th>
-                            <th>Name</th>
-                            <th>Spot</th>
-                            <th>Items</th>
-                            <th>Status</th>
-                            <th>Total</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="orders-list">
-                        <tr><td colspan="8" style="text-align:center;">No orders placed on this device yet.</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <footer>
-            <p>Designed & Developed with ❤️ by <strong>Serhan Raj</strong></p>
-            <p style="font-size: 0.75rem; margin-top: 4px;">Hunger Points Stall • Managed by 7th Lovedale Students • FOIR Location</p>
-        </footer>
-
-    </div>
-
-    <div class="live-cart-bar">
-        <div class="cart-info">Total Bill: <span id="cart-total-val">₹0</span> (<span id="cart-count-val">0</span> items)</div>
-        <button class="btn-sm btn-save" style="padding: 8px 16px; font-size: 0.9rem;" onclick="scrollToCheckout()">Checkout ➔</button>
-    </div>
-
-    <div class="modal" id="confirmModal">
-        <div class="modal-content">
-            <h2 style="color: var(--neon-green); margin-bottom: 5px;">🎉 Order Placed Successfully!</h2>
-            <p style="color: var(--text-gray); font-size: 0.9rem; margin-bottom: 15px;">Your order has been logged automatically to our team sheet!</p>
-            
-            <div style="background: var(--input-bg); padding: 15px; border-radius: 10px; border: 1.5px solid var(--neon-green); margin-bottom: 15px;">
-                <div style="font-size: 0.85rem; color: var(--text-gray);">YOUR TOKEN NUMBER</div>
-                <div style="font-size: 2.5rem; font-weight: 900; color: var(--vibrant-orange);" id="modal-token">#0000</div>
-                <div style="font-size: 0.85rem; color: var(--electric-blue); margin-top: 5px;">Pickup / Delivery Spot: FOIR (5-10 mins)</div>
-            </div>
-
-            <button class="checkout-btn" onclick="closeModal()">Awesome, Got It!</button>
-        </div>
-    </div>
-
-    <div class="modal" id="ownerModal">
-        <div class="modal-content">
-            <h3 style="color: var(--vibrant-orange); margin-bottom: 10px;">👑 Owner Login</h3>
-            <input type="password" id="owner-pass-input" style="width: 100%; padding: 10px; margin-bottom: 10px; background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-light); border-radius: 6px;" placeholder="Enter Owner Password">
-            <button class="checkout-btn" onclick="verifyOwner()">Login</button>
-            <p id="owner-err" style="color: var(--coral-red); margin-top: 10px; font-size: 0.85rem;"></p>
-        </div>
-    </div>
-
-    <script>
-        const menuData = {
-            foods: [
-                { id: 'item1', name: 'Healthy Air Fried Namkeen (1 Pkt)', price: 50, icon: '🍿', badge: 'Healthy', badgeClass: '' },
-                { id: 'item2', name: 'Chocolate Almonds (20 Pcs)', price: 30, icon: '🍫', badge: 'Sweet Treat', badgeClass: 'purple' },
-                { id: 'item3', name: 'BY Chips (1 Pkt)', price: 50, icon: '🥔', badge: 'Crispy', badgeClass: 'blue' }
-            ],
-            combos: [
-                { id: 'item4', name: 'PS5 Gaming Slot (15 Mins)', price: 120, icon: '🎮', badge: 'Popular', badgeClass: 'blue' },
-                { id: 'item5', name: 'Snack & Play Combo (Namkeen + PS5)', price: 160, icon: '🔥', badge: 'Save ₹10', badgeClass: '' }
-            ]
-        };
-
-        const prices = { item1: 50, item2: 30, item3: 50, item4: 120, item5: 160 };
-        const quantities = { item1: 0, item2: 0, item3: 0, item4: 0, item5: 0 };
-        let currentCategory = 'foods';
-        let isOwner = false;
-
-        let defaultStock = { item1: 25, item2: 20, item3: 25, item4: 8, item5: 5 };
-        let currentStock = JSON.parse(localStorage.getItem('hp_stock')) || defaultStock;
-
-        function trackPageVisit() {
-            let views = parseInt(localStorage.getItem('hp_site_views') || '0');
-            views += 1;
-            localStorage.setItem('hp_site_views', views.toString());
-            updateAnalyticsUI();
-        }
-
-        function incrementOrderStat() {
-            let orders = parseInt(localStorage.getItem('hp_site_orders') || '0');
-            orders += 1;
-            localStorage.setItem('hp_site_orders', orders.toString());
-            updateAnalyticsUI();
-        }
-
-        function updateAnalyticsUI() {
-            let views = parseInt(localStorage.getItem('hp_site_views') || '0');
-            let orders = parseInt(localStorage.getItem('hp_site_orders') || '0');
-            let leftWithoutOrder = Math.max(0, views - orders);
-
-            const vEl = document.getElementById('stat-views');
-            const oEl = document.getElementById('stat-orders');
-            const lEl = document.getElementById('stat-left');
-
-            if (vEl) vEl.innerText = views;
-            if (oEl) oEl.innerText = orders;
-            if (lEl) lEl.innerText = leftWithoutOrder;
-        }
-
-        function resetAnalytics() {
-            if (confirm('Reset visitor and order tracking statistics?')) {
-                localStorage.setItem('hp_site_views', '0');
-                localStorage.setItem('hp_site_orders', '0');
-                updateAnalyticsUI();
-            }
-        }
-
-        function playBeep(freq = 440, type = 'sine') {
-            try {
-                const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.type = type;
-                osc.frequency.value = freq;
-                gain.gain.value = 0.05;
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-                osc.start();
-                osc.stop(ctx.currentTime + 0.08);
-            } catch(e){}
-        }
-
-        function toggleTheme() {
-            const current = document.documentElement.getAttribute('data-theme');
-            const target = current === 'dark' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', target);
-        }
-
-        function switchCategory(cat) {
-            currentCategory = cat;
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('tab-' + cat).classList.add('active');
-
-            const titles = { foods: '🍿 Snacks & Treats', combos: '🔥 Combos & Gaming Tickets' };
-            document.getElementById('category-title').innerText = titles[cat];
-            renderCategoryItems();
-        }
-
-        function renderCategoryItems() {
-            const container = document.getElementById('menu-container');
-            const items = menuData[currentCategory];
-
-            container.innerHTML = items.map(item => `
-                <div class="menu-card">
-                    ${item.badge ? `<span class="badge ${item.badgeClass}">${item.badge}</span>` : ''}
-                    <div class="item-icon">${item.icon}</div>
-                    <h3>${item.name}</h3>
-                    <div class="price-tag">₹${item.price}</div>
-                    <div class="stock-tag">Stock: <span id="stock-${item.id}">${currentStock[item.id] || 0}</span></div>
-                    <div class="qty-controls">
-                        <button class="qty-btn" onclick="updateQty('${item.id}', -1)">-</button>
-                        <span class="qty-val" id="${item.id}-qty">${quantities[item.id]}</span>
-                        <button class="qty-btn" onclick="updateQty('${item.id}', 1)">+</button>
-                    </div>
-                </div>
-            `).join('');
-            renderStockUI();
-        }
-
-        function renderStockUI() {
-            for (let item in currentStock) {
-                const el = document.getElementById('stock-' + item);
-                if (el) el.innerText = currentStock[item];
-            }
-            localStorage.setItem('hp_stock', JSON.stringify(currentStock));
-        }
-
-        function updateQty(item, change) {
-            if (quantities[item] + change >= 0 && quantities[item] + change <= currentStock[item]) {
-                quantities[item] += change;
-                const qtyEl = document.getElementById(item + '-qty');
-                if (qtyEl) qtyEl.innerText = quantities[item];
-                playBeep(change > 0 ? 587 : 330);
-                updateLiveCartBar();
-            }
-        }
-
-        function updateLiveCartBar() {
-            let total = 0;
-            let count = 0;
-            for (let item in quantities) {
-                total += quantities[item] * prices[item];
-                count += quantities[item];
-            }
-            document.getElementById('cart-total-val').innerText = '₹' + total;
-            document.getElementById('cart-count-val').innerText = count;
-
-            const ps5Count = quantities.item4 + quantities.item5;
-            document.getElementById('mk-char-group').style.display = ps5Count > 0 ? 'block' : 'none';
-        }
-
-        function scrollToCheckout() {
-            document.querySelector('.card[style*="electric-blue"]').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function saveCustomerData() {
-            localStorage.setItem('hp_cust_name', document.getElementById('cust-name').value);
-            localStorage.setItem('hp_cust_loc', document.getElementById('cust-loc').value);
-        }
-
-        function loadCustomerData() {
-            document.getElementById('cust-name').value = localStorage.getItem('hp_cust_name') || '';
-            document.getElementById('cust-loc').value = localStorage.getItem('hp_cust_loc') || 'FOIR';
-        }
-
-        function togglePS5Status(status) {
-            const ind = document.getElementById('ps5-indicator');
-            const txt = document.getElementById('ps5-status-text');
-            const wait = document.getElementById('ps5-wait-time');
-            if (status === 'busy') {
-                ind.classList.add('busy');
-                txt.innerText = 'PS5 Session in Progress (Stall: FOIR)';
-                wait.innerText = 'Next Slot: ~10-15 Mins';
-            } else {
-                ind.classList.remove('busy');
-                txt.innerText = 'PS5 Available Now (Stall: FOIR)';
-                wait.innerText = 'No Queue';
-            }
-        }
-
-        function openOwnerModal() {
-            document.getElementById('ownerModal').style.display = 'flex';
-        }
-
-        function verifyOwner() {
-            const pass = document.getElementById('owner-pass-input').value;
-            if (pass === 'VISpass') {
-                isOwner = true;
-                document.getElementById('ownerModal').style.display = 'none';
-                document.getElementById('owner-dashboard').style.display = 'block';
-                document.getElementById('clear-all-btn').style.display = 'inline-block';
-                renderOwnerStockControls();
-                updateAnalyticsUI();
-                loadOrdersUI();
-            } else {
-                document.getElementById('owner-err').innerText = 'Invalid Owner Password';
-            }
-        }
-
-        function closeOwnerSession() {
-            isOwner = false;
-            document.getElementById('owner-dashboard').style.display = 'none';
-            document.getElementById('clear-all-btn').style.display = 'none';
-            document.getElementById('owner-pass-input').value = '';
-            document.getElementById('owner-err').innerText = '';
-            loadOrdersUI();
-        }
-
-        function renderOwnerStockControls() {
-            const container = document.getElementById('owner-stock-list');
-            const itemNames = { item1: "Air Fried Namkeen", item2: "Chocolate Almonds", item3: "BY Chips", item4: "PS5 Ticket", item5: "Snack & Play Combo" };
-            container.innerHTML = Object.keys(currentStock).map(i => `
-                <div class="owner-control-row">
-                    <span>${itemNames[i]}</span>
-                    <div>
-                        <input type="number" value="${currentStock[i]}" id="input-stock-${i}">
-                        <button class="qty-btn" style="width: auto; padding: 2px 8px; font-size: 0.8rem;" onclick="saveStockItem('${i}')">Set</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function saveStockItem(item) {
-            const newVal = parseInt(document.getElementById('input-stock-' + item).value) || 0;
-            currentStock[item] = newVal;
-            renderStockUI();
-        }
-
-        async function submitOrder() {
-            const name = document.getElementById('cust-name').value.trim();
-            const state = document.getElementById('cust-state').value;
-            const pay = document.getElementById('cust-pay').value;
-            const loc = document.getElementById('cust-loc').value.trim();
-            const fighter = document.getElementById('mk-char') ? document.getElementById('mk-char').value : 'N/A';
-
-            let totalBill = 0;
-            for (let item in quantities) totalBill += quantities[item] * prices[item];
-
-            if (totalBill === 0 || !name || !state || !loc) {
-                alert('Please select items and fill all required details!');
-                return;
-            }
-
-            for (let item in quantities) {
-                currentStock[item] = Math.max(0, currentStock[item] - quantities[item]);
-            }
-            renderStockUI();
-
-            let itemDetails = [];
-            if (quantities.item1 > 0) itemDetails.push(`${quantities.item1}x Air Fried Namkeen`);
-            if (quantities.item2 > 0) itemDetails.push(`${quantities.item2}x Chocolate Almonds (20 Pcs)`);
-            if (quantities.item3 > 0) itemDetails.push(`${quantities.item3}x BY Chips`);
-            if (quantities.item4 > 0) itemDetails.push(`${quantities.item4}x PS5 Ticket`);
-            if (quantities.item5 > 0) itemDetails.push(`${quantities.item5}x Snack & Play Combo`);
-
-            const token = Math.floor(1000 + Math.random() * 9000);
-            const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-            const orderPayload = {
-                token: '#' + token,
-                time: timeNow,
-                name: name,
-                loc: loc,
-                items: itemDetails.join(', '),
-                total: totalBill,
-                pay: pay,
-                fighter: fighter,
-                status: 'Received'
-            };
-
-            // Save locally for owner tracker dashboard
-            const savedOrders = JSON.parse(localStorage.getItem('hp_local_orders') || '[]');
-            savedOrders.unshift(orderPayload);
-            localStorage.setItem('hp_local_orders', JSON.stringify(savedOrders));
-            
-            incrementOrderStat();
-            loadOrdersUI();
-
-            // SEND TO GOOGLE SHEETS BACKEND (Replace URL with your deployed web app URL)
-            const webAppUrl = "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
-            try {
-                await fetch(webAppUrl, {
-                    method: "POST",
-                    mode: "no-cors",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(orderPayload)
-                });
-            } catch (err) {
-                console.error("Backend sync error:", err);
-            }
-
-            document.getElementById('modal-token').innerText = '#' + token;
-            document.getElementById('confirmModal').style.display = 'flex';
-            playBeep(700, 'square');
-        }
-
-        function closeModal() {
-            document.getElementById('confirmModal').style.display = 'none';
-        }
-
-        function addManualOrder() {
-            const name = document.getElementById('man-name').value.trim() || 'Walk-in Customer';
-            const loc = document.getElementById('man-loc').value.trim() || 'FOIR';
-            const items = document.getElementById('man-items').value.trim() || 'Manual Entry';
-            const total = parseInt(document.getElementById('man-total').value) || 0;
-            
-            const token = Math.floor(1000 + Math.random() * 9000);
-            const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-            const savedOrders = JSON.parse(localStorage.getItem('hp_local_orders') || '[]');
-            savedOrders.unshift({ token: '#' + token, time: timeNow, name, loc, items, total, status: 'Completed' });
-            localStorage.setItem('hp_local_orders', JSON.stringify(savedOrders));
-            
-            incrementOrderStat();
-
-            document.getElementById('man-name').value = '';
-            document.getElementById('man-loc').value = 'FOIR';
-            document.getElementById('man-items').value = '';
-            document.getElementById('man-total').value = '';
-
-            loadOrdersUI();
-        }
-
-        function updateOrderField(index, field, value) {
-            const savedOrders = JSON.parse(localStorage.getItem('hp_local_orders') || '[]');
-            savedOrders[index][field] = value;
-            localStorage.setItem('hp_local_orders', JSON.stringify(savedOrders));
-        }
-
-        function deleteOrder(index) {
-            if (confirm('Delete this order record?')) {
-                const savedOrders = JSON.parse(localStorage.getItem('hp_local_orders') || '[]');
-                savedOrders.splice(index, 1);
-                localStorage.setItem('hp_local_orders', JSON.stringify(savedOrders));
-                loadOrdersUI();
-            }
-        }
-
-        function clearAllOrders() {
-            if (confirm('Are you sure you want to clear ALL order records?')) {
-                localStorage.removeItem('hp_local_orders');
-                loadOrdersUI();
-            }
-        }
-
-        function filterOrdersUI() {
-            loadOrdersUI();
-        }
-
-        function loadOrdersUI() {
-            let savedOrders = JSON.parse(localStorage.getItem('hp_local_orders') || '[]');
-            const listEl = document.getElementById('orders-list');
-            const searchVal = document.getElementById('tracker-search').value.toLowerCase().trim();
-
-            if (searchVal) {
-                savedOrders = savedOrders.filter(o => o.token.toString().toLowerCase().includes(searchVal) || o.name.toLowerCase().includes(searchVal));
-            }
-
-            if (savedOrders.length === 0) {
-                listEl.innerHTML = `<tr><td colspan="8" style="text-align:center;">No matching orders found.</td></tr>`;
-                return;
-            }
-
-            listEl.innerHTML = savedOrders.map((o, index) => {
-                if (isOwner) {
-                    return `
-                        <tr>
-                            <td>${o.token}</td>
-                            <td>${o.time || 'N/A'}</td>
-                            <td><input class="editable-input" value="${o.name}" onchange="updateOrderField(${index}, 'name', this.value)"></td>
-                            <td><input class="editable-input" value="${o.loc}" onchange="updateOrderField(${index}, 'loc', this.value)"></td>
-                            <td><input class="editable-input" value="${o.items}" onchange="updateOrderField(${index}, 'items', this.value)"></td>
-                            <td>
-                                <select class="status-select" onchange="updateOrderField(${index}, 'status', this.value)">
-                                    <option value="Received" ${o.status === 'Received' ? 'selected' : ''}>Received</option>
-                                    <option value="Preparing" ${o.status === 'Preparing' ? 'selected' : ''}>Preparing</option>
-                                    <option value="Completed" ${o.status === 'Completed' ? 'selected' : ''}>Completed</option>
-                                    <option value="Cancelled" ${o.status === 'Cancelled' ? 'selected' : ''}>Cancelled</option>
-                                </select>
-                            </td>
-                            <td>₹<input class="editable-input" style="width: 60px;" type="number" value="${o.total}" onchange="updateOrderField(${index}, 'total', this.value)"></td>
-                            <td><button class="btn-sm btn-delete" onclick="deleteOrder(${index})">X</button></td>
-                        </tr>
-                    `;
-                } else {
-                    return `
-                        <tr>
-                            <td><strong>${o.token}</strong></td>
-                            <td>${o.time || 'N/A'}</td>
-                            <td>${o.name}</td>
-                            <td>${o.loc}</td>
-                            <td>${o.items}</td>
-                            <td><span style="background: var(--input-bg); color: var(--electric-blue); padding: 3px 8px; border-radius: 10px; font-weight: bold; font-size: 0.75rem;">${o.status}</span></td>
-                            <td>₹${o.total}</td>
-                            <td>-</td>
-                        </tr>
-                    `;
-                }
-            }).join('');
-        }
-
-        window.onload = function() {
-            trackPageVisit();
-            renderCategoryItems();
-            loadOrdersUI();
-            loadCustomerData();
-            updateLiveCartBar();
-        };
-    </script>
+<div id="app"></div>
+<div id="modal"></div>
+<script>
+// ====== SETTINGS ======
+const OWNER_PASS = 'hunger2026'; // change this! (front-end only, see notes)
+const K = 'hp_state_v1', SK = 'hp_session_v1';
+// ====== HELPERS ======
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let mi = 0;
+const logo = w => { const id = 'm' + (++mi); return ⁠ <svg width="${w}" height="${w*1.22}" viewBox="0 0 128 156" role="img" aria-label="Hunger Points logo"><defs><mask id="${id}"><rect width="128" height="156" fill="#fff"/><circle cx="103" cy="21" r="17" fill="#000"/></mask></defs><g mask="url(#${id})"><path transform="translate(7 8)" d="M60 146C60 146 8 92 8 58A52 52 0 0 1 112 58C112 92 60 146 60 146Z" fill="#FFC93C"/><path d="M60 146C60 146 8 92 8 58A52 52 0 0 1 112 58C112 92 60 146 60 146Z" fill="#D63A1A"/></g><rect x="40" y="44" width="12" height="36" rx="3" fill="#FFF4E0"/><rect x="28" y="56" width="36" height="12" rx="3" fill="#FFF4E0"/><circle cx="78" cy="72" r="7.5" fill="#FFC93C"/><circle cx="91" cy="56" r="7.5" fill="#FFF4E0"/></svg> ⁠; };
+// ====== DATA ======
+// NOTE: placeholder products & prices. Edit this list to match your real menu.
+// n = name, pr = price, st = stock, i = emoji, c = 's' (snacks) or 'c' (combos & games), g = small label
+const DEF = () => ({visits:0, seq:1000, ps5:'free', orders:[], p:[
+ {id:1,c:'s',g:'Namkeen',n:'Roasted Makhana',pr:20,st:30,i:'🍿'},
+ {id:2,c:'s',g:'Namkeen',n:'Mixed Namkeen',pr:15,st:40,i:'🥜'},
+ {id:3,c:'s',g:'Namkeen',n:'Bhel Mix',pr:20,st:25,i:'🥣'},
+ {id:4,c:'s',g:'Sweet',n:'Chocolate Brownie',pr:30,st:20,i:'🍫'},
+ {id:5,c:'s',g:'Sweet',n:'Gulab Jamun Cup',pr:25,st:20,i:'🍮'},
+ {id:6,c:'s',g:'Sweet',n:'Peanut Chikki',pr:10,st:50,i:'🥠'},
+ {id:7,c:'s',g:'Chips',n:'Classic Salted Chips',pr:10,st:60,i:'🥔'},
+ {id:8,c:'s',g:'Chips',n:'Masala Munch',pr:10,st:60,i:'🌶️'},
+ {id:9,c:'s',g:'Chips',n:'Cheesy Nachos',pr:20,st:30,i:'🧀'},
+ {id:10,c:'c',g:'Combo',n:'Snack Combo (chips + drink)',pr:40,st:25,i:'🥤'},
+ {id:11,c:'c',g:'PS5',n:'Mortal Kombat: 1 Match',pr:20,st:99,i:'🎮'},
+ {id:12,c:'c',g:'Combo',n:'Game + Snack Combo',pr:50,st:25,i:'🕹️'}
+]});
+let S, mem = null, ses = null, cart = {}, tab = 's', lt = 'c', seen = 0;
+function load(){ try{ const r = localStorage.getItem(K); S = r ? JSON.parse(r) : (mem || DEF()); }catch(e){ S = mem || DEF(); } }
+function save(){ mem = S; try{ localStorage.setItem(K, JSON.stringify(S)); }catch(e){} }
+function getSes(){ try{ return JSON.parse(sessionStorage.getItem(SK)); }catch(e){ return null; } }
+function setSes(v){ ses = v; try{ v ? sessionStorage.setItem(SK, JSON.stringify(v)) : sessionStorage.removeItem(SK); }catch(e){} }
+const live = () => S.orders.filter(o => o.s !== 'Cancelled');
+// ====== VIEWS ======
+function render(){
+  $('#modal').innerHTML = '';
+  if(!ses) return login();
+  ses.role === 'o' ? owner() : shop();
+}
+function login(){
+  $('#app').innerHTML = `<main class="login"><div class="lc">${logo(110)}<div class="big">HUNGER <span>POINT</span></div><p class="mut" style="margin:0">Snacks &amp; PS5 Gaming &middot; Stall at FOIR</p>
+  <div class="tabs"><button data-a="lt" data-v="c" class="${lt=='c'?'on':''}">Customer</button><button data-a="lt" data-v="o" class="${lt=='o'?'on':''}">Owner</button></div>
+  <form id="lf" class="card" style="text-align:left">${lt=='c'
+   ? ⁠ <label for="nm">Your name</label><input id="nm" autocomplete="name" required maxlength="30" placeholder="e.g. Aarav"><p class="err" id="er"></p><button class="p" style="width:100%">Enter the stall</button> ⁠
+   : ⁠ <label for="pw">Owner password</label><input id="pw" type="password" autocomplete="current-password" required><p class="err" id="er"></p><button class="y" style="width:100%">Owner login</button> ⁠}</form></div></main>`;
+}
+function shop(){
+  const items = S.p.filter(p => p.c === tab);
+  const n = Object.values(cart).reduce((a,b)=>a+b,0), tot = S.p.reduce((a,p)=>a+(cart[p.id]||0)*p.pr,0);
+  $('#app').innerHTML = `<div class="wrap"><div class="top"><div class="brand">${logo(30)}<div>HUNGER<span>POINTS</span></div></div><div class="row"><span class="mut">Hi, ${esc(ses.name)}</span><button data-a="th" aria-label="Toggle light or dark">Theme</button><button data-a="out">Log out</button></div></div>
+  <section class="hero"><span class="chip">Stall location: FOIR</span><h1 style="margin-top:12px">Hunger Points<br><span>Games &amp; Snacks</span></h1><p style="margin:10px 0 0;max-width:520px">Healthy namkeen, sweet treats, crunchy chips and PS5 Mortal Kombat. Order here, pick up at our stall.</p></section>
+  <div class="row sp"><span class="chip ${S.ps5=='free'?'':'r'}">${S.ps5=='free'?'PS5 available now &middot; No queue':'PS5 busy right now'}</span><span class="mut">Pick up from our stall &middot; Pay cash at the stall</span></div>
+  <div class="mk"><h3 style="font-size:22px">Mortal Kombat challenge: win &#8377;150 cashback!</h3><p style="margin:4px 0 0">Beat our stall champ or get a 3-match win streak to claim &#8377;150 instant cashback or stall credit.</p></div>
+  <div class="tabs" style="margin-top:0"><button data-a="tab" data-v="s" class="${tab=='s'?'on':''}">Snacks &amp; Treats</button><button data-a="tab" data-v="c" class="${tab=='c'?'on':''}">Combos &amp; Games</button></div>
+  <div class="grid" style="margin-top:12px">${items.map(p=>`<div class="card"><div class="pi" aria-hidden="true">${p.i}</div><span class="chip" style="margin-top:8px">${esc(p.g)}</span><h3 style="font-size:20px;margin:6px 0">${esc(p.n)}</h3><div class="row sp"><span class="price">&#8377;${p.pr}</span><span class="mut">${p.st>0?(p.st>50?'Available':p.st+' left'):'Sold out'}</span></div>
+  <div class="qty" style="margin-top:10px">${p.st>0?⁠ <button data-a="sub" data-v="${p.id}" aria-label="Remove one ${esc(p.n)}">&minus;</button><b aria-live="polite">${cart[p.id]||0}</b><button class="y" data-a="add" data-v="${p.id}" aria-label="Add one ${esc(p.n)}">+</button> ⁠:'<button disabled>Sold out</button>'}</div></div>`).join('')}</div>
+  <p class="mut" style="text-align:center;margin-top:28px">Hunger Points Stall &middot; Managed by 7th grade students of Lovedale School &middot; Crafted by Serhan Raj</p>
+  <section class="card" style="margin-top:16px"><h3 style="font-size:22px;margin-bottom:8px">Meet our stall team</h3><div class="row">${['Serhan','Vivaan','Abeer','Darsh','Hiren'].map(x=>⁠ <span class="chip">${x} &middot; 7th Lovedale</span> ⁠).join('')}</div></section></div>
+  ${n?⁠ <div class="bar"><b>Total: &#8377;${tot} (${n} item${n>1?'s':''})</b><button class="y" data-a="co">Checkout</button></div> ⁠:''}`;
+}
+function checkout(){
+  const lines = S.p.filter(p=>cart[p.id]).map(p=>⁠ <div class="row sp"><span>${cart[p.id]} &times; ${esc(p.n)}</span><b>&#8377;${cart[p.id]*p.pr}</b></div> ⁠).join('');
+  const tot = S.p.reduce((a,p)=>a+(cart[p.id]||0)*p.pr,0);
+  $('#modal').innerHTML = `<div class="ov"><form class="card" id="cf"><h3 style="font-size:24px">Pick-up order</h3>${lines}<div class="row sp" style="border-top:2px solid var(--line);margin-top:8px;padding-top:8px"><b>Total</b><b class="price">&#8377;${tot}</b></div>
+  <label for="cn">Your name</label><input id="cn" required maxlength="30" value="${esc(ses.name)}">
+  <label for="cp">How you pay</label><input id="cp" value="Cash at stall (pick up at FOIR)" disabled>
+  <label for="cg">Favourite Mortal Kombat fighter (optional)</label><select id="cg"><option>No preference</option><option>Scorpion</option><option>Sub-Zero</option><option>Raiden</option><option>Liu Kang</option></select>
+  <div class="row" style="margin-top:16px"><button type="button" data-a="close">Back</button><button class="p" style="flex:1">Place order</button></div></form></div>`;
+}
+function owner(){
+  $('#app').innerHTML = `<div class="wrap"><div class="top"><div class="brand">${logo(30)}<div>OWNER<span>CENTER</span></div></div><div class="row"><button data-a="th">Theme</button><button data-a="out">Exit owner mode</button></div></div>
+  <div id="ost"></div>
+  <section class="card" style="margin-bottom:16px"><h3 style="font-size:22px;margin-bottom:10px">PS5 status</h3><div class="row"><button data-a="ps" data-v="free" id="b1">Available now</button><button data-a="ps" data-v="busy" id="b2">Occupied / busy</button></div></section>
+  <section class="card" style="margin-bottom:16px"><div class="row sp"><h3 style="font-size:22px">Live orders</h3><div class="row"><button class="y" data-a="sim">Simulate a customer order</button><button data-a="reset">Reset all</button></div></div><div class="tw" id="oor" style="margin-top:8px"></div></section>
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))"><section class="card"><h3 style="font-size:22px;margin-bottom:10px">Prices &amp; stock</h3><div class="se mut"><span>Item</span><span>Price &#8377;</span><span>Stock</span></div><div id="ose"></div></section>
+  <form class="card" id="mf"><h3 style="font-size:22px;margin-bottom:6px">Add offline order</h3><label for="mn">Customer name</label><input id="mn" required maxlength="30"><label for="mi">Item</label><select id="mi">${S.p.map(p=>⁠ <option value="${p.id}">${esc(p.n)}</option> ⁠).join('')}</select><label for="mq">Quantity</label><input id="mq" type="number" min="1" max="20" value="1"><button class="p" style="width:100%;margin-top:14px">Add record</button></form></div></div>`;
+  ownerLive(true);
+}
+function ownerLive(stock){
+  if(!$('#ost')) return;
+  const L = live(), rev = L.reduce((a,o)=>a+o.t,0);
+  $('#ost').innerHTML = ⁠ <div class="st"><div class="card"><span class="mut">Total visits</span><b>${S.visits}</b></div><div class="card"><span class="mut">Orders placed</span><b>${L.length}</b></div><div class="card"><span class="mut">Visited &amp; left</span><b>${Math.max(0,S.visits-L.filter(o=>o.src!='manual').length)}</b></div><div class="card"><span class="mut">Earned (cash)</span><b>&#8377;${rev}</b></div></div> ⁠;
+  $('#b1').className = S.ps5=='free'?'y':''; $('#b2').className = S.ps5=='busy'?'p':'';
+  const nx = {New:'Preparing',Preparing:'Ready',Ready:'Picked up'};
+  $('#oor').innerHTML = S.orders.length ? ⁠ <table><thead><tr><th>Token</th><th>Time</th><th>Name</th><th>Items</th><th>Total</th><th>Status</th><th>Actions</th></tr></thead><tbody>${S.orders.map(o=> ⁠<tr><td><b>#${o.k}</b></td><td>${esc(o.tm)}</td><td>${esc(o.n)}${o.f&&o.f!='No preference'?⁠ <br><span class="mut">${esc(o.f)}</span> ⁠:''}</td><td>${o.it.map(i=>i.q+'&times; '+esc(i.n)).join(', ')}</td><td>&#8377;${o.t}</td><td><span class="chip ${o.s=='Cancelled'?'r':''}">${o.s}</span></td><td>${nx[o.s]?⁠ <button data-a="ns" data-v="${o.k}">Mark ${nx[o.s]}</button> <button data-a="cx" data-v="${o.k}">Cancel</button> ⁠:''}</td></tr>⁠ ).join('')}</tbody></table> ⁠ : '<p class="mut">No orders yet. They appear here the moment someone buys.</p>';
+  const ed = $('#ose');
+  if(ed && (stock || !ed.contains(document.activeElement))) ed.innerHTML = S.p.map(p=>⁠ <div class="se"><span>${p.i} ${esc(p.n)}</span><input type="number" min="0" value="${p.pr}" data-f="pr" data-id="${p.id}" aria-label="Price of ${esc(p.n)}"><input type="number" min="0" value="${p.st}" data-f="st" data-id="${p.id}" aria-label="Stock of ${esc(p.n)}"></div> ⁠).join('');
+}
+function toast(m){ const t = document.createElement('div'); t.className = 'toast'; t.setAttribute('role','status'); t.textContent = m; document.body.appendChild(t); setTimeout(()=>t.remove(), 3500); }
+// ====== ORDERS ======
+function addOrder(name, lines, fighter, src){
+  const it = [];
+  for(const [id,q] of lines){ const p = S.p.find(x=>x.id==id); if(!p||q<1) continue; if(p.st<q) return null; it.push({id:p.id,n:p.n,q,pr:p.pr}); }
+  if(!it.length) return null;
+  it.forEach(i => { S.p.find(x=>x.id==i.id).st -= i.q; });
+  const o = {k:++S.seq, tm:new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}), n:name, it, t:it.reduce((a,i)=>a+i.q*i.pr,0), s:'New', f:fighter||'', src};
+  S.orders.unshift(o); save(); return o;
+}
+// ====== EVENTS ======
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-a]'); if(!b) return;
+  const a = b.dataset.a, v = b.dataset.v;
+  if(a=='lt'){ lt = v; login(); }
+  else if(a=='th'){ const r = document.documentElement; const dark = r.dataset.theme ? r.dataset.theme=='dark' : matchMedia('(prefers-color-scheme: dark)').matches; r.dataset.theme = dark ? 'light' : 'dark'; }
+  else if(a=='out'){ setSes(null); cart = {}; render(); }
+  else if(a=='tab'){ tab = v; shop(); }
+  else if(a=='add'){ const p = S.p.find(x=>x.id==v); if((cart[v]||0) < p.st){ cart[v] = (cart[v]||0)+1; shop(); } }
+  else if(a=='sub'){ if(cart[v]>1) cart[v]--; else delete cart[v]; shop(); }
+  else if(a=='co') checkout();
+  else if(a=='close') $('#modal').innerHTML = '';
+  else if(a=='ok'){ cart = {}; render(); }
+  else if(a=='ps'){ S.ps5 = v; save(); ownerLive(); }
+  else if(a=='ns'){ const o = S.orders.find(x=>x.k==v); o.s = {New:'Preparing',Preparing:'Ready',Ready:'Picked up'}[o.s]; save(); ownerLive(); }
+  else if(a=='cx'){ const o = S.orders.find(x=>x.k==v); o.s = 'Cancelled'; o.it.forEach(i => { const p = S.p.find(x=>x.id==i.id); if(p) p.st += i.q; }); save(); ownerLive(true); }
+  else if(a=='reset'){ if(confirm('Clear all orders and visitor stats?')){ const p = S.p; S = DEF(); S.p = p; save(); owner(); } }
+  else if(a=='sim'){
+    const names = ['Aarav','Mira','Kabir','Anaya','Rohan','Diya','Veer','Ira'], pool = S.p.filter(p=>p.st>0);
+    if(!pool.length) return;
+    const n = 1 + Math.floor(Math.random()*3), lines = [];
+    for(let i=0;i<n;i++){ const p = pool[Math.floor(Math.random()*pool.length)]; lines.push([p.id, 1]); }
+    const o = addOrder(names[Math.floor(Math.random()*names.length)], lines, '', 'demo');
+    if(o){ S.visits++; save(); seen = S.orders.length; toast('New order #'+o.k+' from '+o.n); ownerLive(true); }
+  }
+});
+document.addEventListener('submit', e => {
+  e.preventDefault();
+  if(e.target.id=='lf'){
+    if(lt=='c'){ const n = $('#nm').value.trim(); if(!n) return; load(); S.visits++; save(); setSes({role:'c',name:n}); render(); }
+    else if($('#pw').value === OWNER_PASS){ setSes({role:'o',name:'Owner'}); load(); seen = S.orders.length; render(); }
+    else $('#er').textContent = 'Wrong password. Try again.';
+  }
+  else if(e.target.id=='cf'){
+    load();
+    const o = addOrder($('#cn').value.trim() || ses.name, Object.entries(cart).map(([id,q])=>[+id,q]), $('#cg').value, 'online');
+    if(!o){ $('#modal').innerHTML = ''; toast('Sorry, some items just sold out. Please check your cart.'); cart = {}; shop(); return; }
+    $('#modal').innerHTML = ⁠ <div class="ov"><div class="card" style="text-align:center"><h3 style="font-size:26px">Order placed!</h3><p class="mut">Your token number</p><div class="big" style="color:var(--pin)">#${o.k}</div><p>Pick up from our stall at <b>FOIR</b> in 5&ndash;10 mins and pay cash there.</p><button class="y" data-a="ok" style="width:100%">Awesome, got it!</button></div></div> ⁠;
+  }
+  else if(e.target.id=='mf'){
+    load(); const o = addOrder($('#mn').value.trim(), [[+$('#mi').value, +$('#mq').value]], '', 'manual');
+    if(o){ toast('Offline order #'+o.k+' added'); owner(); } else toast('Not enough stock for that item.');
+  }
+});
+document.addEventListener('change', e => {
+  const f = e.target.dataset.f; if(!f) return;
+  const p = S.p.find(x=>x.id==e.target.dataset.id); p[f] = Math.max(0, +e.target.value || 0); save();
+});
+// ====== LIVE SYNC (owner panel updates by itself when someone buys) ======
+function sync(){
+  if(!ses) return; const n = S.orders.length;
+  if(ses.role=='o'){ if(n > seen){ const o = S.orders[0]; if(o.src!='manual' && o.src!='demo') toast('New order #'+o.k+' from '+o.n); } seen = n; ownerLive(); }
+  else if(!$('#modal').innerHTML) shop();
+}
+addEventListener('storage', e => { if(e.key==K){ load(); sync(); } });
+let lastRaw = null;
+setInterval(() => { let r = null; try{ r = localStorage.getItem(K); }catch(e){} if(r !== lastRaw){ lastRaw = r; load(); sync(); } }, 2000);
+load(); ses = getSes(); if(ses && ses.role=='o') seen = S.orders.length; render();
+</script>
 </body>
 </html>
