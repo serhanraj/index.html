@@ -557,7 +557,7 @@
 
             <div class="form-group">
                 <label for="login-phone">WhatsApp Phone Number *</label>
-                <input type="tel" id="login-phone" placeholder="e.g. 9876543210">
+                <input type="tel" id="login-phone" value="8448092503">
                 <span style="font-size: 0.72rem; color: var(--text-gray);">📱 Order receipt will be sent automatically via WhatsApp.</span>
             </div>
 
@@ -732,17 +732,17 @@
     <script>
         const menuData = {
             foods: [
-                { id: 'item1', name: 'Healthy Air Fried Namkeen (1 Pkt)', price: 50, icon: '🍿', badge: 'Healthy', badgeClass: '' },
-                { id: 'item2', name: 'Chocolate Almonds (20 Pcs)', price: 30, icon: '🍫', badge: 'Sweet Treat', badgeClass: 'purple' },
-                { id: 'item3', name: 'BY Chips (1 Pkt)', price: 50, icon: '🥔', badge: 'Crispy', badgeClass: 'blue' }
+                { id: 'item1', name: 'Healthy Air Fried Namkeen (1 Pkt)', price: 130, icon: '🍿', badge: 'Healthy', badgeClass: '' },
+                { id: 'item2', name: 'Cake Slice (1 Pc)', price: 70, icon: '🍰', badge: 'Sweet Treat', badgeClass: 'purple' },
+                { id: 'item3', name: 'BY Chips (1 Pkt)', price: 70, icon: '🥔', badge: 'Crispy', badgeClass: 'blue' }
             ],
             combos: [
                 { id: 'item4', name: 'PS5 Gaming Slot (15 Mins)', price: 120, icon: '🎮', badge: 'Popular', badgeClass: 'blue' },
-                { id: 'item5', name: 'Snack & Play Combo (Namkeen + PS5)', price: 160, icon: '🔥', badge: 'Save ₹10', badgeClass: '' }
+                { id: 'item5', name: 'Snack & Play Combo (Namkeen + PS5)', price: 200, icon: '🔥', badge: 'Save ₹50', badgeClass: '' }
             ]
         };
 
-        const prices = { item1: 50, item2: 30, item3: 50, item4: 120, item5: 160 };
+        const prices = { item1: 130, item2: 70, item3: 70, item4: 120, item5: 200 };
         const quantities = { item1: 0, item2: 0, item3: 0, item4: 0, item5: 0 };
         let currentCategory = 'foods';
 
@@ -880,7 +880,7 @@
 
             let itemDetails = [];
             if (quantities.item1 > 0) itemDetails.push(`${quantities.item1}x Air Fried Namkeen`);
-            if (quantities.item2 > 0) itemDetails.push(`${quantities.item2}x Chocolate Almonds`);
+            if (quantities.item2 > 0) itemDetails.push(`${quantities.item2}x Cake Slice`);
             if (quantities.item3 > 0) itemDetails.push(`${quantities.item3}x BY Chips`);
             if (quantities.item4 > 0) itemDetails.push(`${quantities.item4}x PS5 Ticket`);
             if (quantities.item5 > 0) itemDetails.push(`${quantities.item5}x Snack & Play Combo`);
