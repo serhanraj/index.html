@@ -91,7 +91,7 @@
             align-items: center;
         }
 
-        .theme-toggle, .owner-btn, .logout-btn {
+        .theme-toggle, .logout-btn {
             background: rgba(255, 255, 255, 0.05);
             color: var(--text-light);
             padding: 8px 14px;
@@ -100,13 +100,6 @@
             font-size: 0.8rem;
             border: 1px solid var(--border-color);
             cursor: pointer;
-        }
-
-        .owner-btn {
-            background: linear-gradient(135deg, var(--coral-red), #D91B48);
-            color: #FFF;
-            border: none;
-            box-shadow: 0 0 12px rgba(255, 51, 102, 0.3);
         }
 
         .logout-btn {
@@ -123,28 +116,65 @@
 
         #login-screen {
             max-width: 480px;
-            margin: 60px auto;
+            margin: 40px auto;
             background: var(--card-bg);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(0, 255, 136, 0.3);
             border-radius: 22px;
-            padding: 35px 30px;
+            padding: 30px 25px;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 255, 136, 0.15);
             text-align: center;
         }
 
         .login-header h2 {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 900;
             color: var(--neon-green);
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         .login-header p {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--text-gray);
-            margin-bottom: 24px;
+            margin-bottom: 20px;
+        }
+
+        .login-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            background: var(--input-bg);
+            padding: 4px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .login-tab-btn {
+            flex: 1;
+            padding: 10px;
+            background: transparent;
+            border: none;
+            color: var(--text-gray);
+            font-weight: 800;
+            font-size: 0.85rem;
+            cursor: pointer;
+            border-radius: 9px;
+        }
+
+        .login-tab-btn.active {
+            background: var(--card-bg);
+            color: var(--neon-green);
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        }
+
+        .login-form-panel {
+            display: none;
+            text-align: left;
+        }
+
+        .login-form-panel.active {
+            display: block;
         }
 
         #main-app {
@@ -447,6 +477,12 @@
             box-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
         }
 
+        .owner-login-btn {
+            background: linear-gradient(135deg, var(--coral-red), #D91B48);
+            color: #FFF;
+            box-shadow: 0 0 15px rgba(255, 51, 102, 0.3);
+        }
+
         .live-cart-bar {
             position: fixed;
             bottom: 0;
@@ -562,43 +598,66 @@
     <nav>
         <div class="logo-text">HUNGER<span>POINTS</span></div>
         <div class="nav-controls">
-            <button class="logout-btn" id="nav-logout-btn" style="display: none;" onclick="userLogout()">👤 Switch Student</button>
+            <button class="logout-btn" id="nav-logout-btn" style="display: none;" onclick="userLogout()">👤 Switch User</button>
             <button class="theme-toggle" onclick="toggleTheme()">☀️ / 🌙</button>
-            <button class="owner-btn" onclick="openOwnerModal()">👑 Owner</button>
         </div>
     </nav>
 
     <div class="container">
 
-        <!-- 1. LOGIN SCREEN -->
+        <!-- 1. INITIAL LOGIN SCREEN WITH TABS FOR STUDENT & OWNER -->
         <div id="login-screen">
             <div class="login-header">
                 <h2>HUNGER <span>POINTS</span></h2>
-                <p>Sign in with your student details to place your stall order.</p>
+                <p>Select login type to access the FOIR portal.</p>
             </div>
 
-            <div class="form-group">
-                <label for="login-name">Student Full Name *</label>
-                <input type="text" id="login-name" placeholder="e.g. Rahul Sharma">
+            <div class="login-tabs">
+                <button class="login-tab-btn active" id="tab-student-login" onclick="switchLoginTab('student')">Student Portal</button>
+                <button class="login-tab-btn" id="tab-owner-login" onclick="switchLoginTab('owner')">👑 Owner Portal</button>
             </div>
 
-            <div class="form-group">
-                <label for="login-phone">WhatsApp Phone Number *</label>
-                <input type="tel" id="login-phone" value="8448092503">
-                <span style="font-size: 0.72rem; color: var(--text-gray);">📱 Order receipt will be sent automatically via WhatsApp.</span>
+            <!-- STUDENT LOGIN FORM -->
+            <div class="login-form-panel active" id="panel-student">
+                <div class="form-group">
+                    <label for="login-name">Student Full Name *</label>
+                    <input type="text" id="login-name" placeholder="e.g. Rahul Sharma">
+                </div>
+
+                <div class="form-group">
+                    <label for="login-phone">WhatsApp Phone Number *</label>
+                    <input type="tel" id="login-phone" value="8448092503">
+                    <span style="font-size: 0.72rem; color: var(--text-gray);">📱 Order receipt sent via WhatsApp.</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="login-class">School Class / Section *</label>
+                    <input type="text" id="login-class" placeholder="e.g. 7th Lovedale, 8th A...">
+                </div>
+
+                <div class="form-group">
+                    <label for="login-admno">Admission Number *</label>
+                    <input type="text" id="login-admno" placeholder="e.g. ADM-2024-089">
+                </div>
+
+                <button class="checkout-btn" style="margin-top: 12px;" onclick="handleUserLogin()">ENTER STUDENT MENU ➔</button>
             </div>
 
-            <div class="form-group">
-                <label for="login-class">School Class / Section *</label>
-                <input type="text" id="login-class" placeholder="e.g. 7th Lovedale, 8th A...">
-            </div>
+            <!-- OWNER LOGIN FORM -->
+            <div class="login-form-panel" id="panel-owner">
+                <div class="form-group" style="text-align: center; margin-bottom: 20px;">
+                    <div style="font-size: 2.5rem; margin-bottom: 6px;">👑</div>
+                    <p style="font-size: 0.85rem; color: var(--text-gray);">Restricted access for stall managers & administrators.</p>
+                </div>
 
-            <div class="form-group">
-                <label for="login-admno">Admission Number *</label>
-                <input type="text" id="login-admno" placeholder="e.g. ADM-2024-089">
-            </div>
+                <div class="form-group">
+                    <label for="owner-pass-initial">Owner Password *</label>
+                    <input type="password" id="owner-pass-initial" placeholder="Enter owner password">
+                </div>
+                <p id="owner-login-err" style="color: var(--coral-red); margin-bottom: 12px; font-size: 0.82rem;"></p>
 
-            <button class="checkout-btn" style="margin-top: 12px;" onclick="handleUserLogin()">ENTER HUNGER POINTS MENU ➔</button>
+                <button class="checkout-btn owner-login-btn" onclick="handleOwnerLogin()">LOGIN AS OWNER ➔</button>
+            </div>
         </div>
 
         <!-- 2. MAIN APP CONTENT -->
@@ -792,15 +851,6 @@
         </div>
     </div>
 
-    <div class="modal" id="ownerModal">
-        <div class="modal-content">
-            <h3 style="color: var(--vibrant-orange); margin-bottom: 12px;">👑 Owner Login</h3>
-            <input type="password" id="owner-pass-input" style="width: 100%; padding: 10px; margin-bottom: 12px; background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-light); border-radius: 8px;" placeholder="Enter Owner Password">
-            <button class="checkout-btn" onclick="verifyOwner()">Login</button>
-            <p id="owner-err" style="color: var(--coral-red); margin-top: 10px; font-size: 0.85rem;"></p>
-        </div>
-    </div>
-
     <script>
         const menuData = {
             foods: [
@@ -819,18 +869,35 @@
         const quantities = { item1: 0, item2: 0, item3: 0, item4: 0, item5: 0, item6: 0 };
         let currentCategory = 'foods';
 
+        function switchLoginTab(type) {
+            document.getElementById('tab-student-login').classList.toggle('active', type === 'student');
+            document.getElementById('tab-owner-login').classList.toggle('active', type === 'owner');
+            document.getElementById('panel-student').classList.toggle('active', type === 'student');
+            document.getElementById('panel-owner').classList.toggle('active', type === 'owner');
+        }
+
         function checkActiveUser() {
             const savedUser = JSON.parse(localStorage.getItem('hp_student_user') || 'null');
-            if (savedUser) {
+            const isOwner = localStorage.getItem('hp_owner_session') === 'true';
+
+            if (savedUser || isOwner) {
                 document.getElementById('login-screen').style.display = 'none';
                 document.getElementById('main-app').style.display = 'block';
-                document.getElementById('live-cart-bar').style.display = 'flex';
                 document.getElementById('nav-logout-btn').style.display = 'inline-block';
 
-                document.getElementById('cust-name').value = savedUser.name;
-                document.getElementById('cust-phone').value = savedUser.phone;
-                document.getElementById('cust-class').value = savedUser.className;
-                document.getElementById('cust-admno').value = savedUser.admno;
+                if (isOwner) {
+                    document.getElementById('live-cart-bar').style.display = 'none';
+                    document.getElementById('cust-name').value = '👑 Stall Owner / Manager';
+                    document.getElementById('cust-phone').value = '8448092503';
+                    document.getElementById('cust-class').value = 'Owner Admin';
+                    document.getElementById('cust-admno').value = 'OWNER-01';
+                } else if (savedUser) {
+                    document.getElementById('live-cart-bar').style.display = 'flex';
+                    document.getElementById('cust-name').value = savedUser.name;
+                    document.getElementById('cust-phone').value = savedUser.phone;
+                    document.getElementById('cust-class').value = savedUser.className;
+                    document.getElementById('cust-admno').value = savedUser.admno;
+                }
             } else {
                 document.getElementById('login-screen').style.display = 'block';
                 document.getElementById('main-app').style.display = 'none';
@@ -852,12 +919,25 @@
 
             const userData = { name, phone, className, admno };
             localStorage.setItem('hp_student_user', JSON.stringify(userData));
+            localStorage.removeItem('hp_owner_session');
             checkActiveUser();
         }
 
-        function userLogout() {
-            if (confirm('Logout of this student profile?')) {
+        function handleOwnerLogin() {
+            const pass = document.getElementById('owner-pass-initial').value;
+            if (pass === 'VISpass') {
+                localStorage.setItem('hp_owner_session', 'true');
                 localStorage.removeItem('hp_student_user');
+                checkActiveUser();
+            } else {
+                document.getElementById('owner-login-err').innerText = 'Incorrect Owner Password!';
+            }
+        }
+
+        function userLogout() {
+            if (confirm('Switch user / logout?')) {
+                localStorage.removeItem('hp_student_user');
+                localStorage.removeItem('hp_owner_session');
                 checkActiveUser();
             }
         }
@@ -939,20 +1019,6 @@
 
         function scrollToCheckout() {
             document.getElementById('checkout-section-card').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function openOwnerModal() {
-            document.getElementById('ownerModal').style.display = 'flex';
-        }
-
-        function verifyOwner() {
-            const pass = document.getElementById('owner-pass-input').value;
-            if (pass === 'VISpass') {
-                alert('Owner mode logged in!');
-                document.getElementById('ownerModal').style.display = 'none';
-            } else {
-                document.getElementById('owner-err').innerText = 'Invalid Owner Password';
-            }
         }
 
         function submitOrder() {
