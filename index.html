@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hunger Points | Student Portal</title>
+    <title>Hunger Points | FOIR Stall Portal</title>
     <style>
         :root {
             --bg-dark: #0B0C10;
@@ -209,57 +209,17 @@
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
         }
 
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 12px;
-            margin-top: 14px;
-        }
-
-        .team-card {
-            background: var(--input-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 14px;
-            text-align: center;
-        }
-
-        .team-card h4 {
-            color: var(--neon-green);
-            font-size: 1rem;
-            margin-bottom: 2px;
-        }
-
-        .team-card p {
-            font-size: 0.75rem;
-            color: var(--text-gray);
-        }
-
-        .promo-banner {
-            background: linear-gradient(135deg, rgba(255, 51, 102, 0.15), rgba(0, 240, 255, 0.15));
-            backdrop-filter: blur(12px);
-            border: 1.5px dashed var(--neon-green);
-            border-radius: 16px;
-            padding: 18px;
-            text-align: center;
-            margin-bottom: 24px;
-        }
-
-        .promo-banner h3 {
-            color: var(--neon-green);
-            font-size: 1.25rem;
-            margin-bottom: 4px;
-        }
-
         .category-tabs {
             display: flex;
             justify-content: center;
             gap: 12px;
             margin-bottom: 24px;
+            flex-wrap: wrap;
         }
 
         .tab-btn {
             flex: 1;
+            min-width: 140px;
             padding: 14px 20px;
             background: var(--card-bg);
             backdrop-filter: blur(12px);
@@ -267,7 +227,7 @@
             border: 1px solid var(--border-color);
             border-radius: 14px;
             font-weight: 800;
-            font-size: 1rem;
+            font-size: 0.95rem;
             cursor: pointer;
             text-align: center;
         }
@@ -375,6 +335,73 @@
             font-size: 1.1rem;
             min-width: 22px;
             text-align: center;
+        }
+
+        /* TEAM INTRO CARDS */
+        .team-grid-page {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .team-profile-card {
+            background: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 22px;
+            text-align: left;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .team-profile-card:hover {
+            border-color: var(--neon-green);
+            transform: translateY(-4px);
+        }
+
+        .team-profile-card .member-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .team-profile-card h3 {
+            color: var(--vibrant-orange);
+            font-size: 1.3rem;
+            font-weight: 900;
+            margin-bottom: 4px;
+        }
+
+        .team-profile-card .role-badge {
+            display: inline-block;
+            background: rgba(0, 240, 255, 0.15);
+            color: var(--electric-blue);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+        }
+
+        .team-profile-card ul {
+            list-style: none;
+            padding-left: 0;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        .team-profile-card ul li {
+            margin-bottom: 6px;
+            position: relative;
+            padding-left: 18px;
+        }
+
+        .team-profile-card ul li::before {
+            content: "⚡";
+            position: absolute;
+            left: 0;
+            color: var(--neon-green);
+            font-size: 0.8rem;
         }
 
         .form-group {
@@ -580,34 +607,18 @@
             <div class="hero">
                 <h1>Hunger Points <span>Games & Snacks</span></h1>
                 <p style="color: var(--electric-blue); font-weight: 600; margin-top: 4px;">Healthy Namkeen, Sweet Treats, Crunchy Chips & PS5 Gaming!</p>
-                <div><span class="developer-badge">⚡ Crafted by Serhan Raj</span></div>
+                <div><span class="developer-badge">⚡ Website & Packaging by Serhan Raj</span></div>
                 <div class="stall-location-badge">📍 Stall Location: FOIR (Self-Pickup)</div>
             </div>
 
-            <!-- ABOUT THE TEAM SECTION -->
-            <div class="card" style="border-color: rgba(255, 183, 3, 0.4);">
-                <h2 style="color: var(--vibrant-orange); margin-bottom: 4px;">👥 Meet Our Stall Team</h2>
-                <p style="font-size: 0.85rem; color: var(--text-gray); margin-bottom: 12px;">Managed by 7th Grade Students of <strong>Lovedale School</strong>!</p>
-                <div class="team-grid">
-                    <div class="team-card"><h4>Serhan</h4><p>7th Lovedale</p></div>
-                    <div class="team-card"><h4>Vivaan</h4><p>7th Lovedale</p></div>
-                    <div class="team-card"><h4>Abeer</h4><p>7th Lovedale</p></div>
-                    <div class="team-card"><h4>Darsh</h4><p>7th Lovedale</p></div>
-                    <div class="team-card"><h4>Hiren</h4><p>7th Lovedale</p></div>
-                </div>
-            </div>
-
-            <div class="promo-banner">
-                <h3>🎮 MORTAL KOMBAT CHALLENGE: WIN ₹150 CASHBACK!</h3>
-                <p style="font-size: 0.88rem; color: var(--text-gray);">Beat our stall champ or achieve a 3-match win streak to claim ₹150 instant credit!</p>
-            </div>
-
+            <!-- CATEGORY TABS -->
             <div class="category-tabs">
                 <button class="tab-btn active" id="tab-foods" onclick="switchCategory('foods')">🍿 Snacks & Treats</button>
-                <button class="tab-btn" id="tab-combos" onclick="switchCategory('combos')">🔥 Combos & Games</button>
+                <button class="tab-btn" id="tab-combos" onclick="switchCategory('combos')">🔥 Combos & Gaming</button>
+                <button class="tab-btn" id="tab-team" onclick="switchCategory('team')">👥 Our Team Intro</button>
             </div>
 
-            <div class="ps5-status-bar">
+            <div class="ps5-status-bar" id="ps5-status-container">
                 <div>
                     <span class="ps5-badge"></span>
                     <strong>PS5 Available Now @ FOIR Stall</strong>
@@ -615,12 +626,72 @@
                 <span style="font-size: 0.8rem; color: var(--text-gray);">No Queue</span>
             </div>
 
-            <div class="card">
+            <!-- MENU CONTAINER (SNACKS & COMBOS) -->
+            <div class="card" id="menu-section-card">
                 <h2 id="category-title" style="color: var(--vibrant-orange); margin-bottom: 16px;">🍿 Snacks & Treats</h2>
                 <div class="menu-grid" id="menu-container"></div>
             </div>
 
-            <div class="card" style="border-color: rgba(0, 240, 255, 0.3);">
+            <!-- TEAM INTRO CONTAINER -->
+            <div class="card" id="team-section-card" style="display: none;">
+                <h2 style="color: var(--vibrant-orange); margin-bottom: 6px;">👥 Meet Our Stall Team</h2>
+                <p style="font-size: 0.9rem; color: var(--text-gray); margin-bottom: 20px;">The 7th Grade Lovedale School team behind Hunger Points!</p>
+                
+                <div class="team-grid-page">
+                    <div class="team-profile-card">
+                        <div class="member-icon">🍿</div>
+                        <h3>Vivaan Gupta</h3>
+                        <span class="role-badge">Namkeen Specialist</span>
+                        <ul>
+                            <li>Made the air-fried namkeen</li>
+                            <li>Helped in team planning</li>
+                        </ul>
+                    </div>
+
+                    <div class="team-profile-card">
+                        <div class="member-icon">🥔</div>
+                        <h3>Abeer Sharma</h3>
+                        <span class="role-badge">Chips & Gaming Head</span>
+                        <ul>
+                            <li>Made the BY chips</li>
+                            <li>Manages the PS5 gaming arena</li>
+                        </ul>
+                    </div>
+
+                    <div class="team-profile-card">
+                        <div class="member-icon">💻</div>
+                        <h3>Serhan Raj</h3>
+                        <span class="role-badge">Tech, Packaging & Marketing</span>
+                        <ul>
+                            <li>Designed all packaging & web portal</li>
+                            <li>Helped in marketing & team planning</li>
+                        </ul>
+                    </div>
+
+                    <div class="team-profile-card">
+                        <div class="member-icon">🎨</div>
+                        <h3>Darsh Bishnoi</h3>
+                        <span class="role-badge">Decorations & Design</span>
+                        <ul>
+                            <li>Made all decorations & banners</li>
+                            <li>Designed stall visuals & signage</li>
+                        </ul>
+                    </div>
+
+                    <div class="team-profile-card">
+                        <div class="member-icon">🍰</div>
+                        <h3>Hiren Gupta</h3>
+                        <span class="role-badge">Baker & Strategist</span>
+                        <ul>
+                            <li>Made the delicious cake slices</li>
+                            <li>Helped in team planning</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHECKOUT FORM -->
+            <div class="card" id="checkout-section-card" style="border-color: rgba(0, 240, 255, 0.3);">
                 <h2 style="color: var(--electric-blue); margin-bottom: 16px;">📋 Order Confirmation & Self-Pickup Details</h2>
                 
                 <div class="form-group">
@@ -664,6 +735,7 @@
                 <button class="checkout-btn" onclick="submitOrder()">SUBMIT ORDER & OPEN WHATSAPP RECEIPT</button>
             </div>
 
+            <!-- LIVE ORDER TRACKER -->
             <div class="card">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
                     <h2>📋 Live Order Tracker & Queue</h2>
@@ -692,7 +764,7 @@
 
             <footer>
                 <p>Designed & Developed with ❤️ by <strong>Serhan Raj</strong></p>
-                <p style="font-size: 0.75rem; margin-top: 4px;">Hunger Points Stall • Managed by 7th Lovedale Students • FOIR Location</p>
+                <p style="font-size: 0.75rem; margin-top: 4px;">Hunger Points Stall • Managed by 7th Lovedale Students • FOIR Location • <strong>hungerpoint.store</strong></p>
             </footer>
 
         </div>
@@ -738,12 +810,13 @@
             ],
             combos: [
                 { id: 'item4', name: 'PS5 Gaming Slot (15 Mins)', price: 120, icon: '🎮', badge: 'Popular', badgeClass: 'blue' },
-                { id: 'item5', name: 'Snack & Play Combo (Namkeen + PS5)', price: 200, icon: '🔥', badge: 'Save ₹50', badgeClass: '' }
+                { id: 'item5', name: 'Snack & Play Combo (Namkeen + PS5)', price: 200, icon: '🔥', badge: 'Save ₹50', badgeClass: '' },
+                { id: 'item6', name: 'Super Snacker Food Combo (Namkeen + Cake + Chips)', price: 250, icon: '🍱', badge: 'Save ₹20', badgeClass: 'purple' }
             ]
         };
 
-        const prices = { item1: 130, item2: 70, item3: 70, item4: 120, item5: 200 };
-        const quantities = { item1: 0, item2: 0, item3: 0, item4: 0, item5: 0 };
+        const prices = { item1: 130, item2: 70, item3: 70, item4: 120, item5: 200, item6: 250 };
+        const quantities = { item1: 0, item2: 0, item3: 0, item4: 0, item5: 0, item6: 0 };
         let currentCategory = 'foods';
 
         function checkActiveUser() {
@@ -800,9 +873,26 @@
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById('tab-' + cat).classList.add('active');
 
-            const titles = { foods: '🍿 Snacks & Treats', combos: '🔥 Combos & Gaming Tickets' };
-            document.getElementById('category-title').innerText = titles[cat];
-            renderCategoryItems();
+            const menuCard = document.getElementById('menu-section-card');
+            const teamCard = document.getElementById('team-section-card');
+            const ps5Bar = document.getElementById('ps5-status-container');
+            const checkoutCard = document.getElementById('checkout-section-card');
+
+            if (cat === 'team') {
+                menuCard.style.display = 'none';
+                ps5Bar.style.display = 'none';
+                checkoutCard.style.display = 'none';
+                teamCard.style.display = 'block';
+            } else {
+                menuCard.style.display = 'block';
+                ps5Bar.style.display = 'flex';
+                checkoutCard.style.display = 'block';
+                teamCard.style.display = 'none';
+
+                const titles = { foods: '🍿 Snacks & Treats', combos: '🔥 Combos & Gaming Tickets' };
+                document.getElementById('category-title').innerText = titles[cat];
+                renderCategoryItems();
+            }
         }
 
         function renderCategoryItems() {
@@ -848,7 +938,7 @@
         }
 
         function scrollToCheckout() {
-            document.querySelector('.card[style*="electric-blue"]').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('checkout-section-card').scrollIntoView({ behavior: 'smooth' });
         }
 
         function openOwnerModal() {
@@ -884,6 +974,7 @@
             if (quantities.item3 > 0) itemDetails.push(`${quantities.item3}x BY Chips`);
             if (quantities.item4 > 0) itemDetails.push(`${quantities.item4}x PS5 Ticket`);
             if (quantities.item5 > 0) itemDetails.push(`${quantities.item5}x Snack & Play Combo`);
+            if (quantities.item6 > 0) itemDetails.push(`${quantities.item6}x Super Snacker Food Combo`);
 
             const token = Math.floor(1000 + Math.random() * 9000);
             const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
