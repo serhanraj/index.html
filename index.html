@@ -367,7 +367,6 @@
             text-align: center;
         }
 
-        /* TEAM INTRO CARDS */
         .team-grid-page {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -605,7 +604,7 @@
 
     <div class="container">
 
-        <!-- 1. INITIAL LOGIN SCREEN WITH TABS FOR STUDENT & OWNER -->
+        <!-- INITIAL LOGIN SCREEN -->
         <div id="login-screen">
             <div class="login-header">
                 <h2>HUNGER <span>POINTS</span></h2>
@@ -624,10 +623,14 @@
                     <input type="text" id="login-name" placeholder="e.g. Rahul Sharma">
                 </div>
 
+                <!-- HIDDEN SYSTEM WHATSAPP RECEIPT NUMBER -->
+                <input type="hidden" id="login-system-phone" value="8448092503">
+
+                <!-- USER CONTACT NUMBER -->
                 <div class="form-group">
-                    <label for="login-phone">WhatsApp Phone Number *</label>
-                    <input type="tel" id="login-phone" value="8448092503">
-                    <span style="font-size: 0.72rem; color: var(--text-gray);">📱 Order receipt sent via WhatsApp.</span>
+                    <label for="login-user-phone">Your Contact Phone Number *</label>
+                    <input type="tel" id="login-user-phone" placeholder="e.g. 9876543210">
+                    <span style="font-size: 0.72rem; color: var(--text-gray);">📞 So we can inform you if an item is unavailable or out of stock.</span>
                 </div>
 
                 <div class="form-group">
@@ -660,7 +663,7 @@
             </div>
         </div>
 
-        <!-- 2. MAIN APP CONTENT -->
+        <!-- MAIN APP CONTENT -->
         <div id="main-app">
 
             <div class="hero">
@@ -759,8 +762,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="cust-phone">WhatsApp Contact Phone *</label>
-                    <input type="text" id="cust-phone" readonly style="opacity: 0.8;">
+                    <label for="cust-user-phone">Student Contact Phone *</label>
+                    <input type="text" id="cust-user-phone" readonly style="opacity: 0.8;">
                 </div>
 
                 <div class="form-group">
@@ -808,6 +811,7 @@
                                 <th>Token</th>
                                 <th>Time</th>
                                 <th>Name</th>
+                                <th>Contact</th>
                                 <th>Class</th>
                                 <th>Items</th>
                                 <th>Status</th>
@@ -815,7 +819,7 @@
                             </tr>
                         </thead>
                         <tbody id="orders-list">
-                            <tr><td colspan="7" style="text-align:center;">No orders placed on this device yet.</td></tr>
+                            <tr><td colspan="8" style="text-align:center;">No orders placed on this device yet.</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -888,13 +892,13 @@
                 if (isOwner) {
                     document.getElementById('live-cart-bar').style.display = 'none';
                     document.getElementById('cust-name').value = '👑 Stall Owner / Manager';
-                    document.getElementById('cust-phone').value = '8448092503';
+                    document.getElementById('cust-user-phone').value = '8448092503';
                     document.getElementById('cust-class').value = 'Owner Admin';
                     document.getElementById('cust-admno').value = 'OWNER-01';
                 } else if (savedUser) {
                     document.getElementById('live-cart-bar').style.display = 'flex';
                     document.getElementById('cust-name').value = savedUser.name;
-                    document.getElementById('cust-phone').value = savedUser.phone;
+                    document.getElementById('cust-user-phone').value = savedUser.userPhone || 'Not Provided';
                     document.getElementById('cust-class').value = savedUser.className;
                     document.getElementById('cust-admno').value = savedUser.admno;
                 }
@@ -908,16 +912,17 @@
 
         function handleUserLogin() {
             const name = document.getElementById('login-name').value.trim();
-            const phone = document.getElementById('login-phone').value.trim();
+            const userPhone = document.getElementById('login-user-phone').value.trim();
+            const systemPhone = document.getElementById('login-system-phone').value.trim();
             const className = document.getElementById('login-class').value.trim();
             const admno = document.getElementById('login-admno').value.trim();
 
-            if (!name || !phone || !className || !admno) {
-                alert('Please fill all student login fields!');
+            if (!name || !userPhone || !className || !admno) {
+                alert('Please fill all student details including your contact phone number!');
                 return;
             }
 
-            const userData = { name, phone, className, admno };
+            const userData = { name, userPhone, systemPhone, className, admno };
             localStorage.setItem('hp_student_user', JSON.stringify(userData));
             localStorage.removeItem('hp_owner_session');
             checkActiveUser();
@@ -1023,7 +1028,7 @@
 
         function submitOrder() {
             const name = document.getElementById('cust-name').value.trim();
-            const phone = document.getElementById('cust-phone').value.trim();
+            const userPhone = document.getElementById('cust-user-phone').value.trim();
             const className = document.getElementById('cust-class').value.trim();
 
             let totalBill = 0;
@@ -1049,6 +1054,7 @@
                 token: '#' + token,
                 time: timeNow,
                 name: name,
+                userPhone: userPhone,
                 className: className,
                 items: itemDetails.join(', '),
                 total: totalBill,
@@ -1061,19 +1067,19 @@
             
             loadOrdersUI();
 
-            // WhatsApp Direct Receipt Redirect
-            let cleanPhone = phone.replace(/[^0-9]/g, '');
-            if (cleanPhone.length === 10) cleanPhone = '91' + cleanPhone;
+            // Direct WhatsApp redirect to the fixed receipt number (8448092503)
+            const targetPhone = '918448092503';
 
             const msgText = `🎉 *HUNGER POINTS ORDER CONFIRMED!*\n\n` +
                             `Hi ${name},\n` +
                             `🎫 *Token:* #${token}\n` +
+                            `📞 *Student Contact:* ${userPhone}\n` +
                             `🛒 *Items:* ${itemDetails.join(', ')}\n` +
                             `💰 *Total:* Rs. ${totalBill}\n` +
                             `📍 *Pickup Location:* FOIR Stall\n\n` +
                             `Please collect your snacks at the stall! 🍿`;
 
-            window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(msgText)}`, '_blank');
+            window.open(`https://wa.me/${targetPhone}?text=${encodeURIComponent(msgText)}`, '_blank');
 
             document.getElementById('modal-token').innerText = '#' + token;
             document.getElementById('confirmModal').style.display = 'flex';
@@ -1097,7 +1103,7 @@
             }
 
             if (savedOrders.length === 0) {
-                listEl.innerHTML = `<tr><td colspan="7" style="text-align:center;">No matching orders found.</td></tr>`;
+                listEl.innerHTML = `<tr><td colspan="8" style="text-align:center;">No matching orders found.</td></tr>`;
                 return;
             }
 
@@ -1106,6 +1112,7 @@
                     <td><strong>${o.token}</strong></td>
                     <td>${o.time || 'N/A'}</td>
                     <td>${o.name}</td>
+                    <td>${o.userPhone || 'N/A'}</td>
                     <td>${o.className || 'N/A'}</td>
                     <td>${o.items}</td>
                     <td><span style="background: var(--input-bg); color: var(--electric-blue); padding: 3px 8px; border-radius: 10px; font-weight: bold; font-size: 0.75rem;">${o.status}</span></td>
